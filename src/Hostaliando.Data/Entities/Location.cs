@@ -6,11 +6,12 @@
 namespace Hostaliando.Data
 {
     using System.Collections.Generic;
+    using Beto.Core.Data;
 
     /// <summary>
     /// Location entity
     /// </summary>
-    public partial class Location
+    public partial class Location : IEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Location"/> class.
@@ -57,6 +58,6 @@ namespace Hostaliando.Data
         /// <value>
         /// The inverse parent location.
         /// </value>
-        public virtual ICollection<Location> Children { get; set; }
+        public virtual ICollection<Location> ChildrenLocations { get; set; }
     }
 }

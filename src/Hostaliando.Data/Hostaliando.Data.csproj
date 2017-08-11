@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\ext\src\Beto.Core.Data\Beto.Core.Data.csproj" />
+  </ItemGroup>
+
 </Project>

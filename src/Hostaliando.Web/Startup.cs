@@ -5,9 +5,13 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Web
 {
+    using Beto.Core.Web.Api.Filters;
+    using Beto.Core.Web.Middleware;
+    using FluentValidation.AspNetCore;
+    using Hostaliando.Web.Infraestructure.Start;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -17,6 +21,28 @@ namespace Hostaliando.Web
     public class Startup
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="env">The env.</param>
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables();
+
+            this.Configuration = builder.Build();
+        }
+
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
+        /// <value>
+        /// The configuration.
+        /// </value>
+        public IConfigurationRoot Configuration { get; }
+
+        /// <summary>
         /// The configure middleware
         /// </summary>
         /// <param name="app">the application</param>
@@ -24,6 +50,7 @@ namespace Hostaliando.Web
         /// <param name="loggerFactory">the logger factory</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            ////TODO:Entender bien como funciona
             loggerFactory.AddConsole();
 
             if (env.IsDevelopment())
@@ -31,10 +58,11 @@ namespace Hostaliando.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseMiddleware<ExceptionsMiddleware>();
+
+            app.InitDatabase(env);
+
+            app.UseMvc();
         }
 
         /// <summary>
@@ -43,6 +71,13 @@ namespace Hostaliando.Web
         /// <param name="services">the service collection</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new FluentValidatorAttribute());
+            })
+            .AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services.RegisterServices(this.Configuration);
         }
     }
 }

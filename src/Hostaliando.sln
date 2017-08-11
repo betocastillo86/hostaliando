@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beto.Core.Web", "..\ext\src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ext", "ext", "{D109561C-F4A3-4D3E-B688-C2D493E2717E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hostaliando.Data", "Hostaliando.Data\Hostaliando.Data.csproj", "{AB98F40A-6BE3-4446-BBDE-009ECA35F14D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hostaliando.Data", "Hostaliando.Data\Hostaliando.Data.csproj", "{AB98F40A-6BE3-4446-BBDE-009ECA35F14D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hostaliando.Business", "Hostaliando.Business\Hostaliando.Business.csproj", "{D56D786C-EDFB-4F83-B102-1DADCB5FF1B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{AB98F40A-6BE3-4446-BBDE-009ECA35F14D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB98F40A-6BE3-4446-BBDE-009ECA35F14D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB98F40A-6BE3-4446-BBDE-009ECA35F14D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56D786C-EDFB-4F83-B102-1DADCB5FF1B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56D786C-EDFB-4F83-B102-1DADCB5FF1B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56D786C-EDFB-4F83-B102-1DADCB5FF1B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56D786C-EDFB-4F83-B102-1DADCB5FF1B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

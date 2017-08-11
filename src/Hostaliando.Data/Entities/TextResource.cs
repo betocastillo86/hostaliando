@@ -5,10 +5,12 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Data
 {
+    using Beto.Core.Data;
+
     /// <summary>
     /// Text resource setting
     /// </summary>
-    public partial class TextResource
+    public partial class TextResource : IEntity
     {
         /// <summary>
         /// Gets or sets the identifier.

@@ -7,11 +7,12 @@ namespace Hostaliando.Data
 {
     using System;
     using System.Collections.Generic;
+    using Beto.Core.Data;
 
     /// <summary>
     /// Room entity
     /// </summary>
-    public partial class Room
+    public partial class Room : IEntity
     {
         /// <summary>
         /// The bookings

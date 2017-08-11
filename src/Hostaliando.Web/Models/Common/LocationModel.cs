@@ -1,25 +1,16 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SystemSetting.cs" company="Gabriel Castillo">
+// <copyright file="LocationModel.cs" company="Gabriel Castillo">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace Hostaliando.Data
+namespace Hostaliando.Web.Models
 {
-    using Beto.Core.Data;
-
     /// <summary>
-    /// System setting entity
+    /// Location Model
     /// </summary>
-    public partial class SystemSetting : IEntity
+    /// <seealso cref="Hostaliando.Web.Models.Common.BaseModel" />
+    public class LocationModel : BaseModel
     {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public int Id { get; set; }
-
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -29,11 +20,11 @@ namespace Hostaliando.Data
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets or sets the parent location.
         /// </summary>
         /// <value>
-        /// The value.
+        /// The parent location.
         /// </value>
-        public string Value { get; set; }
+        public LocationModel ParentLocation { get; set; }
     }
 }

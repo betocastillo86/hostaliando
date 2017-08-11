@@ -8,6 +8,7 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="7.1.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.2" />
@@ -16,6 +17,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ext\src\Beto.Core.Web\Beto.Core.Web.csproj" />
+    <ProjectReference Include="..\Hostaliando.Business\Hostaliando.Business.csproj" />
     <ProjectReference Include="..\Hostaliando.Data\Hostaliando.Data.csproj" />
   </ItemGroup>
 

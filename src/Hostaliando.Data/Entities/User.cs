@@ -6,11 +6,12 @@
 namespace Hostaliando.Data
 {
     using System.Collections.Generic;
+    using Beto.Core.Data;
 
     /// <summary>
     /// User entity
     /// </summary>
-    public partial class User
+    public partial class User : IEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.

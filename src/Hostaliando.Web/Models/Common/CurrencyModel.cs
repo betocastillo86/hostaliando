@@ -1,32 +1,16 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="Currency.cs" company="Gabriel Castillo">
+// <copyright file="CurrencyModel.cs" company="Gabriel Castillo">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace Hostaliando.Data
+namespace Hostaliando.Web.Models
 {
-    using Beto.Core.Data;
-
     /// <summary>
-    /// Currency Entity
+    /// Currency Model
     /// </summary>
-    public partial class Currency : IEntity
+    /// <seealso cref="Hostaliando.Web.Models.BaseModel" />
+    public class CurrencyModel : BaseModel
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Currency"/> class.
-        /// </summary>
-        public Currency()
-        {
-        }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public int Id { get; set; }
-
         /// <summary>
         /// Gets or sets the name.
         /// </summary>

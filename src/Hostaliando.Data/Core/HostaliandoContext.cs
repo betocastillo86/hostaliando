@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Data
 {
+    using Beto.Core.Data;
     using Hostaliando.Data.Entities.Mapping;
     using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ namespace Hostaliando.Data
     /// Context of <c>Hostaliando</c>
     /// </summary>
     /// <seealso cref="Microsoft.EntityFrameworkCore.DbContext" />
-    public partial class HostaliandoContext : DbContext
+    public partial class HostaliandoContext : DbContext, IDbContext
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HostaliandoContext"/> class.

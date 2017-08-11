@@ -26,7 +26,7 @@ namespace Hostaliando.Data.Entities.Mapping
                 .HasColumnType("varchar(100)");
 
             entity.HasOne(d => d.ParentLocation)
-                .WithMany(p => p.Children)
+                .WithMany(p => p.ChildrenLocations)
                 .HasForeignKey(d => d.ParentLocationId)
                 .HasConstraintName("FK_Locations_Locations");
         }

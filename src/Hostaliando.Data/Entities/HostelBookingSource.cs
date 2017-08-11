@@ -5,10 +5,12 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Data
 {
+    using Beto.Core.Data;
+
     /// <summary>
     /// Hostel Booking Source entity
     /// </summary>
-    public partial class HostelBookingSource
+    public partial class HostelBookingSource : IEntity
     {
         /// <summary>
         /// Gets or sets the identifier.

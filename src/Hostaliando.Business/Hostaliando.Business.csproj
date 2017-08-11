@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ext\src\Beto.Core.Data\Beto.Core.Data.csproj" />
+    <ProjectReference Include="..\..\ext\src\Beto.Core\Beto.Core.csproj" />
+    <ProjectReference Include="..\Hostaliando.Data\Hostaliando.Data.csproj" />
+  </ItemGroup>
+
+</Project>

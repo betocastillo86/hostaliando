@@ -6,11 +6,13 @@
 namespace Hostaliando.Data
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Beto.Core.Data;
 
     /// <summary>
     /// Log entity
     /// </summary>
-    public partial class Log
+    public partial class Log : IEntity
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -83,5 +85,25 @@ namespace Hostaliando.Data
         /// The user.
         /// </value>
         public virtual User User { get; set; }
+
+        /// <summary>
+        /// Gets or sets the log level.
+        /// </summary>
+        /// <value>
+        /// The log level.
+        /// </value>
+        [NotMapped]
+        public LogLevel LogLevel
+        {
+            get
+            {
+                return (LogLevel)this.LogLevelId;
+            }
+
+            set
+            {
+                this.LogLevelId = Convert.ToInt16(value);
+            }
+        }
     }
 }

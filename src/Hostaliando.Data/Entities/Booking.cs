@@ -6,11 +6,12 @@
 namespace Hostaliando.Data
 {
     using System;
+    using Beto.Core.Data;
 
     /// <summary>
     /// Booking Entity
     /// </summary>
-    public partial class Booking
+    public partial class Booking : IEntity
     {
         /// <summary>
         /// Gets or sets the identifier.

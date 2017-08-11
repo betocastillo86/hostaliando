@@ -5,10 +5,12 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Data
 {
+    using Beto.Core.Data;
+
     /// <summary>
     /// Booking Source entity
     /// </summary>
-    public partial class BookingSource
+    public partial class BookingSource : IEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BookingSource"/> class.

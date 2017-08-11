@@ -7,11 +7,12 @@ namespace Hostaliando.Data
 {
     using System;
     using System.Collections.Generic;
+    using Beto.Core.Data;
 
     /// <summary>
     /// Hostel entity
     /// </summary>
-    public partial class Hostel
+    public partial class Hostel : IEntity
     {
         /// <summary>
         /// The hostel booking sources
