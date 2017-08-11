@@ -7,6 +7,7 @@ namespace Hostaliando.Business.Services
 {
     using System;
     using System.Data.SqlClient;
+    using System.Linq;
     using System.Threading.Tasks;
     using Beto.Core.Data;
     using Beto.Core.EventPublisher;
@@ -41,6 +42,36 @@ namespace Hostaliando.Business.Services
         {
             this.hostelRepository = hostelRepository;
             this.publisher = publisher;
+        }
+
+        /// <summary>
+        /// Gets all the hosted registered
+        /// </summary>
+        /// <param name="keyword">The keyword.</param>
+        /// <param name="locationId">The location identifier.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns>the paged list</returns>
+        public async Task<IPagedList<Hostel>> GetAll(string keyword = null, int? locationId = default(int?), int page = 0, int pageSize = int.MaxValue)
+        {
+            var query = this.hostelRepository.Table
+                .Include(c => c.Currency)
+                .Include(c => c.Location)
+                .Where(c => !c.Deleted);
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(c => c.Name.Contains(keyword) || c.Email.Contains(keyword));
+            }
+
+            if (locationId.HasValue)
+            {
+                query = query.Where(c => c.LocationId == locationId.Value);
+            }
+
+            query = query.OrderBy(c => c.Name);
+
+            return await new PagedList<Hostel>().Async(query, page, pageSize);
         }
 
         /// <summary>

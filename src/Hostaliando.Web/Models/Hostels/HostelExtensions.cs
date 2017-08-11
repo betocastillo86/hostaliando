@@ -5,6 +5,8 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Web.Models
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Hostaliando.Data;
 
     /// <summary>
@@ -29,6 +31,36 @@ namespace Hostaliando.Web.Models
                 LocationId = model.Location.Id,
                 PhoneNumber = model.PhoneNumber
             };
+        }
+
+        /// <summary>
+        /// To the model.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>the model</returns>
+        public static HostelModel ToModel(this Hostel entity)
+        {
+            return new HostelModel
+            {
+                Id = entity.Id,
+                Address = entity.Address,
+                Name = entity.Name,
+                CreationDateUtc = entity.CreationDateUtc,
+                Currency = entity.Currency.ToModel(),
+                Location = entity.Location.ToModel(),
+                Email = entity.Email,
+                PhoneNumber = entity.PhoneNumber
+            };
+        }
+
+        /// <summary>
+        /// To the models.
+        /// </summary>
+        /// <param name="entities">The entities.</param>
+        /// <returns>the models</returns>
+        public static IList<HostelModel> ToModels(this ICollection<Hostel> entities)
+        {
+            return entities.Select(ToModel).ToList();
         }
     }
 }

@@ -67,6 +67,6 @@ namespace Hostaliando.Web.Models
         /// <value>
         /// The creation date.
         /// </value>
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDateUtc { get; set; }
     }
 }

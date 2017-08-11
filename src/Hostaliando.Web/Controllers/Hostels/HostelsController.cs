@@ -48,6 +48,19 @@ namespace Hostaliando.Web.Controllers.Hostels
         }
 
         /// <summary>
+        /// Gets the specified filter.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns>the list</returns>
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] HostelFilterModel filter)
+        {
+            var hostels = await this.hostelService.GetAll(filter.Keyword, filter.LocationId, filter.Page, filter.PageSize);
+            var models = hostels.ToModels();
+            return this.Ok(models, hostels.HasNextPage, hostels.TotalCount);
+        }
+
+        /// <summary>
         /// Posts the specified model.
         /// </summary>
         /// <param name="model">The model.</param>
