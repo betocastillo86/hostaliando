@@ -12,6 +12,7 @@ namespace Hostaliando.Web.Controllers.Hostels
     using Hostaliando.Business.Exceptions;
     using Hostaliando.Business.Security;
     using Hostaliando.Business.Services;
+    using Hostaliando.Web.Infraestructure.Filters;
     using Hostaliando.Web.Models;
     using Microsoft.AspNetCore.Mvc;
 
@@ -48,6 +49,27 @@ namespace Hostaliando.Web.Controllers.Hostels
         }
 
         /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>the action</returns>
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var hostel = await this.hostelService.GetById(id);
+
+            if (hostel != null)
+            {
+                return this.Ok(hostel.ToModel());
+            }
+            else
+            {
+                return this.NotFound();
+            }
+        }
+
+        /// <summary>
         /// Gets the specified filter.
         /// </summary>
         /// <param name="filter">The filter.</param>
@@ -67,6 +89,7 @@ namespace Hostaliando.Web.Controllers.Hostels
         /// <returns>the action</returns>
         [HttpPost]
         [RequiredModel]
+        [ServiceFilter(typeof(AuthorizeAdminAttribute))]
         public async Task<IActionResult> Post([FromBody] HostelModel model)
         {
             var hostel = model.ToEntity();
@@ -80,7 +103,68 @@ namespace Hostaliando.Web.Controllers.Hostels
             catch (HostaliandoException e)
             {
                 return this.BadRequest(e);
-            }            
+            }
+        }
+
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>the task</returns>
+        [HttpDelete]
+        [Route("{id:int}")]
+        [ServiceFilter(typeof(AuthorizeAdminAttribute))]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var hostel = await this.hostelService.GetById(id);
+
+            if (hostel != null)
+            {
+                await this.hostelService.Delete(hostel);
+                return this.Ok();
+            }
+            else
+            {
+                return this.NotFound();
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified hostel.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="model">The model.</param>
+        /// <returns>the action</returns>
+        [HttpPut]
+        [Route("{id:int}")]
+        [RequiredModel]
+        [ServiceFilter(typeof(AuthorizeAdminAttribute))]
+        public async Task<IActionResult> Put(int id, [FromBody] HostelModel model)
+        {
+            var hostel = await this.hostelService.GetById(id);
+
+            if (hostel != null)
+            {
+                hostel.Name = model.Name;
+                hostel.PhoneNumber = model.PhoneNumber;
+                hostel.CurrencyId = model.Currency.Id;
+                hostel.LocationId = model.Location.Id;
+                hostel.Email = model.Email;
+
+                try
+                {
+                    await this.hostelService.Update(hostel);
+                    return this.Ok();
+                }
+                catch (HostaliandoException e)
+                {
+                    return this.BadRequest(e);
+                }
+            }
+            else
+            {
+                return this.NotFound();
+            }
         }
     }
 }

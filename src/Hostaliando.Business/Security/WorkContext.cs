@@ -19,7 +19,7 @@ namespace Hostaliando.Business.Security
         /// <value>
         /// The current user.
         /// </value>
-        public User CurrentUser => new User() { Id = 1, Name = "Gabriel" };
+        public User CurrentUser => new User() { Id = 1, Name = "Gabriel", Role = Role.Admin };
 
         /// <summary>
         /// Gets the current user identifier.

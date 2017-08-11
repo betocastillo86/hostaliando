@@ -45,6 +45,22 @@ namespace Hostaliando.Business.Services
         }
 
         /// <summary>
+        /// Deletes the specified hostel.
+        /// </summary>
+        /// <param name="hostel">The hostel.</param>
+        /// <returns>
+        /// the task
+        /// </returns>
+        public async Task Delete(Hostel hostel)
+        {
+            hostel.Deleted = true;
+
+            await this.hostelRepository.UpdateAsync(hostel);
+
+            await this.publisher.EntityDeleted(hostel);
+        }
+
+        /// <summary>
         /// Gets all the hosted registered
         /// </summary>
         /// <param name="keyword">The keyword.</param>
@@ -75,6 +91,21 @@ namespace Hostaliando.Business.Services
         }
 
         /// <summary>
+        /// Gets the by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// the hostel
+        /// </returns>
+        public async Task<Hostel> GetById(int id)
+        {
+            return await this.hostelRepository.Table
+                .Include(c => c.Currency)
+                .Include(c => c.Location)
+                .FirstOrDefaultAsync(c => c.Id == id && !c.Deleted);
+        }
+
+        /// <summary>
         /// Inserts the specified hostel.
         /// </summary>
         /// <param name="hostel">The hostel.</param>
@@ -90,6 +121,47 @@ namespace Hostaliando.Business.Services
                 await this.hostelRepository.InsertAsync(hostel);
 
                 await this.publisher.EntityInserted(hostel);
+            }
+            catch (DbUpdateException e)
+            {
+                var inner = (SqlException)e.InnerException;
+
+                if (inner.Number == 547)
+                {
+                    var target = "Unknown";
+
+                    if (inner.Message.IndexOf("FK_Hostels_Currencies") != -1)
+                    {
+                        target = "Currency";
+                    }
+                    else if (inner.Message.IndexOf("FK_Hostels_Locations") != -1)
+                    {
+                        target = "Locations";
+                    }
+
+                    throw new HostaliandoException(target, HostaliandoExceptionCode.InvalidForeignKey);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the specified hostel.
+        /// </summary>
+        /// <param name="hostel">The hostel.</param>
+        /// <returns>
+        /// the task
+        /// </returns>
+        public async Task Update(Hostel hostel)
+        {
+            try
+            {
+                await this.hostelRepository.UpdateAsync(hostel);
+
+                await this.publisher.EntityUpdated(hostel);
             }
             catch (DbUpdateException e)
             {

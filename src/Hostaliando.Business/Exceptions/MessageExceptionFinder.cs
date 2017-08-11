@@ -23,6 +23,8 @@ namespace Hostaliando.Business.Exceptions
         {
             switch (code)
             {
+                case HostaliandoExceptionCode.InvalidForeignKey:
+                    return "Llave foranea no existe";
                 default:
                 case HostaliandoExceptionCode.BadArgument:
                     return "Argumento invalido";

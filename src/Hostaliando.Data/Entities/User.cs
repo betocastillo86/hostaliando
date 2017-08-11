@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Data
 {
-    using System.Collections.Generic;
+    using System;
     using Beto.Core.Data;
 
     /// <summary>
@@ -99,5 +99,24 @@ namespace Hostaliando.Data
         /// The hostel.
         /// </value>
         public virtual Hostel Hostel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the role.
+        /// </summary>
+        /// <value>
+        /// The role.
+        /// </value>
+        public Role Role
+        {
+            get
+            {
+                return (Role)this.RoleId;
+            }
+
+            set
+            {
+                this.RoleId = Convert.ToInt16(value);
+            }
+        }
     }
 }
