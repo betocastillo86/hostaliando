@@ -128,18 +128,7 @@ namespace Hostaliando.Business.Services
 
                 if (inner.Number == 547)
                 {
-                    var target = "Unknown";
-
-                    if (inner.Message.IndexOf("FK_Hostels_Currencies") != -1)
-                    {
-                        target = "Currency";
-                    }
-                    else if (inner.Message.IndexOf("FK_Hostels_Locations") != -1)
-                    {
-                        target = "Locations";
-                    }
-
-                    throw new HostaliandoException(target, HostaliandoExceptionCode.InvalidForeignKey);
+                    this.Throw547Exception(inner);
                 }
                 else
                 {
@@ -169,24 +158,34 @@ namespace Hostaliando.Business.Services
 
                 if (inner.Number == 547)
                 {
-                    var target = "Unknown";
-
-                    if (inner.Message.IndexOf("FK_Hostels_Currencies") != -1)
-                    {
-                        target = "Currency";
-                    }
-                    else if (inner.Message.IndexOf("FK_Hostels_Locations") != -1)
-                    {
-                        target = "Locations";
-                    }
-
-                    throw new HostaliandoException(target, HostaliandoExceptionCode.InvalidForeignKey);
+                    this.Throw547Exception(inner);
                 }
                 else
                 {
                     throw;
                 }
             }
+        }
+
+        /// <summary>
+        /// Throw a foreign key exception
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        /// <exception cref="Hostaliando.Business.Exceptions.HostaliandoException">the target</exception>
+        private void Throw547Exception(SqlException ex)
+        {
+            var target = "Unknown";
+
+            if (ex.Message.IndexOf("FK_Hostels_Currencies") != -1)
+            {
+                target = "Currency";
+            }
+            else if (ex.Message.IndexOf("FK_Hostels_Locations") != -1)
+            {
+                target = "Locations";
+            }
+
+            throw new HostaliandoException(target, HostaliandoExceptionCode.InvalidForeignKey);
         }
     }
 }

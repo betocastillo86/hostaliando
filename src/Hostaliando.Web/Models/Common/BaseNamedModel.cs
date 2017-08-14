@@ -1,22 +1,21 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="LocationModel.cs" company="Gabriel Castillo">
+// <copyright file="BaseNamedModel.cs" company="Gabriel Castillo">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace Hostaliando.Web.Models
 {
     /// <summary>
-    /// Location Model
+    /// Base model with name
     /// </summary>
-    /// <seealso cref="Hostaliando.Web.Models.Common.BaseModel" />
-    public class LocationModel : BaseNamedModel
+    public class BaseNamedModel : BaseModel
     {
         /// <summary>
-        /// Gets or sets the parent location.
+        /// Gets or sets the name.
         /// </summary>
         /// <value>
-        /// The parent location.
+        /// The name.
         /// </value>
-        public LocationModel ParentLocation { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -11,16 +11,8 @@ namespace Hostaliando.Web.Models
     /// Hostel Model
     /// </summary>
     /// <seealso cref="Hostaliando.Web.Models.Common.BaseModel" />
-    public class HostelModel : BaseModel
+    public class HostelModel : BaseNamedModel
     {
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get; set; }
-
         /// <summary>
         /// Gets or sets the email.
         /// </summary>

@@ -7,6 +7,7 @@ namespace Hostaliando.Data
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Beto.Core.Data;
 
     /// <summary>
@@ -141,5 +142,25 @@ namespace Hostaliando.Data
         /// The user.
         /// </value>
         public virtual User User { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the room.
+        /// </summary>
+        /// <value>
+        /// The type of the room.
+        /// </value>
+        [NotMapped]
+        public RoomType RoomType
+        {
+            get
+            {
+                return (RoomType)this.RoomTypeId;
+            }
+
+            set
+            {
+                this.RoomTypeId = Convert.ToInt16(value);
+            }
+        }
     }
 }

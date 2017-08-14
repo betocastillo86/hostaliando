@@ -41,6 +41,8 @@ namespace Hostaliando.Web.Infraestructure.Start
 
             services.AddScoped<ILoggerService, LogService>();
 
+            services.AddScoped<IRoomService, RoomService>();
+
             services.AddScoped<AuthorizeAdminAttribute>();
 
             //// Core

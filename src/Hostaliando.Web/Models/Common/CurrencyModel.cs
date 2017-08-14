@@ -9,16 +9,8 @@ namespace Hostaliando.Web.Models
     /// Currency Model
     /// </summary>
     /// <seealso cref="Hostaliando.Web.Models.BaseModel" />
-    public class CurrencyModel : BaseModel
+    public class CurrencyModel : BaseNamedModel
     {
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get; set; }
-
         /// <summary>
         /// Gets or sets the symbol.
         /// </summary>
