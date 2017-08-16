@@ -26,7 +26,7 @@ namespace Hostaliando.Business.Services
         /// </summary>
         /// <param name="keyword">The keyword.</param>
         /// <param name="hostelId">The hostel identifier.</param>
-        /// <param name="onlyPrivated">only privated rooms</param>
+        /// <param name="onlyPrivated">only private rooms</param>
         /// <param name="roomType">the room type</param>
         /// <param name="sortRoomBy">sort rooms by</param>
         /// <param name="page">The page.</param>

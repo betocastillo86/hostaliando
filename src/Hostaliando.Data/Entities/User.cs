@@ -6,6 +6,7 @@
 namespace Hostaliando.Data
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Beto.Core.Data;
 
     /// <summary>
@@ -106,6 +107,7 @@ namespace Hostaliando.Data
         /// <value>
         /// The role.
         /// </value>
+        [NotMapped]
         public Role Role
         {
             get

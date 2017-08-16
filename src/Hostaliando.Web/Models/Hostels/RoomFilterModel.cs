@@ -52,10 +52,10 @@ namespace Hostaliando.Web.Models
         public RoomType? RoomType { get; set; }
 
         /// <summary>
-        /// Gets or sets the only privated.
+        /// Gets or sets the only private.
         /// </summary>
         /// <value>
-        /// The only privated.
+        /// The only private.
         /// </value>
         public bool? OnlyPrivated { get; set; }
 

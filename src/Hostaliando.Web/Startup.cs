@@ -60,6 +60,8 @@ namespace Hostaliando.Web
 
             app.UseMiddleware<ExceptionsMiddleware>();
 
+            app.ConfigureOpenId();
+
             app.InitDatabase(env);
 
             app.UseMvc();
@@ -71,6 +73,8 @@ namespace Hostaliando.Web
         /// <param name="services">the service collection</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.RegisterAuthenticationServices();
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(new FluentValidatorAttribute());

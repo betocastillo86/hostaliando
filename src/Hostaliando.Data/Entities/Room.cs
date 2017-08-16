@@ -69,10 +69,10 @@ namespace Hostaliando.Data
         public short RoomTypeId { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is privated.
+        /// Gets or sets a value indicating whether this instance is private.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is privated; otherwise, <c>false</c>.
+        ///   <c>true</c> if this instance is private; otherwise, <c>false</c>.
         /// </value>
         public bool IsPrivated { get; set; }
 

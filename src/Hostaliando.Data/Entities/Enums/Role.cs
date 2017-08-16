@@ -6,7 +6,7 @@
 namespace Hostaliando.Data
 {
     /// <summary>
-    /// Rol enumerator
+    /// Role enumerator
     /// </summary>
     public enum Role
     {

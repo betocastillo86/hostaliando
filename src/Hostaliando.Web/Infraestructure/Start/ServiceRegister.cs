@@ -16,6 +16,7 @@ namespace Hostaliando.Web.Infraestructure.Start
     using Hostaliando.Business.Security;
     using Hostaliando.Business.Services;
     using Hostaliando.Data;
+    using Hostaliando.Web.Common;
     using Hostaliando.Web.Infraestructure.Filters;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -42,6 +43,8 @@ namespace Hostaliando.Web.Infraestructure.Start
             services.AddScoped<ILoggerService, LogService>();
 
             services.AddScoped<IRoomService, RoomService>();
+
+            services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<AuthorizeAdminAttribute>();
 
