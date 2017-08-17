@@ -29,7 +29,7 @@ namespace Hostaliando.Web.Models
         /// </summary>
         /// <param name="user">The user.</param>
         /// <returns>the model</returns>
-        public static UserModel ToModel(this User user)
+        public static UserModel ToBaseModel(this User user)
         {
             return new UserModel
             {
@@ -37,7 +37,8 @@ namespace Hostaliando.Web.Models
                 Name = user.Name,
                 Email = user.Email,
                 Role = user.Role,
-                Hostel = user.Hostel?.ToModel()
+                Hostel = user.Hostel?.ToModel(),
+                TimeZone = user.TimeZone
             };
         }
 
@@ -46,9 +47,9 @@ namespace Hostaliando.Web.Models
         /// </summary>
         /// <param name="users">The users.</param>
         /// <returns>the models</returns>
-        public static IList<UserModel> ToModels(this ICollection<User> users)
+        public static IList<UserModel> ToBaseModels(this ICollection<User> users)
         {
-            return users.Select(ToModel).ToList();
+            return users.Select(ToBaseModel).ToList();
         }
     }
 }

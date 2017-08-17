@@ -9,8 +9,10 @@ namespace Hostaliando.Web
     using Beto.Core.Web.Middleware;
     using FluentValidation.AspNetCore;
     using Hostaliando.Web.Infraestructure.Start;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc.Authorization;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -78,6 +80,12 @@ namespace Hostaliando.Web
             services.AddMvc(options =>
             {
                 options.Filters.Add(new FluentValidatorAttribute());
+
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+
+                options.Filters.Add(new AuthorizeFilter(policy));
             })
             .AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<Startup>());
 

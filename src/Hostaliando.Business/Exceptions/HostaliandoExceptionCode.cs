@@ -18,6 +18,11 @@ namespace Hostaliando.Business.Exceptions
         /// <summary>
         /// The invalid foreign key
         /// </summary>
-        InvalidForeignKey = 50
+        InvalidForeignKey = 50,
+
+        /// <summary>
+        /// The user email already exists
+        /// </summary>
+        UserEmailAlreadyExists = 100
     }
 }

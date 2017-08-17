@@ -47,7 +47,7 @@ namespace Hostaliando.Web.Controllers.Users
         {
             var user = this.workContext.CurrentUser;
             await Task.FromResult(0);
-            return this.Ok(user.ToModel());
+            return this.Ok(user.ToBaseModel());
         }
     }
 }

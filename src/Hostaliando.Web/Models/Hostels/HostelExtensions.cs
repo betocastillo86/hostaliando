@@ -46,8 +46,8 @@ namespace Hostaliando.Web.Models
                 Address = entity.Address,
                 Name = entity.Name,
                 CreationDateUtc = entity.CreationDateUtc,
-                Currency = entity.Currency.ToModel(),
-                Location = entity.Location.ToModel(),
+                Currency = entity.Currency?.ToModel(),
+                Location = entity.Location?.ToModel(),
                 Email = entity.Email,
                 PhoneNumber = entity.PhoneNumber
             };

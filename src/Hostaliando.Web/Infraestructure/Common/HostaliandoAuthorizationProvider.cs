@@ -32,6 +32,7 @@ namespace Hostaliando.Web.Infraestructure.Common
         /// </returns>
         public override async Task HandleTokenRequest(HandleTokenRequestContext context)
         {
+            //// TODO: Revisar lo que no va quemado
             if (context.Request.IsPasswordGrantType())
             {
                 var userService = (IUserService)context.HttpContext.RequestServices.GetService(typeof(IUserService));
