@@ -1,5 +1,7 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Hostaliando.Web
+<!DOCTYPE html>
+<html lang="en" ng-app="hostaliando" ng-controller="RootController as root">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -8,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Gentelella Alela! | </title>
+
+    <base href="/" />
 
     <!-- Bootstrap -->
     <link href="/css/styles.css" rel="stylesheet">
@@ -271,7 +275,7 @@
             </div>
             <!-- /top navigation -->
             <!-- page content -->
-            
+            <div class="right_col" role="main" ng-view=""></div>
             <!-- /page content -->
             <!-- footer content -->
             <footer>
@@ -284,5 +288,13 @@
         </div>
     </div>
 
+    <script src="/js/resources.min.js"></script>
+
+    <environment names="Development">
+        <jsresources type="admin"></jsresources>
+    </environment>
+    <environment names="Staging,Production">       
+        <script src="/js/app.min.js"></script>
+    </environment>
 </body>
 </html>

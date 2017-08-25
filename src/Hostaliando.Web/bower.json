@@ -3,6 +3,12 @@
   "private": true,
   "dependencies": {
     "gentelella": "1.4.0",
-    "angular": "1.6.6"
+    
+    "angular": "1.6.6",
+    "angular-route": "1.6.6",
+    "angular-sanitize": "1.6.4",
+    "ngstorage": "0.3.11",
+
+    "underscore": "1.8.3"
   }
 }

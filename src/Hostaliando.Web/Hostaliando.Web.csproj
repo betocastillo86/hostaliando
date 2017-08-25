@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Infraestructure\Filters\" />
+    <Folder Include="wwwroot\app\components\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
