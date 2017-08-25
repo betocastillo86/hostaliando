@@ -45,8 +45,9 @@ namespace Hostaliando.Business.Services
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="track">if set to <c>true</c> [track].</param>
         /// <returns>the room</returns>
-        Task<Room> GetById(int id);
+        Task<Room> GetById(int id, bool track = true);
 
         /// <summary>
         /// Inserts the specified room.

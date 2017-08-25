@@ -48,6 +48,8 @@ namespace Hostaliando.Web.Infraestructure.Start
 
             services.AddScoped<IBookingSourceService, BookingSourceService>();
 
+            services.AddScoped<IBookingService, BookingService>();
+
             services.AddScoped<AuthorizeAdminAttribute>();
 
             //// Core

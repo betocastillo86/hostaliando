@@ -125,14 +125,21 @@ namespace Hostaliando.Business.Services
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="track">if set to <c>true</c> [track].</param>
         /// <returns>
         /// the room
         /// </returns>
-        public async Task<Room> GetById(int id)
+        public async Task<Room> GetById(int id, bool track = true)
         {
-            return await this.roomRepository.Table
-                .Include(c => c.Hostel)
-                .FirstOrDefaultAsync(c => c.Id == id && !c.Deleted);
+            var query = this.roomRepository.Table;
+
+            if (!track)
+            {
+                query = query.AsNoTracking();
+            }
+
+            return await query.Include(c => c.Hostel)
+                    .FirstOrDefaultAsync(c => c.Id == id && !c.Deleted);
         }
 
         /// <summary>

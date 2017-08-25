@@ -23,6 +23,16 @@ namespace Hostaliando.Business.Exceptions
         /// <summary>
         /// The user email already exists
         /// </summary>
-        UserEmailAlreadyExists = 100
+        UserEmailAlreadyExists = 100,
+
+        /// <summary>
+        /// Exceeded the room capacity
+        /// </summary>
+        ExceededRoomCapacity = 200,
+
+        /// <summary>
+        /// The room is of another hostel
+        /// </summary>
+        RoomIsOfAnotherHostel = 201
     }
 }

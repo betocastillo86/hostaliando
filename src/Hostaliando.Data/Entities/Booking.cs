@@ -6,6 +6,7 @@
 namespace Hostaliando.Data
 {
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Beto.Core.Data;
 
     /// <summary>
@@ -148,5 +149,33 @@ namespace Hostaliando.Data
         /// The user.
         /// </value>
         public virtual User User { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status identifier.
+        /// </summary>
+        /// <value>
+        /// The status identifier.
+        /// </value>
+        public short StatusId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        [NotMapped]
+        public BookingStatus Status
+        {
+            get
+            {
+                return (BookingStatus)this.StatusId;
+            }
+
+            set
+            {
+                this.StatusId = Convert.ToInt16(value);
+            }
+        }
     }
 }

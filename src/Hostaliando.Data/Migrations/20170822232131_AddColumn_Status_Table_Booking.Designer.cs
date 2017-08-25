@@ -9,9 +9,10 @@ using Hostaliando.Data;
 namespace Hostaliando.Data.Migrations
 {
     [DbContext(typeof(HostaliandoContext))]
-    partial class HostaliandoContextModelSnapshot : ModelSnapshot
+    [Migration("20170822232131_AddColumn_Status_Table_Booking")]
+    partial class AddColumn_Status_Table_Booking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

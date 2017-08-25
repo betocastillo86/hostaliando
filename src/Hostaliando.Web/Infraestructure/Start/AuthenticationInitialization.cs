@@ -37,6 +37,8 @@ namespace Hostaliando.Web.Infraestructure.Start
             {
                 c.Provider = new HostaliandoAuthorizationProvider();
 
+                c.AccessTokenLifetime = new System.TimeSpan(150, 0, 0);
+
                 // Enable the authorization and token endpoints.
                 c.TokenEndpointPath = "/api/v1/auth";
 
