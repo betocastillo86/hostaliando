@@ -3,7 +3,7 @@
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace Hostaliando.Web.Controllers.Hostels
+namespace Hostaliando.Web.Controllers.Users
 {
     using System.Threading.Tasks;
     using Beto.Core.Exceptions;
