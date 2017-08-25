@@ -45,6 +45,22 @@ namespace Hostaliando.Business.Services
         }
 
         /// <summary>
+        /// Deletes the specified booking.
+        /// </summary>
+        /// <param name="booking">The booking.</param>
+        /// <returns>
+        /// the Task
+        /// </returns>
+        public async Task Delete(Booking booking)
+        {
+            booking.Deleted = true;
+
+            await this.bookingRepository.UpdateAsync(booking);
+
+            await this.publisher.EntityDeleted(booking);
+        }
+
+        /// <summary>
         /// Gets all the reservations
         /// </summary>
         /// <param name="hostelId">The hostel identifier.</param>
@@ -84,14 +100,25 @@ namespace Hostaliando.Business.Services
                 query = query.Where(c => c.RoomId == roomId.Value);
             }
 
-            if (fromDate.HasValue)
+            if (fromDate.HasValue && toDate.HasValue)
             {
-                query = query.Where(c => c.FromDate >= fromDate.Value);
+                query = query.Where(c =>
+                (c.FromDate >= fromDate.Value && c.ToDate <= toDate.Value) ||
+                (c.FromDate <= fromDate.Value && c.ToDate >= toDate.Value) ||
+                (c.FromDate >= fromDate.Value && c.FromDate <= toDate.Value && c.ToDate >= toDate.Value) ||
+                (c.FromDate <= fromDate.Value && c.ToDate >= fromDate.Value && c.ToDate <= toDate.Value));
             }
-
-            if (toDate.HasValue)
+            else
             {
-                query = query.Where(c => c.ToDate <= toDate.Value);
+                if (fromDate.HasValue)
+                {
+                    query = query.Where(c => c.FromDate >= fromDate.Value);
+                }
+
+                if (toDate.HasValue)
+                {
+                    query = query.Where(c => c.ToDate <= toDate.Value);
+                }
             }
 
             if (status.HasValue)

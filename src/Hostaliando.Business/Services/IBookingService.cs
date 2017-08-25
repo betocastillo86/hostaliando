@@ -16,6 +16,13 @@ namespace Hostaliando.Business.Services
     public interface IBookingService
     {
         /// <summary>
+        /// Deletes the specified booking.
+        /// </summary>
+        /// <param name="booking">The booking.</param>
+        /// <returns>the Task</returns>
+        Task Delete(Booking booking);
+
+        /// <summary>
         /// Gets all the reservations
         /// </summary>
         /// <param name="hostelId">The hostel identifier.</param>

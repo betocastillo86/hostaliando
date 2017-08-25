@@ -28,6 +28,11 @@ namespace Hostaliando.Business.Exceptions
         /// <summary>
         /// Exceeded the room capacity
         /// </summary>
-        ExceededRoomCapacity = 200
+        ExceededRoomCapacity = 200,
+
+        /// <summary>
+        /// The room is of another hostel
+        /// </summary>
+        RoomIsOfAnotherHostel = 201
     }
 }
