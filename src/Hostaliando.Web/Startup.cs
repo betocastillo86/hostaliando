@@ -66,6 +66,8 @@ namespace Hostaliando.Web
 
             app.InitDatabase(env);
 
+            app.UseStaticFiles();
+
             app.UseMvc();
         }
 
