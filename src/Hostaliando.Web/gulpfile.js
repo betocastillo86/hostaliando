@@ -38,6 +38,8 @@ var cssmin = require('gulp-cssmin'),
 
     gulp.task('resources', function () {
         var files = [
+            './bower_components/gentelella/vendors/jquery/dist/jquery.js',
+            './bower_components/gentelella/vendors/bootstrap/dist/js/bootstrap.js',
             './bower_components/angular/angular.js',
             './bower_components/ngstorage/ngStorage.js',
             './bower_components/angular-route/angular-route.js',

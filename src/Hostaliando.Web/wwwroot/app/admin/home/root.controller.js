@@ -5,11 +5,17 @@
         .module('hostaliando')
         .controller('RootController', RootController);
 
-    function RootController() {
+    RootController.$inject = ['sessionService'];
+
+    function RootController(sessionService) {
         var vm = this;
+        vm.currentUser = undefined;
 
         activate();
 
-        function activate() { }
+        function activate()
+        {
+            vm.currentUser = sessionService.getCurrentUser();
+        }
     }
 })();

@@ -24,5 +24,17 @@ namespace Hostaliando.Web.Controllers
         {
             return this.View();
         }
+
+        /// <summary>
+        /// Logins this instance.
+        /// </summary>
+        /// <returns>the view</returns>
+        [HttpGet]
+        [Route("login")]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return this.View();
+        }
     }
 }

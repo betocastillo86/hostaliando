@@ -8,6 +8,8 @@
 
     function hostaliandoConfiguration($locationProvider, $httpProvider, $compileProvider)
     {
+        $httpProvider.interceptors.push('expiredSessionInterceptor');
+
         $compileProvider.debugInfoEnabled(false);
         $compileProvider.commentDirectivesEnabled(false);
         $compileProvider.cssClassDirectivesEnabled(false);

@@ -7,6 +7,7 @@
 
         // Custom modules
         'hostaliandoServices',
+        'hostaliandoComponents',
 
         // 3rd Party Modules
         'underscore'
