@@ -49,7 +49,7 @@ var cssmin = require('gulp-cssmin'),
     
         return gulp.src(files, { base: '.' })
             .pipe(concat("./wwwroot/js/resources.min.js"))
-            .pipe(uglify())
+            //.pipe(uglify())
             .pipe(gulp.dest('.'));
     });
 

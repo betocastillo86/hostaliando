@@ -68,7 +68,12 @@ namespace Hostaliando.Web
 
             app.UseStaticFiles();
 
-            app.UseMvc();
+            app.UseMvc(routes => {
+                routes.MapRoute(
+                    name: "angularRoute",
+                    template: "{*complement}",
+                    defaults: new { controller = "Home", action = "Index" });
+            });
         }
 
         /// <summary>

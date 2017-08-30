@@ -5,20 +5,20 @@
         .module('hostaliando')
         .config(hostaliandoRoutes);
 
-    hostaliandoRoutes.$inject = ['$routeProvider'];
+    hostaliandoRoutes.$inject = ['$routeProvider', 'templateService'];
 
-    function hostaliandoRoutes($routeProvider, templateHandlerService)
+    function hostaliandoRoutes($routeProvider, templateService)
     {
         $routeProvider
             .when('/', {
-                templateUrl: getTemplate('home/dashboard')/*,
+                templateUrl: templateService.get('home/dashboard')/*,
                 controller: 'DashboardController',
                 controllerAs: 'main'*/
+            })
+            .when('/rooms', {
+                templateUrl: templateService.get('rooms/list-rooms'),
+                controller: 'ListRoomsController',
+                controllerAs: 'main'
             });
-
-        function getTemplate(name)
-        {
-            return '/app/admin/' + name + '.html';
-        }
     }
 })();

@@ -10,7 +10,8 @@
     function routingService($window) {
         var service = {
             configServiceUrl: configServiceUrl,
-            pathApi: pathApi
+            getRoute: getRoute,
+            getTemplate: getTemplate
         };
 
         return service;
@@ -25,14 +26,26 @@
             }
         }
 
-        function pathApi(resource, id, complement)
+        function getRoute(routeName, params) {
+            switch (routeName) {
+                case 'rooms':
+                    return '/rooms';
+                case 'newroom':
+                    return '/rooms/new';
+                case 'editroom':
+                    return '/rooms/' + params[0] + '/edit';
+                case 'home':
+                    return '/rooms';
+                case 'login':
+                    return '/login';
+                default:
+                    return '/';
+            }
+        }
+
+        function getTemplate(name)
         {
-            if (id) {
-                return '/api/v1/' + resource + '/' + id + '/' + complement;
-            }
-            else {
-                return '/api/v1/' + resource;
-            }
+            return '/app/admin/' + name + '.html';
         }
     }
 })();
