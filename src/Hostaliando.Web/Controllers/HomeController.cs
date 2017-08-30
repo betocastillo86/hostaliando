@@ -18,7 +18,8 @@ namespace Hostaliando.Web.Controllers
         /// </summary>
         /// <returns>the view</returns>
         [HttpGet]
-        [Route("{*complement}")]
+        [Route("")]
+        [Route("{root:regex(^(?!api).+)}/{*complement}")]
         [AllowAnonymous]
         public IActionResult Index()
         {

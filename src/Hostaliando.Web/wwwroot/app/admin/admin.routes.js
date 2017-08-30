@@ -15,6 +15,11 @@
                 controller: 'DashboardController',
                 controllerAs: 'main'*/
             })
+            .when('/rooms/:id/edit', {
+                templateUrl: templateService.get('rooms/edit-room'),
+                controller: 'EditRoomController',
+                controllerAs: 'main'
+            })
             .when('/rooms', {
                 templateUrl: templateService.get('rooms/list-rooms'),
                 controller: 'ListRoomsController',

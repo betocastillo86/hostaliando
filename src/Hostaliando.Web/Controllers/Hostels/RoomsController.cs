@@ -24,14 +24,14 @@ namespace Hostaliando.Web.Controllers.Hostels
     public class RoomsController : BaseApiController
     {
         /// <summary>
-        /// The work context
-        /// </summary>
-        private readonly IWorkContext workContext;
-
-        /// <summary>
         /// The room service
         /// </summary>
         private readonly IRoomService roomService;
+
+        /// <summary>
+        /// The work context
+        /// </summary>
+        private readonly IWorkContext workContext;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RoomsController"/> class.
@@ -46,6 +46,58 @@ namespace Hostaliando.Web.Controllers.Hostels
         {
             this.workContext = workContext;
             this.roomService = roomService;
+        }
+
+        /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>the action</returns>
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var room = await this.roomService.GetById(id);
+
+            if (room == null)
+            {
+                return this.NotFound();
+            }
+
+            if (!this.workContext.CurrentUser.IsAdmin() && this.workContext.CurrentUser.HostelId != room.HostelId)
+            {
+                return this.Forbid();
+            }
+
+            return this.Ok(room.ToModel());
+        }
+
+        /// <summary>
+        /// Gets the rooms by filter.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns>the rooms</returns>
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] RoomFilterModel filter)
+        {
+            //// A non admin user can't filter by hostel that is not owner
+            if (!this.workContext.CurrentUser.IsAdmin() && (!filter.HostelId.HasValue || this.workContext.CurrentUser.HostelId != filter.HostelId.Value))
+            {
+                return this.Forbid();
+            }
+
+            var rooms = await this.roomService.GetAll(
+                filter.Keyword,
+                filter.HostelId,
+                filter.OnlyPrivated,
+                filter.RoomType,
+                filter.OrderByEnum,
+                filter.Page,
+                filter.PageSize);
+
+            var models = rooms.ToModels();
+
+            return this.Ok(models, rooms.HasNextPage, rooms.TotalCount);
         }
 
         /// <summary>
@@ -83,34 +135,6 @@ namespace Hostaliando.Web.Controllers.Hostels
             {
                 return this.BadRequest(e);
             }
-        }
-
-        /// <summary>
-        /// Gets the rooms by filter.
-        /// </summary>
-        /// <param name="filter">The filter.</param>
-        /// <returns>the rooms</returns>
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] RoomFilterModel filter)
-        {
-            //// A non admin user can't filter by hostel that is not owner
-            if (!this.workContext.CurrentUser.IsAdmin() && (!filter.HostelId.HasValue || this.workContext.CurrentUser.HostelId != filter.HostelId.Value))
-            {
-                return this.Forbid();
-            }
-
-            var rooms = await this.roomService.GetAll(
-                filter.Keyword, 
-                filter.HostelId, 
-                filter.OnlyPrivated, 
-                filter.RoomType, 
-                filter.OrderByEnum, 
-                filter.Page, 
-                filter.PageSize);
-
-            var models = rooms.ToModels();
-
-            return this.Ok(models, rooms.HasNextPage, rooms.TotalCount);
         }
 
         /// <summary>

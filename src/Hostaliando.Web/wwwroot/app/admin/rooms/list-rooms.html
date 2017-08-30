@@ -3,7 +3,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Habitaciones <a class="btn btn-success" ng-href="::root.getRoute('rooms')"><i class="fa fa-plus"></i> Crear Habitación</a></h2>
+                    <h2>Habitaciones <a class="btn btn-success" ng-href="{{::root.getRoute('rooms')}}"><i class="fa fa-plus"></i> Crear Habitación</a></h2>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -44,7 +44,7 @@
                                     <td class="hidden-xs">{{::room.hostel.type}}</td>
                                     <td class="hidden-xs">{{::room.hostel.isPrivated ? 'SI' : 'NO'}}</td>
                                     <td class="last">
-                                        <a ng-href="::root.getRoute('editroom', room.id)" class="btn btn-primary btn-xs">Editar</a>
+                                        <a ng-href="{{::root.getRoute('editroom', { id: room.id })}}" class="btn btn-primary btn-xs">Editar</a>
                                     </td>
                                 </tr>
                                 <tr ng-show="!main.rooms.length">

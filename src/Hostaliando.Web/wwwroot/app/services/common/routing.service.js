@@ -33,7 +33,7 @@
                 case 'newroom':
                     return '/rooms/new';
                 case 'editroom':
-                    return '/rooms/' + params[0] + '/edit';
+                    return '/rooms/' + params.id + '/edit';
                 case 'home':
                     return '/rooms';
                 case 'login':
