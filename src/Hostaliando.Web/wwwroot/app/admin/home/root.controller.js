@@ -7,15 +7,18 @@
 
     RootController.$inject = [
         'sessionService',
-        'routingService'];
+        'routingService',
+        'templateService'];
 
     function RootController(
         sessionService,
-        routingService) {
+        routingService,
+        templateService) {
 
         var vm = this;
         vm.currentUser = undefined;
         vm.getRoute = routingService.getRoute;
+        vm.getTemplate = routingService.getTemplate;
 
         activate();
 

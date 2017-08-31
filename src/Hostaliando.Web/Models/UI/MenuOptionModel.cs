@@ -1,4 +1,9 @@
-﻿namespace Hostaliando.Web.Models
+﻿//-----------------------------------------------------------------------
+// <copyright file="MenuOptionModel.cs" company="Gabriel Castillo">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Hostaliando.Web.Models
 {
     using System.Collections.Generic;
 

@@ -12,6 +12,7 @@
 
         function handle(exception) {
             alert(exception);
+            console.log(exception);
         }
 
         return service;

@@ -50,8 +50,8 @@ namespace Hostaliando.Web.Controllers.UI
             if (this.workContext.CurrentUser.IsAdmin())
             {
                 options.Add(new MenuOptionModel() { Id = 1, Name = "Hostales", Key = "Hostels", Url = "/hostels", Icon = "fa-paw", DisplayOrder = 2 });
-                options.Add(new MenuOptionModel() { Id = 2, Name = "Habitaciones", Key = "Rooms", Url = "/rooms", Icon = "fa-home", DisplayOrder = 3 });
-
+                options.Add(new MenuOptionModel() { Id = 4, Name = "Usuarios", Key = "Users", Url = "/users", Icon = "fa-users", DisplayOrder = 4 });
+                
                 var settings = new MenuOptionModel() { Id = 5, Name = "Configuracion", Key = "SettingsParent", Icon = "fa-cogs", Children = new List<MenuOptionModel>(), Url = "#", DisplayOrder = 5 };
                 options.Add(settings);
                 settings.Children.Add(new MenuOptionModel() { Id = 6, Name = "Notificaciones", Key = "Notifications", Url = "/notifications", Icon = "fa-tasks", DisplayOrder = 6 });
@@ -62,7 +62,7 @@ namespace Hostaliando.Web.Controllers.UI
             }
 
             options.Add(new MenuOptionModel() { Id = 3, Name = "Inicio", Key = "Dashboard", Url = "/", Icon = "fa-newspaper-o", DisplayOrder = 1 });
-            options.Add(new MenuOptionModel() { Id = 4, Name = "Usuarios", Key = "Users", Url = "/users", Icon = "fa-users", DisplayOrder = 4 });
+            options.Add(new MenuOptionModel() { Id = 2, Name = "Habitaciones", Key = "Rooms", Url = "/rooms", Icon = "fa-home", DisplayOrder = 3 });
 
             await Task.FromResult(0);
 
