@@ -5,11 +5,13 @@
         'ngStorage',
         'ngSanitize',
 
+
         // Custom modules
         'hostaliandoServices',
         'hostaliandoComponents',
 
         // 3rd Party Modules
+        'angucomplete-alt',
         'underscore'
     ]);
 })();

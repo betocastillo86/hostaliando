@@ -13,7 +13,8 @@
             removeCurrentUser: removeCurrentUser,
             getCurrentUser: getCurrentUser,
             getToken: getToken,
-            isAuthenticated: isAuthenticated
+            isAuthenticated: isAuthenticated,
+            isAdmin
         };
 
         return service;
@@ -36,6 +37,16 @@
 
         function isAuthenticated() {
             return $localStorage.currentUser !== undefined;
+        }
+
+        function isAdmin()
+        {
+            return getCurrentUser().role === 'Admin';
+        }
+
+        function canAccessHostel(hostelId)
+        {
+            return isAdmin() || getCurrentUser().hostel.id == hostelId;
         }
     }
 })();

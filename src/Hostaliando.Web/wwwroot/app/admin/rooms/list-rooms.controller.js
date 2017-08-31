@@ -5,15 +5,15 @@
         .module('hostaliando')
         .controller('ListRoomsController', ListRoomsController);
 
-    ListRoomsController.$inject = ['roomService', 'exceptionService'];
+    ListRoomsController.$inject = ['roomService', 'exceptionService', 'sessionService'];
 
-    function ListRoomsController(roomService, exceptionService) {
+    function ListRoomsController(roomService, exceptionService, sessionService) {
 
         var vm = this;
         vm.rooms = [];
         vm.filter = {
             page: 0,
-            pageSize: 2
+            pageSize: 15
         };
         vm.pager = {};
 
@@ -23,6 +23,8 @@
 
         function activate()
         {
+            vm.filter.hostelId = !sessionService.isAdmin() ? sessionService.getCurrentUser().hostel.id : undefined;
+
             getRooms();
         }
 
@@ -36,6 +38,7 @@
             {
                 vm.rooms = response.results;
                 vm.filter.totalCount = response.meta.totalCount;
+                vm.filter.count = response.meta.count;
             }
         }
 

@@ -20,6 +20,11 @@
                 controller: 'EditRoomController',
                 controllerAs: 'main'
             })
+            .when('/rooms/new', {
+                templateUrl: templateService.get('rooms/edit-room'),
+                controller: 'EditRoomController',
+                controllerAs: 'main'
+            })
             .when('/rooms', {
                 templateUrl: templateService.get('rooms/list-rooms'),
                 controller: 'ListRoomsController',

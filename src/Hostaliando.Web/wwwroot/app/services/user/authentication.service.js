@@ -77,7 +77,8 @@
                     id: userResponse.id,
                     name: userResponse.name,
                     token: responseToken.access_token,
-                    hostel: userResponse.hostel
+                    hostel: userResponse.hostel,
+                    role: userResponse.role
                 };
 
                 sessionService.setCurrentUser(user);
