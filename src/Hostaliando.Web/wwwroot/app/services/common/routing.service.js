@@ -34,6 +34,12 @@
                     return '/rooms/new';
                 case 'editroom':
                     return '/rooms/' + params.id + '/edit';
+                case 'users':
+                    return '/users';
+                case 'newuser':
+                    return '/users/new';
+                case 'edituser':
+                    return '/users/' + params.id + '/edit';
                 case 'home':
                     return '/rooms';
                 case 'login':

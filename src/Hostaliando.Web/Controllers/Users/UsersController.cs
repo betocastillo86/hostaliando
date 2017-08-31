@@ -82,7 +82,7 @@ namespace Hostaliando.Web.Controllers.Users
         [ServiceFilter(typeof(AuthorizeAdminAttribute))]
         public async Task<IActionResult> Get(int id)
         {
-            var user = this.userService.GetById(id);
+            var user = this.userService.GetById(id, true);
 
             if (user == null)
             {
@@ -167,6 +167,7 @@ namespace Hostaliando.Web.Controllers.Users
         [HttpPut]
         [RequiredModel]
         [Route("{id:int}")]
+        [ServiceFilter(typeof(AuthorizeAdminAttribute))]
         public async Task<IActionResult> Put(int id, [FromBody] UserModel model)
         {
             var user = this.userService.GetById(id);
@@ -184,7 +185,7 @@ namespace Hostaliando.Web.Controllers.Users
             user.Name = model.Name;
             user.Email = model.Email;
             user.TimeZone = model.TimeZone;
-            user.Role = user.IsAdmin() ? model.Role.Value : user.Role;
+            user.Role = this.workContext.CurrentUser.IsAdmin() ? model.Role.Value : user.Role;
             user.HostelId = user.IsAdmin() ? model.Hostel?.Id : user.HostelId;
 
             if (!string.IsNullOrEmpty(model.Password))
