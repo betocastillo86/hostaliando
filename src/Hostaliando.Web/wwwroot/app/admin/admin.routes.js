@@ -44,6 +44,11 @@
                 templateUrl: templateService.get('users/list-users'),
                 controller: 'ListUsersController',
                 controllerAs: 'main'
+            })
+            .when('/systemsettings', {
+                templateUrl: templateService.get('settings/list-settings'),
+                controller: 'ListSettingsController',
+                controllerAs: 'main'
             });
     }
 })();
