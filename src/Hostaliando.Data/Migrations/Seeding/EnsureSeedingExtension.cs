@@ -55,6 +55,7 @@ namespace Hostaliando.Data.Migrations
             SeedUsers.Seed(context);
             SeedBookingSources.Seed(context);
             SeedSettings.Seed(context);
+            SeedNotifications.Seed(context);
         }
     }
 }

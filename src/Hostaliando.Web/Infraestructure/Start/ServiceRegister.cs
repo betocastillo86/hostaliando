@@ -10,6 +10,7 @@ namespace Hostaliando.Web.Infraestructure.Start
     using Beto.Core.Caching;
     using Beto.Core.Data;
     using Beto.Core.Data.Configuration;
+    using Beto.Core.Data.Notifications;
     using Beto.Core.EventPublisher;
     using Beto.Core.Exceptions;
     using Beto.Core.Helpers;
@@ -61,6 +62,8 @@ namespace Hostaliando.Web.Infraestructure.Start
 
             services.AddScoped<IBookingService, BookingService>();
 
+            services.AddScoped<INotificationService, NotificationService>();
+
             services.AddScoped<AuthorizeAdminAttribute>();
 
             //// Core
@@ -77,6 +80,8 @@ namespace Hostaliando.Web.Infraestructure.Start
             services.AddScoped<ICacheManager, MemoryCacheManager>();
 
             services.AddScoped<IPublisher, Publisher>();
+
+            services.AddScoped<ICoreNotificationService, CoreNotificationService>();
 
             services.AddScoped<ICoreSettingService, CoreSettingService>();
 
