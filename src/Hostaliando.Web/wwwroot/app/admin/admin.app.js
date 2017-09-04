@@ -12,6 +12,7 @@
 
         // 3rd Party Modules
         'angucomplete-alt',
-        'underscore'
+        'underscore',
+        'textAngular'
     ]);
 })();

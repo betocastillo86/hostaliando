@@ -40,6 +40,10 @@
                     return '/users/new';
                 case 'edituser':
                     return '/users/' + params.id + '/edit';
+                case 'notifications':
+                    return '/notifications';
+                case 'editnotification':
+                    return '/notifications/' + params.id + '/edit';
                 case 'home':
                     return '/rooms';
                 case 'login':
@@ -49,8 +53,7 @@
             }
         }
 
-        function getTemplate(name)
-        {
+        function getTemplate(name) {
             return '/app/admin/' + name + '.html';
         }
     }

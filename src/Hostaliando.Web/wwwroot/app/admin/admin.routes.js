@@ -49,6 +49,16 @@
                 templateUrl: templateService.get('settings/list-settings'),
                 controller: 'ListSettingsController',
                 controllerAs: 'main'
+            })
+            .when('/notifications/:id/edit', {
+                templateUrl: templateService.get('notifications/edit-notification'),
+                controller: 'EditNotificationController',
+                controllerAs: 'main'
+            })
+            .when('/notifications', {
+                templateUrl: templateService.get('notifications/list-notifications'),
+                controller: 'ListNotificationsController',
+                controllerAs: 'main'
             });
     }
 })();

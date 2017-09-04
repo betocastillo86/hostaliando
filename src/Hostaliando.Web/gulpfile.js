@@ -25,6 +25,7 @@ var cssmin = require('gulp-cssmin'),
             './bower_components/gentelella/vendors/font-awesome/css/font-awesome.min.css',
             './bower_components/gentelella/build/css/custom.min.css',
             './bower_components/angucomplete-alt/angucomplete-alt.css',
+            './bower_components/textAngular/dist/textAngular.css',
             './wwwroot/css/hostaliando.css'
         ];
 
@@ -45,9 +46,11 @@ var cssmin = require('gulp-cssmin'),
             './bower_components/angular/angular.js',
             './bower_components/ngstorage/ngStorage.js',
             './bower_components/angular-route/angular-route.js',
-            './bower_components/angular-sanitize/angular-sanitize.js',
             './bower_components/underscore/underscore.js',
-            './bower_components/angucomplete-alt/angucomplete-alt.js'
+            './bower_components/angucomplete-alt/angucomplete-alt.js',
+            './bower_components/textAngular/dist/textAngular-rangy.min.js',
+            './bower_components/textAngular/dist/textAngular.min.js',
+            './bower_components/textAngular/dist/textAngular-sanitize.min.js'
         ];
     
         return gulp.src(files, { base: '.' })
