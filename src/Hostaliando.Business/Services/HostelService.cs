@@ -27,6 +27,11 @@ namespace Hostaliando.Business.Services
         private readonly IRepository<Hostel> hostelRepository;
 
         /// <summary>
+        /// The hostel booking source repository
+        /// </summary>
+        private readonly IRepository<HostelBookingSource> hostelBookingSourceRepository;
+
+        /// <summary>
         /// The publisher
         /// </summary>
         private readonly IPublisher publisher;
@@ -38,10 +43,12 @@ namespace Hostaliando.Business.Services
         /// <param name="publisher">The publisher.</param>
         public HostelService(
             IRepository<Hostel> hostelRepository,
-            IPublisher publisher)
+            IPublisher publisher,
+            IRepository<HostelBookingSource> hostelBookingSourceRepository)
         {
             this.hostelRepository = hostelRepository;
             this.publisher = publisher;
+            this.hostelBookingSourceRepository = hostelBookingSourceRepository;
         }
 
         /// <summary>
@@ -184,7 +191,11 @@ namespace Hostaliando.Business.Services
             {
                 target = "Locations";
             }
-
+            else if (ex.Message.IndexOf("FK_HostelBookingSources_BookingSources") != -1)
+            {
+                target = "Sources";
+            }
+            
             throw new HostaliandoException(target, HostaliandoExceptionCode.InvalidForeignKey);
         }
     }
