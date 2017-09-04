@@ -1,0 +1,63 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Habitaciones <a class="btn btn-success" ng-href="{{::root.getRoute('newroom')}}"><i class="fa fa-plus"></i> Crear Habitación</a></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    <form class="form-horizontal form-label-left" novalidate="">
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Nombre
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" ng-model="main.filter.keyword" ng-change="main.changePage(0)" ng-model-options="{ debounce : 1200 }">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="x_content">
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">Nombre</th>
+                                    <th class="column-title">Camas</th>
+                                    <th class="column-title">Hostal</th>
+                                    <th class="column-title hidden-xs">Tipo</th>
+                                    <th class="column-title hidden-xs">Privada</th>
+                                    <th class="column-title no-link last">
+                                        <span class="nobr">Opciones</span>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="room in main.rooms" class="pointer" ng-class-odd="odd" ng-class-even="even">
+                                    <td>{{::room.name}}</td>
+                                    <td>{{::room.beds}}</td>
+                                    <td>{{::room.hostel.name}}</td>
+                                    <td class="hidden-xs">{{::room.roomType}}</td>
+                                    <td class="hidden-xs">{{::room.isPrivated ? 'SI' : 'NO'}}</td>
+                                    <td class="last">
+                                        <a ng-href="{{::root.getRoute('editroom', { id: room.id })}}" class="btn btn-primary btn-xs">Editar</a>
+                                    </td>
+                                </tr>
+                                <tr ng-show="!main.rooms.length">
+                                    <td colspan="7" class="last">
+                                        No hay registros
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <host-pager model="main.filter" page-changed="main.changePage(page)"></host-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

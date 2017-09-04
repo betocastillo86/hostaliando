@@ -119,12 +119,20 @@ namespace Hostaliando.Business.Services
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="includeHostel">includes the hostel information</param>
         /// <returns>
         /// the user
         /// </returns>
-        public User GetById(int id)
+        public User GetById(int id, bool includeHostel = false)
         {
-            return this.userRepository.Table.FirstOrDefault(c => c.Id == id && !c.Deleted);
+            var query = this.userRepository.Table;
+
+            if (includeHostel)
+            {
+                query = query.Include(c => c.Hostel).AsQueryable();
+            }
+
+            return query.FirstOrDefault(c => c.Id == id && !c.Deleted);
         }
 
         /// <summary>

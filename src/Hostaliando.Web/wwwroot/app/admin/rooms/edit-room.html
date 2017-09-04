@@ -1,0 +1,108 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{main.model.id ? 'Actualizar' : 'Crear'}} Habitación <small>{{main.model.name}}</small></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form name="main.form" class="form-horizontal form-label-left" novalidate="" ng-submit="main.save()">
+                    
+                    <div class="form-group" ng-if="main.canSelectHostel && !main.model.id">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Hostal <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <angucomplete-alt id="hostel"
+                                              placeholder="Ingresa el nombre del hostal"
+                                              pause="400"
+                                              remote-url="/api/v1/hostels?pagesize=8&keyword="
+                                              title-field="name"
+                                              selected-object="main.changeHostel"
+                                              initial-value="main.model.hostel.name"
+                                              input-class="form-control col-md-9 col-xs-12 angucomplete-bootstrap"
+                                              field-required="true"
+                                              input-name="hostel"
+                                              field-required-class="parsley-error"
+                                              remote-url-data-field="results"
+                                              match-class="highlight"
+                                              minLength="2"
+                                              ></angucomplete-alt>
+                            <host-validation-message form="main.form" field="main.form.hostel" name="hostal"></host-validation-message>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Nombre <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="name" ng-model="main.model.name" type="text" class="form-control col-md-7 col-xs-12" ng-maxlength="50" ng-minlength="2" required />
+                            <host-validation-message form="main.form" field="main.form.name" name="nombre"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Camas <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="beds" ng-model="main.model.beds" type="number" class="form-control col-md-7 col-xs-12" ng-min="1" ng-max="30" required />
+                            <host-validation-message form="main.form" field="main.form.beds" name="camas"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tipo</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label ng-click="main.model.roomType = 'Mixed'" class="btn" ng-class="{'btn-primary' :main.model.roomType == 'Mixed', 'btn-default': main.model.roomType != 'Mixed'}">
+                                    &nbsp; Mixto &nbsp;
+                                </label>
+                                <label ng-click="main.model.roomType = 'Female'" class="btn" ng-class="{'btn-primary' :main.model.roomType == 'Female', 'btn-default': main.model.roomType != 'Female'}">
+                                    &nbsp; Mujeres &nbsp;
+                                </label>
+                            </div>
+                            <div class="clear"></div>
+                            <host-validation-message form="main.form" field="main.form.roomType" name="tipo"></host-validation-message>
+                        </div>
+                        <input name="roomType" ng-model="main.model.roomType" style="display:none" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Es Privado</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label ng-click="main.model.isPrivated = true" class="btn" ng-class="{'btn-primary' :main.model.isPrivated, 'btn-default': !main.model.isPrivated }">
+                                    &nbsp; SI &nbsp;
+                                </label>
+                                <label ng-click="main.model.isPrivated = false" class="btn" ng-class="{'btn-primary' :!main.model.isPrivated, 'btn-default': main.model.isPrivated }">
+                                    &nbsp; NO &nbsp;
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Activo</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label ng-click="main.model.active = true" class="btn" ng-class="{'btn-primary' :main.model.active, 'btn-default': !main.model.active }">
+                                    &nbsp; SI &nbsp;
+                                </label>
+                                <label ng-click="main.model.active = false" class="btn" ng-class="{'btn-primary' :!main.model.active, 'btn-default': main.model.active }">
+                                    &nbsp; NO &nbsp;
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <a class="btn btn-primary"  ng-href="{{::root.getRoute('rooms')}}">Cancelar</a>
+                            <button type="submit" class="btn btn-success" ng-click="main.continueAfterSaving = false" >Guardar</button>
+                            <button type="submit" class="btn btn-success" ng-click="main.continueAfterSaving = true">Guardar y continuar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

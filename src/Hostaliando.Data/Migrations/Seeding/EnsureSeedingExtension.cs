@@ -54,6 +54,8 @@ namespace Hostaliando.Data.Migrations
             SeedCurrencies.Seed(context);
             SeedUsers.Seed(context);
             SeedBookingSources.Seed(context);
+            SeedSettings.Seed(context);
+            SeedNotifications.Seed(context);
         }
     }
 }

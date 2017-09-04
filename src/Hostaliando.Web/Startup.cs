@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Web
 {
+    using System;
     using Beto.Core.Web.Api.Filters;
     using Beto.Core.Web.Middleware;
     using FluentValidation.AspNetCore;
@@ -12,7 +13,9 @@ namespace Hostaliando.Web
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Authorization;
+    using Microsoft.AspNetCore.Routing;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -65,6 +68,8 @@ namespace Hostaliando.Web
             app.ConfigureOpenId();
 
             app.InitDatabase(env);
+
+            app.UseStaticFiles();
 
             app.UseMvc();
         }

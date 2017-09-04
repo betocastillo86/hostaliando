@@ -1,0 +1,79 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Usuarios <a class="btn btn-success" ng-href="{{::root.getRoute('newuser')}}"><i class="fa fa-plus"></i> Crear Usuario</a></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    <form class="form-horizontal form-label-left" novalidate="">
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Nombre o correo
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" ng-model="main.filter.keyword" ng-change="main.changePage(0)" ng-model-options="{ debounce : 1200 }">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Hostal
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <angucomplete-alt id="hostel"
+                                                  placeholder="Buscar por hostal"
+                                                  pause="400"
+                                                  remote-url="/api/v1/hostels?pagesize=8&keyword="
+                                                  title-field="name"
+                                                  selected-object="main.changeHostel"
+                                                  input-class="form-control col-md-9 col-xs-12 angucomplete-bootstrap"
+                                                  field-required="true"
+                                                  input-name="hostel"
+                                                  field-required-class="parsley-error"
+                                                  remote-url-data-field="results"
+                                                  match-class="highlight"
+                                                  minLength="2"></angucomplete-alt>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="x_content">
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">Nombre</th>
+                                    <th class="column-title">Correo</th>
+                                    <th class="column-title">Hostal</th>
+                                    <th class="column-title no-link last">
+                                        <span class="nobr">Opciones</span>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="user in main.users" class="pointer" ng-class-odd="odd" ng-class-even="even">
+                                    <td>{{::user.name}}</td>
+                                    <td>{{::user.email}}</td>
+                                    <td>{{::user.hostel.name}}</td>
+                                    <td class="last">
+                                        <a ng-href="{{::root.getRoute('edituser', { id: user.id })}}" class="btn btn-primary btn-xs">Editar</a>
+                                    </td>
+                                </tr>
+                                <tr ng-show="!main.users.length">
+                                    <td colspan="7" class="last">
+                                        No hay registros
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <host-pager model="main.filter" page-changed="main.changePage(page)"></host-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

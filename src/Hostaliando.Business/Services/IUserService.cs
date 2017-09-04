@@ -25,8 +25,9 @@ namespace Hostaliando.Business.Services
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="includeHostel">includes the hostel information</param>
         /// <returns>the user</returns>
-        User GetById(int id);
+        User GetById(int id, bool includeHostel = false);
 
         /// <summary>
         /// Gets all.

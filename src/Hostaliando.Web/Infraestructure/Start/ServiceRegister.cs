@@ -7,11 +7,15 @@ namespace Hostaliando.Web.Infraestructure.Start
 {
     using System;
     using System.Reflection;
+    using Beto.Core.Caching;
     using Beto.Core.Data;
+    using Beto.Core.Data.Configuration;
+    using Beto.Core.Data.Notifications;
     using Beto.Core.EventPublisher;
     using Beto.Core.Exceptions;
     using Beto.Core.Helpers;
     using Beto.Core.Registers;
+    using Hostaliando.Business.Configuration;
     using Hostaliando.Business.Exceptions;
     using Hostaliando.Business.Security;
     using Hostaliando.Business.Services;
@@ -36,9 +40,17 @@ namespace Hostaliando.Web.Infraestructure.Start
         {
             services.AddDbContext<HostaliandoContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IHostelService, HostelService>();
+            //// Settings
+
+            services.AddScoped<IGeneralSettings, GeneralSettings>();
+
+            //// Others
 
             services.AddScoped<IWorkContext, WorkContext>();
+
+            //// Services
+
+            services.AddScoped<IHostelService, HostelService>();
 
             services.AddScoped<ILoggerService, LogService>();
 
@@ -49,6 +61,8 @@ namespace Hostaliando.Web.Infraestructure.Start
             services.AddScoped<IBookingSourceService, BookingSourceService>();
 
             services.AddScoped<IBookingService, BookingService>();
+
+            services.AddScoped<INotificationService, NotificationService>();
 
             services.AddScoped<AuthorizeAdminAttribute>();
 
@@ -63,7 +77,13 @@ namespace Hostaliando.Web.Infraestructure.Start
 
             services.AddScoped<IServiceFactory, DefaultServiceFactory>();
 
+            services.AddScoped<ICacheManager, MemoryCacheManager>();
+
             services.AddScoped<IPublisher, Publisher>();
+
+            services.AddScoped<ICoreNotificationService, CoreNotificationService>();
+
+            services.AddScoped<ICoreSettingService, CoreSettingService>();
 
             foreach (var implementationType in ReflectionHelper.GetTypesOnProject(typeof(ISubscriber<>), "Hostaliando"))
             {

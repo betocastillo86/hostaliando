@@ -1,0 +1,27 @@
+﻿<div class="col-md-3 left_col" ng-controller="MenuController as menu">
+    <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a href="#" class="site_title"><i class="fa fa-paw"></i> <span>Hostaliando</span></a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <br>
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section active">
+                <h3>Menú</h3>
+                <ul class="nav side-menu" style="">
+                    <li ng-repeat="option in menu.options" ng-class="{'active' : menu.currentOption == option.key }">
+                        <a ng-href="{{::option.url}}" ng-click="menu.currentOption = option.key"><i class="fa {{::option.icon}}"></i> {{::option.name}} <span class="fa fa-chevron-down" ng-if="::option.children"></span></a>
+                        <ul class="nav child_menu" ng-if="::option.children" ng-style="{display:(menu.currentOption == option.key ? 'block' : 'none')}">
+                            <li ng-repeat="child in ::option.children" ng-class="{'current-page' : menu.currentChild == child.key }"><a ng-href="{{::child.url}}" ng-click="menu.currentChild = child.key">{{::child.name}}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /sidebar menu -->
+    </div>
+</div>

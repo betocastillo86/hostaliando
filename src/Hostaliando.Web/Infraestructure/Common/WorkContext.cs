@@ -60,7 +60,7 @@ namespace Hostaliando.Web.Common
                 {
                     if (this.currentUser == null)
                     {
-                        this.currentUser = this.userService.GetById(this.CurrentUserId);
+                        this.currentUser = this.userService.GetById(this.CurrentUserId, true);
                     }
                 }
 

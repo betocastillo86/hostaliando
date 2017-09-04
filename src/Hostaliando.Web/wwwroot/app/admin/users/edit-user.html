@@ -1,0 +1,110 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{main.model.id ? 'Actualizar' : 'Crear'}} Usuario <small>{{main.model.name}}</small></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form name="main.form" class="form-horizontal form-label-left" novalidate="" ng-submit="main.save()">
+
+                    <div class="form-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Hostal <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <angucomplete-alt id="hostel"
+                                              placeholder="Ingresa el nombre del hostal"
+                                              pause="400"
+                                              remote-url="/api/v1/hostels?pagesize=8&keyword="
+                                              title-field="name"
+                                              selected-object="main.changeHostel"
+                                              initial-value="main.model.hostel.name"
+                                              input-class="form-control col-md-9 col-xs-12 angucomplete-bootstrap"
+                                              field-required="main.model.role == 'HostelOwner'"
+                                              input-name="hostel"
+                                              field-required-class="parsley-error"
+                                              remote-url-data-field="results"
+                                              match-class="highlight"
+                                              minLength="2"></angucomplete-alt>
+                            <host-validation-message form="main.form" field="main.form.hostel" name="hostal"></host-validation-message>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Nombre <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="name" ng-model="main.model.name" type="text" class="form-control col-md-7 col-xs-12" ng-maxlength="50" ng-minlength="2" required />
+                            <host-validation-message form="main.form" field="main.form.name" name="nombre"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Correo electrónico <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="email" ng-model="main.model.email" type="text" class="form-control col-md-7 col-xs-12" ng-maxlength="150" required />
+                            <host-validation-message form="main.form" field="main.form.email" name="correo"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="main.model.id">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Cambiar clave
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="checkbox" ng-model="main.changePassword" />
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="main.changePassword || !main.model.id">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Clave <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="password" ng-model="main.model.password" type="password" class="form-control col-md-7 col-xs-12" ng-minlength="6" required />
+                            <host-validation-message form="main.form" field="main.form.password" name="clave"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="main.changePassword || !main.model.id">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Confirmación Clave <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="password2" ng-model="main.password2" type="password" class="form-control col-md-7 col-xs-12" ng-minlength="6" compare-to="main.model.password" required />
+                            <host-validation-message form="main.form" field="main.form.password2" name="clave"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Zona Horaria <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="timezone" ng-model="main.model.timeZone" ng-options="timezone.value as timezone.name for timezone in ::main.timezones" class="form-control" required ></select>
+                            <host-validation-message form="main.form" field="main.form.timezone" name="zona horaria"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Rol <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="role" ng-model="main.model.role" ng-options="role for role in ::main.roles" class="form-control" required></select>
+                            <host-validation-message form="main.form" field="main.form.role" name="rol"></host-validation-message>
+                        </div>
+                    </div>
+
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <a class="btn btn-primary" ng-href="{{::root.getRoute('users')}}">Cancelar</a>
+                            <button type="submit" class="btn btn-success" ng-click="main.continueAfterSaving = false">Guardar</button>
+                            <button type="submit" class="btn btn-success" ng-click="main.continueAfterSaving = true">Guardar y continuar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
