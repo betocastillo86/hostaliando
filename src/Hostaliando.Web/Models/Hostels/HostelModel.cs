@@ -6,6 +6,7 @@
 namespace Hostaliando.Web.Models
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Hostel Model
@@ -60,5 +61,13 @@ namespace Hostaliando.Web.Models
         /// The creation date.
         /// </value>
         public DateTime CreationDateUtc { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sources.
+        /// </summary>
+        /// <value>
+        /// The sources.
+        /// </value>
+        public IList<BaseNamedModel> Sources { get; set; }
     }
 }

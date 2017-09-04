@@ -5,6 +5,8 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Web.Controllers.Hostels
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using Beto.Core.Exceptions;
     using Beto.Core.Web.Api.Controllers;
@@ -12,8 +14,10 @@ namespace Hostaliando.Web.Controllers.Hostels
     using Hostaliando.Business.Exceptions;
     using Hostaliando.Business.Security;
     using Hostaliando.Business.Services;
+    using Hostaliando.Data;
     using Hostaliando.Web.Infraestructure.Filters;
     using Hostaliando.Web.Models;
+    using Microsoft.AspNetCore.JsonPatch;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -23,6 +27,11 @@ namespace Hostaliando.Web.Controllers.Hostels
     [Route("api/v1/hostels")]
     public class HostelsController : BaseApiController
     {
+        /// <summary>
+        /// The booking source service
+        /// </summary>
+        private readonly IBookingSourceService bookingSourceService;
+
         /// <summary>
         /// The hostel service
         /// </summary>
@@ -42,10 +51,35 @@ namespace Hostaliando.Web.Controllers.Hostels
         public HostelsController(
             IMessageExceptionFinder messageExceptionFinder,
             IHostelService hostelService,
-            IWorkContext workContext) : base(messageExceptionFinder)
+            IWorkContext workContext,
+            IBookingSourceService bookingSourceService) : base(messageExceptionFinder)
         {
             this.hostelService = hostelService;
             this.workContext = workContext;
+            this.bookingSourceService = bookingSourceService;
+        }
+
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>the task</returns>
+        [HttpDelete]
+        [Route("{id:int}")]
+        [ServiceFilter(typeof(AuthorizeAdminAttribute))]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var hostel = await this.hostelService.GetById(id);
+
+            if (hostel != null)
+            {
+                await this.hostelService.Delete(hostel);
+                return this.Ok();
+            }
+            else
+            {
+                return this.NotFound();
+            }
         }
 
         /// <summary>
@@ -82,6 +116,54 @@ namespace Hostaliando.Web.Controllers.Hostels
             return this.Ok(models, hostels.HasNextPage, hostels.TotalCount);
         }
 
+        [HttpPatch]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<HostelModel> jsonDocument)
+        {
+            var hostel = await this.hostelService.GetById(id);
+
+            if (hostel == null)
+            {
+                return this.NotFound();
+            }
+
+            bool updateHostel = false;
+
+            if (jsonDocument.Operations.Any(c => c.path.Equals("/sources")))
+            {
+                var sources = await this.bookingSourceService.GetHostelBookingSourceByHostelId(id);
+
+                foreach (var source in jsonDocument.Operations.Where(c => c.path.Equals("/sources")))
+                {
+                    var sourceId = Convert.ToInt32(source.value);
+
+                    if (source.OperationType == Microsoft.AspNetCore.JsonPatch.Operations.OperationType.Add && !sources.Any(c => c.SourceId == sourceId))
+                    {
+                        await this.bookingSourceService.InsertSourceToHostel(new HostelBookingSource { SourceId = sourceId, HostelId = id });
+                    }
+                    else if (source.OperationType == Microsoft.AspNetCore.JsonPatch.Operations.OperationType.Remove)
+                    {
+                        var sourceToDelete = sources.FirstOrDefault(c => c.SourceId == sourceId);
+                        await this.bookingSourceService.DeleteSourceToHostel(sourceToDelete);
+                    }
+                }
+            }
+
+            try
+            {
+                if (updateHostel)
+                {
+                    await this.hostelService.Update(hostel);
+                }
+
+                return this.Ok();
+            }
+            catch (HostaliandoException e)
+            {
+                return this.BadRequest(e);
+            }
+        }
+
         /// <summary>
         /// Posts the specified model.
         /// </summary>
@@ -92,6 +174,12 @@ namespace Hostaliando.Web.Controllers.Hostels
         [ServiceFilter(typeof(AuthorizeAdminAttribute))]
         public async Task<IActionResult> Post([FromBody] HostelModel model)
         {
+            if (model.Sources == null || model.Sources.Count == 0)
+            {
+                this.ModelState.AddModelError("Sources", "Al menos debe ingresar un origen de datos");
+                return this.BadRequest(this.ModelState);
+            }
+
             var hostel = model.ToEntity();
 
             try
@@ -103,29 +191,6 @@ namespace Hostaliando.Web.Controllers.Hostels
             catch (HostaliandoException e)
             {
                 return this.BadRequest(e);
-            }
-        }
-
-        /// <summary>
-        /// Deletes the specified identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>the task</returns>
-        [HttpDelete]
-        [Route("{id:int}")]
-        [ServiceFilter(typeof(AuthorizeAdminAttribute))]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var hostel = await this.hostelService.GetById(id);
-
-            if (hostel != null)
-            {
-                await this.hostelService.Delete(hostel);
-                return this.Ok();
-            }
-            else
-            {
-                return this.NotFound();
             }
         }
 

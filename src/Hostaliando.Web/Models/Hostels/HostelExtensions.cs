@@ -29,7 +29,8 @@ namespace Hostaliando.Web.Models
                 CurrencyId = model.Currency.Id,
                 Email = model.Email,
                 LocationId = model.Location.Id,
-                PhoneNumber = model.PhoneNumber
+                PhoneNumber = model.PhoneNumber,
+                HostelBookingSources = model.Sources != null ? model.Sources.Select(c => new HostelBookingSource { SourceId = c.Id }).ToList() : null
             };
         }
 
