@@ -21,6 +21,7 @@ namespace Hostaliando.Web.Infraestructure.Start
     using Hostaliando.Business.Services;
     using Hostaliando.Data;
     using Hostaliando.Web.Common;
+    using Hostaliando.Web.Infraestructure.Common;
     using Hostaliando.Web.Infraestructure.Filters;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -62,7 +63,13 @@ namespace Hostaliando.Web.Infraestructure.Start
 
             services.AddScoped<IBookingService, BookingService>();
 
+            services.AddScoped<ILocationService, LocationService>();
+
+            services.AddScoped<ICurrencyService, CurrencyService>();
+
             services.AddScoped<INotificationService, NotificationService>();
+
+            services.AddScoped<IJavascriptConfigurationGenerator, JavascriptConfigurationGenerator>();
 
             services.AddScoped<AuthorizeAdminAttribute>();
 

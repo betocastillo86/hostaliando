@@ -41,6 +41,7 @@ namespace Hostaliando.Business.Services
         /// </summary>
         /// <param name="bookingSourceRepository">The booking source repository.</param>
         /// <param name="hostelBookingSourceRepository">The hostel booking source repository.</param>
+        /// <param name="publisher">The publisher.</param>
         public BookingSourceService(
             IRepository<BookingSource> bookingSourceRepository,
             IRepository<HostelBookingSource> hostelBookingSourceRepository,
@@ -66,12 +67,20 @@ namespace Hostaliando.Business.Services
         /// <summary>
         /// Gets all booking sources
         /// </summary>
+        /// <param name="name">the filter name</param>
         /// <returns>
         /// the list
         /// </returns>
-        public async Task<IList<BookingSource>> GetAll()
+        public async Task<IList<BookingSource>> GetAll(string name = null)
         {
-            return await this.bookingSourceRepository.Table.ToListAsync();
+            var query = this.bookingSourceRepository.TableNoTracking;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(c => c.Name.Contains(name));
+            }
+
+            return await query.ToListAsync();
         }
 
         /// <summary>

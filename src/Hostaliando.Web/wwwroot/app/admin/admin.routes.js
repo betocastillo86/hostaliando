@@ -45,6 +45,21 @@
                 controller: 'ListUsersController',
                 controllerAs: 'main'
             })
+            .when('/hostels/:id/edit', {
+                templateUrl: templateService.get('hostels/edit-hostel'),
+                controller: 'EditHostelController',
+                controllerAs: 'main'
+            })
+            .when('/hostels/new', {
+                templateUrl: templateService.get('hostels/edit-hostel'),
+                controller: 'EditHostelController',
+                controllerAs: 'main'
+            })
+            .when('/hostels', {
+                templateUrl: templateService.get('hostels/list-hostels'),
+                controller: 'ListHostelsController',
+                controllerAs: 'main'
+            })
             .when('/systemsettings', {
                 templateUrl: templateService.get('settings/list-settings'),
                 controller: 'ListSettingsController',

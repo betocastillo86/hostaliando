@@ -40,6 +40,12 @@
                     return '/users/new';
                 case 'edituser':
                     return '/users/' + params.id + '/edit';
+                case 'hostels':
+                    return '/hostels';
+                case 'newhostel':
+                    return '/hostels/new';
+                case 'edithostel':
+                    return '/hostels/' + params.id + '/edit';
                 case 'notifications':
                     return '/notifications';
                 case 'editnotification':

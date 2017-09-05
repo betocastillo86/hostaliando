@@ -41,6 +41,7 @@ namespace Hostaliando.Business.Services
         /// </summary>
         /// <param name="hostelRepository">The hostel repository.</param>
         /// <param name="publisher">The publisher.</param>
+        /// <param name="hostelBookingSourceRepository">The hostel booking source repository.</param>
         public HostelService(
             IRepository<Hostel> hostelRepository,
             IPublisher publisher,
@@ -106,7 +107,7 @@ namespace Hostaliando.Business.Services
         /// </returns>
         public async Task<Hostel> GetById(int id)
         {
-            return await this.hostelRepository.Table
+            return await this.hostelRepository.TableNoTracking
                 .Include(c => c.Currency)
                 .Include(c => c.Location)
                 .FirstOrDefaultAsync(c => c.Id == id && !c.Deleted);

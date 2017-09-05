@@ -9,6 +9,7 @@ namespace Hostaliando.Web
     using Beto.Core.Web.Api.Filters;
     using Beto.Core.Web.Middleware;
     using FluentValidation.AspNetCore;
+    using Hostaliando.Web.Infraestructure.Common;
     using Hostaliando.Web.Infraestructure.Start;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
@@ -72,6 +73,8 @@ namespace Hostaliando.Web
             app.UseStaticFiles();
 
             app.UseMvc();
+
+            this.CreateJavascriptFile(app);
         }
 
         /// <summary>
@@ -95,6 +98,16 @@ namespace Hostaliando.Web
             .AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.RegisterServices(this.Configuration);
+        }
+
+        /// <summary>
+        /// Creates the JAVASCRIPT file.
+        /// </summary>
+        /// <param name="builder">The builder.</param>
+        private void CreateJavascriptFile(IApplicationBuilder builder)
+        {
+            var javascriptGenerator = (IJavascriptConfigurationGenerator)builder.ApplicationServices.GetService(typeof(IJavascriptConfigurationGenerator));
+            javascriptGenerator.CreateJavascriptConfigurationFile();
         }
     }
 }

@@ -1,0 +1,127 @@
+﻿<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{{main.model.id ? 'Actualizar' : 'Crear'}} Hostal <small>{{main.model.name}}</small></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form name="main.form" class="form-horizontal form-label-left" novalidate="" ng-submit="main.save()">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Nombre <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="name" ng-model="main.model.name" type="text" class="form-control col-md-7 col-xs-12" ng-maxlength="50" ng-minlength="2" required />
+                            <host-validation-message form="main.form" field="main.form.name" name="nombre"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Correo Electrónico <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="email" ng-model="main.model.email" type="email" class="form-control col-md-7 col-xs-12" required />
+                            <host-validation-message form="main.form" field="main.form.email" name="correo"></host-validation-message>
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Ubicación <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <angucomplete-alt id="location"
+                                              placeholder="Ingresa el nombre del hostal"
+                                              pause="400"
+                                              remote-url="/api/v1/locations?pagesize=8&name="
+                                              title-field="name"
+                                              selected-object="main.changeLocation"
+                                              initial-value="main.model.location.name"
+                                              input-class="form-control col-md-9 col-xs-12 angucomplete-bootstrap"
+                                              field-required="true"
+                                              input-name="location"
+                                              field-required-class="parsley-error"
+                                              remote-url-data-field="results"
+                                              match-class="highlight"
+                                              minLength="2"></angucomplete-alt>
+                            <host-validation-message form="main.form" field="main.form.location" name="ubicación"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Dirección <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="address" ng-model="main.model.address" type="text" class="form-control col-md-7 col-xs-12" ng-maxlength="100" ng-minlength="2" required />
+                            <host-validation-message form="main.form" field="main.form.address" name="dirección"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Teléfono 
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="phoneNumber" ng-model="main.model.phoneNumber" type="text" class="form-control col-md-7 col-xs-12" ng-maxlength="20" ng-minlength="7" />
+                            <host-validation-message form="main.form" field="main.form.phoneNumber" name="teléfono"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Moneda <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="currency" ng-model="main.model.currency.id" ng-options="currency.id as currency.name for currency in main.currencies" class="form-control" required></select>
+                            <host-validation-message form="main.form" field="main.form.currency" name="moneda"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="x_content">
+
+                            <angucomplete-alt id="addBokingSource"
+                                              placeholder="Agregar booking source"
+                                              pause="400"
+                                              remote-url="/api/v1/bookingsources?keyword="
+                                              title-field="name"
+                                              selected-object="main.addBookingSource"
+                                              input-class="form-control col-md-9 col-xs-12 angucomplete-bootstrap"
+                                              match-class="highlight"
+                                              minlength="1" />
+
+                            <table class="table jambo_table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Opción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="source in main.model.sources">
+                                        <td>{{::source.name}}</td>
+                                        <td><button type="button" class="btn btn-danger btn-xs" ng-click="main.removeBookingSource(source)">Eliminar</button></td>
+                                    </tr>
+                                    <tr ng-if="!main.model.sources.length">
+                                        <td colspan="5">No se hay origenes asociados</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input type="number" name="sources" ng-model="main.model.sources.length" required ng-min="1" style="display:none" />
+                            <host-validation-message form="main.form" field="main.form.sources" name="origen"></host-validation-message>
+                        </div>
+                        
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <a class="btn btn-primary" ng-href="{{::root.getRoute('rooms')}}">Cancelar</a>
+                            <button type="submit" class="btn btn-success" ng-click="main.continueAfterSaving = false">Guardar</button>
+                            <button type="submit" class="btn btn-success" ng-click="main.continueAfterSaving = true">Guardar y continuar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

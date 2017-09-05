@@ -1,0 +1,60 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Hostales <a class="btn btn-success" ng-href="{{::root.getRoute('newhostel')}}"><i class="fa fa-plus"></i> Crear Hostal</a></h2>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    <br>
+                    <form class="form-horizontal form-label-left" novalidate="">
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Nombre
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" ng-model="main.filter.keyword" ng-change="main.changePage(0)" ng-model-options="{ debounce : 1200 }">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="x_content">
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">Nombre</th>
+                                    <th class="column-title">Ubicación</th>
+                                    <th class="column-title no-link last">
+                                        <span class="nobr">Opciones</span>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="hostel in main.hostels" class="pointer" ng-class-odd="odd" ng-class-even="even">
+                                    <td>{{::hostel.name}}</td>
+                                    <td>{{::hostel.location.name}}</td>
+                                    <td class="last">
+                                        <a ng-href="{{::root.getRoute('edithostel', { id: hostel.id })}}" class="btn btn-primary btn-xs">Editar</a>
+                                    </td>
+                                </tr>
+                                <tr ng-show="!main.hostels.length">
+                                    <td colspan="5" class="last">
+                                        No hay registros
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <host-pager model="main.filter" page-changed="main.changePage(page)"></host-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

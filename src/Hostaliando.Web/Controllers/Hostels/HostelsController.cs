@@ -18,6 +18,7 @@ namespace Hostaliando.Web.Controllers.Hostels
     using Hostaliando.Web.Infraestructure.Filters;
     using Hostaliando.Web.Models;
     using Microsoft.AspNetCore.JsonPatch;
+    using Microsoft.AspNetCore.JsonPatch.Operations;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -48,6 +49,7 @@ namespace Hostaliando.Web.Controllers.Hostels
         /// <param name="messageExceptionFinder">The message exception finder.</param>
         /// <param name="hostelService">The hostel service.</param>
         /// <param name="workContext">The work context.</param>
+        /// <param name="bookingSourceService">The booking source service.</param>
         public HostelsController(
             IMessageExceptionFinder messageExceptionFinder,
             IHostelService hostelService,
@@ -95,7 +97,8 @@ namespace Hostaliando.Web.Controllers.Hostels
 
             if (hostel != null)
             {
-                return this.Ok(hostel.ToModel());
+                var model = hostel.ToModel();
+                return this.Ok(model);
             }
             else
             {
@@ -116,6 +119,12 @@ namespace Hostaliando.Web.Controllers.Hostels
             return this.Ok(models, hostels.HasNextPage, hostels.TotalCount);
         }
 
+        /// <summary>
+        /// Patches the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="jsonDocument">The JSON document.</param>
+        /// <returns>the action</returns>
         [HttpPatch]
         [Route("{id:int}")]
         public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<HostelModel> jsonDocument)
@@ -137,11 +146,11 @@ namespace Hostaliando.Web.Controllers.Hostels
                 {
                     var sourceId = Convert.ToInt32(source.value);
 
-                    if (source.OperationType == Microsoft.AspNetCore.JsonPatch.Operations.OperationType.Add && !sources.Any(c => c.SourceId == sourceId))
+                    if (source.OperationType == OperationType.Add && !sources.Any(c => c.SourceId == sourceId))
                     {
                         await this.bookingSourceService.InsertSourceToHostel(new HostelBookingSource { SourceId = sourceId, HostelId = id });
                     }
-                    else if (source.OperationType == Microsoft.AspNetCore.JsonPatch.Operations.OperationType.Remove)
+                    else if (source.OperationType == OperationType.Remove)
                     {
                         var sourceToDelete = sources.FirstOrDefault(c => c.SourceId == sourceId);
                         await this.bookingSourceService.DeleteSourceToHostel(sourceToDelete);

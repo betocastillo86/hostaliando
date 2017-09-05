@@ -24,8 +24,9 @@ namespace Hostaliando.Business.Services
         /// <summary>
         /// Gets all booking sources
         /// </summary>
+        /// <param name="name">the filter name</param>
         /// <returns>the list</returns>
-        Task<IList<BookingSource>> GetAll();
+        Task<IList<BookingSource>> GetAll(string name = null);
 
         /// <summary>
         /// Gets the booking sources by hostel identifier.
