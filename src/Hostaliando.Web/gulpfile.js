@@ -26,6 +26,7 @@ var cssmin = require('gulp-cssmin'),
             './bower_components/gentelella/build/css/custom.min.css',
             './bower_components/angucomplete-alt/angucomplete-alt.css',
             './bower_components/textAngular/dist/textAngular.css',
+            './bower_components/gentelella/vendors/fullcalendar/dist/fullcalendar.min.css',
             './wwwroot/css/hostaliando.css'
         ];
 
@@ -50,6 +51,7 @@ var cssmin = require('gulp-cssmin'),
             './bower_components/angucomplete-alt/angucomplete-alt.js',
             './bower_components/textAngular/dist/textAngular-rangy.min.js',
             './bower_components/textAngular/dist/textAngular.min.js',
+            './bower_components/moment/moment.js',
             './bower_components/textAngular/dist/textAngular-sanitize.min.js'
         ];
     

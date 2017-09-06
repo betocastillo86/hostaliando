@@ -88,7 +88,9 @@ namespace Hostaliando.Business.Services
             int page = 0,
             int pageSize = int.MaxValue)
         {
-            var query = this.bookingRepository.Table.Where(c => !c.Deleted);
+            var query = this.bookingRepository.Table
+                .Include(c => c.Room)
+                .Where(c => !c.Deleted);
 
             if (hostelId.HasValue)
             {

@@ -125,7 +125,7 @@ namespace Hostaliando.Business.Services
         /// </returns>
         public User GetById(int id, bool includeHostel = false)
         {
-            var query = this.userRepository.Table;
+            var query = this.userRepository.TableNoTracking;
 
             if (includeHostel)
             {

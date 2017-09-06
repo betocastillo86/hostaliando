@@ -15,6 +15,11 @@
                 controller: 'DashboardController',
                 controllerAs: 'main'*/
             })
+            .when('/calendar', {
+                templateUrl: templateService.get('bookings/calendar'),
+                controller: 'CalendarController',
+                controllerAs: 'main'
+            })
             .when('/rooms/:id/edit', {
                 templateUrl: templateService.get('rooms/edit-room'),
                 controller: 'EditRoomController',

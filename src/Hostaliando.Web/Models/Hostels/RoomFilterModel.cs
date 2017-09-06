@@ -22,7 +22,7 @@ namespace Hostaliando.Web.Models
         /// </summary>
         public RoomFilterModel()
         {
-            this.MaxPageSize = 20;
+            this.MaxPageSize = 50;
             this.ValidOrdersBy = Enum.GetNames(typeof(SortRoomBy));
         }
 

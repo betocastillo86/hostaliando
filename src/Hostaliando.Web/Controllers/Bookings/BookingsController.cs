@@ -360,7 +360,7 @@ namespace Hostaliando.Web.Controllers.Hostels
                 status: BookingStatus.Booked,
                 excludeBookings: currentBooking?.Id > 0 ? new int[] { currentBooking.Id } : null);
 
-            return bookingsOnDate.TotalCount == currentBooking.Room.Beds || (bookingsOnDate.Count > 0 && room.IsPrivated);
+            return bookingsOnDate.TotalCount == /*currentBooking.Room < - revisar esto*/room.Beds || (bookingsOnDate.Count > 0 && room.IsPrivated);
         }
 
         /// <summary>
