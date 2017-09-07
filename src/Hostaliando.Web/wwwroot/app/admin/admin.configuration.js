@@ -10,7 +10,7 @@
     {
         $httpProvider.interceptors.push('expiredSessionInterceptor');
 
-        $compileProvider.debugInfoEnabled(false);
+        $compileProvider.debugInfoEnabled(app.Settings.isDebug);
         $compileProvider.commentDirectivesEnabled(false);
         $compileProvider.cssClassDirectivesEnabled(false);
 

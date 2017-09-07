@@ -1,0 +1,117 @@
+﻿<div class="modal fade bs-example-modal-sm in" tabindex="-1" role="dialog" aria-hidden="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">{{editBooking.model.id ? 'Editar' : 'Crear'}} reserva</h4>
+            </div>
+            <form name="editBooking.form" novalidate ng-submit="editBooking.save()" class="form-horizontal form-label-left">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Habitación
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <label>{{::editBooking.room.name}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Fecha Entrada <span class="required">*</span>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input name="fromDate" ng-model="editBooking.model.fromDate" type="text" class="form-control col-md-7 col-xs-12" required host-datepicker />
+                            <host-validation-message form="editBooking.form" field="editBooking.form.fromDate" name="fecha de entrada"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Noches <span class="required">*</span>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input name="nigths" ng-model="editBooking.model.nigths" type="number" class="form-control col-md-7 col-xs-12" ng-min="1" ng-max="20" required />
+                            <host-validation-message form="editBooking.form" field="editBooking.form.nigths" name="noches"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Nombre huesped <span class="required">*</span>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input name="guestName" ng-model="editBooking.model.guestName" type="text" class="form-control col-md-7 col-xs-12" required ng-minlength="5" maxlength="150" />
+                            <host-validation-message form="editBooking.form" field="editBooking.form.guestName" name="nombre"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Valor reserva <span class="required">*</span>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input name="totalPrice" ng-model="editBooking.model.totalPrice" type="number" class="form-control col-md-7 col-xs-12" ng-min="0" required />
+                            <host-validation-message form="editBooking.form" field="editBooking.form.totalPrice" name="valor reserva"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Origen Reserva <span class="required">*</span>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select name="source" class="form-control" ng-model="editBooking.model.source.id" ng-options="source.id as source.name for source in editBooking.sources" required>
+                                <option>-</option>
+                            </select>
+                            <host-validation-message form="editBooking.form" field="editBooking.form.source" name="origen de reserva"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Observaciones
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea class="form-control" name="comments" ng-model="editBooking.model.comments" maxlength="1000"></textarea>
+                            <host-validation-message form="editBooking.form" field="editBooking.form.comments" name="observaciones"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Correo huesped
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input name="guestEmail" ng-model="editBooking.model.guestEmail" type="email" class="form-control col-md-7 col-xs-12" />
+                            <host-validation-message form="editBooking.form" field="editBooking.form.guestEmail" name="correo"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Pais huesped
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <angucomplete-alt id="location"
+                                              placeholder="Ingresa el pais del huesped"
+                                              pause="400"
+                                              remote-url="/api/v1/locations?pagesize=8&name="
+                                              title-field="name"
+                                              selected-object="editBooking.changeLocation"
+                                              initial-value="editBooking.model.location.name"
+                                              input-class="form-control col-md-9 col-xs-12 angucomplete-bootstrap"
+                                              field-required="false"
+                                              input-name="location"
+                                              field-required-class="parsley-error"
+                                              remote-url-data-field="results"
+                                              match-class="highlight"
+                                              minLength="2"></angucomplete-alt>
+                            <host-validation-message form="editBooking.form" field="editBooking.form.location" name="pais"></host-validation-message>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" >Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

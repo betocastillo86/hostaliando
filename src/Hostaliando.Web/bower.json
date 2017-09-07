@@ -10,7 +10,8 @@
     "angucomplete-alt": "^3.0.0",
     "textAngular": "^1.5.16",
     "underscore": "1.8.3",
-    "moment": "2.18.1"
+    "moment": "2.18.1",
+    "pikaday": "^1.6.1"
   },
   "resolutions": {
     "angular": "1.6.6"

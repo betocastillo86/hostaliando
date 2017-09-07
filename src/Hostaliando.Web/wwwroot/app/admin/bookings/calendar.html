@@ -48,7 +48,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="fc-day-header"><span>Habitación</span></th>
-                                                    <th class="fc-day-header" ng-repeat="day in main.days track by $index"><span>{{::day.format('dddd')}} {{::day.format('DD')}}</span></th>
+                                                    <th class="fc-day-header" ng-repeat="day in ::main.days track by $index"><span>{{::day.format('dddd')}} {{::day.format('DD')}}</span></th>
                                                 </tr>
                                             </thead>
                                         </table>
@@ -59,31 +59,31 @@
                         <tbody class="fc-body">
                             <tr>
                                 <td class="fc-widget-content">
-                                    <div class="fc-scroller fc-day-grid-container" style="overflow: hidden; height: 789px;">
+                                    <div class="fc-scroller fc-day-grid-container" style="overflow: hidden;" ng-if="main.isShowing">
                                         <div class="fc-day-grid fc-unselectable">
-                                            <div class="fc-row fc-week fc-widget-content" ng-repeat="room in ::main.calendar.rooms track by $index" style="height: 131px;">
+                                            <div class="fc-row fc-week fc-widget-content" ng-repeat="room in ::main.calendar.rooms track by $index" >
                                                 <div class="fc-bg">
                                                     <table>
                                                         <tbody>
                                                             <tr>
                                                                 <td class="fc-day fc-widget-content fc-other-month fc-past">{{::room.room.name}}</td>
-                                                                <td class="fc-day fc-widget-content fc-other-month fc-past" ng-repeat="day in main.days track by $index"></td>
+                                                                <td class="fc-day fc-widget-content fc-other-month fc-past" ng-repeat="day in ::main.days track by $index"></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
                                                 <div class="fc-content-skeleton">
                                                     <table>
-                                                        <thead>
+                                                        <!--<thead>
                                                             <tr>
                                                                 <td class="fc-day-top fc-other-month fc-past"></td>
                                                                 <td class="fc-day-top fc-other-month fc-past" ng-repeat="day in main.days track by $index"><span class="fc-day-number">{{::day.format('DD')}}</span></td>
                                                             </tr>
-                                                        </thead>
+                                                        </thead>-->
                                                         <tbody>
-                                                            <tr ng-repeat="bookingRow in room.rows track by $index">
+                                                            <tr ng-repeat="bookingRow in ::room.rows track by $index">
                                                                 <td></td>
-                                                                <td class="eldia" ng-repeat="day in ::bookingRow.days track by $index" colspan="{{::day.booking.nigths || ''}}" ng-class="::{'fc-event-container': day.booking.nigths > 0}">
+                                                                <td class="eldia" ng-repeat="day in ::bookingRow.days track by $index" colspan="{{::day.booking.nigths || ''}}" ng-class="::{'fc-event-container': day.booking.nigths > 0}" ng-click="main.addBooking(day.day, day.booking, room.room)">
                                                                     <a ng-if="::day.booking.nigths" class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable">
                                                                         <div class="fc-content"><span class="fc-time">{{::day.booking.id}}</span> <span class="fc-title">{{::day.booking.guestName}}</span></div>
                                                                     </a>
@@ -106,7 +106,7 @@
 </div>
 
 <style>
-    /* .fc-content-skeleton td {
+     .fc-content-skeleton td {
         border: solid 1px red !important;
-    }*/
+    }
 </style>

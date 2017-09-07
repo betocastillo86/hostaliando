@@ -19,7 +19,8 @@
             controllerAs: 'modal',
             title: 'Mensaje',
             redirectAfterClose: undefined,
-            closed: undefined
+            closed: undefined,
+            onClosed: undefined
         };
 
         return vm;

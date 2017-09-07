@@ -27,6 +27,7 @@ var cssmin = require('gulp-cssmin'),
             './bower_components/angucomplete-alt/angucomplete-alt.css',
             './bower_components/textAngular/dist/textAngular.css',
             './bower_components/gentelella/vendors/fullcalendar/dist/fullcalendar.min.css',
+            './bower_components/pikaday/css/pikaday.css',
             './wwwroot/css/hostaliando.css'
         ];
 
@@ -52,6 +53,7 @@ var cssmin = require('gulp-cssmin'),
             './bower_components/textAngular/dist/textAngular-rangy.min.js',
             './bower_components/textAngular/dist/textAngular.min.js',
             './bower_components/moment/moment.js',
+            './bower_components/pikaday/pikaday.js',
             './bower_components/textAngular/dist/textAngular-sanitize.min.js'
         ];
     

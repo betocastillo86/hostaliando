@@ -31,7 +31,7 @@ namespace Hostaliando.Business.Exceptions
                 case HostaliandoExceptionCode.RoomIsOfAnotherHostel:
                     return "La habitación no pertenece al hostal";
                 case HostaliandoExceptionCode.ExceededRoomCapacity:
-                    return "La habitación ya se encuentra reservada totalmente";
+                    return "La habitación ya se encuentra reservada en su totalidad para estas fechas";
             }
         }
 

@@ -9,13 +9,19 @@
         'roomService',
         'sessionService',
         'exceptionService',
-        'bookingService'];
+        'bookingService',
+        'modalService',
+        'templateService',
+        'hostelService'];
 
     function CalendarController(
         roomService,
         sessionService,
         exceptionService,
-        bookingService) {
+        bookingService,
+        modalService,
+        templateService,
+        hostelService) {
 
         var vm = this;
         vm.hostelId = undefined;
@@ -24,7 +30,11 @@
         vm.model = {};
         vm.firstDate = undefined;
         vm.lastDate = undefined;
+        vm.lastDateNumber = undefined;
+        vm.addBooking = addBooking;
+        vm.bookingSources = [];
         vm.days = [];
+        vm.isShowing = true;
 
 
         activate();
@@ -33,6 +43,7 @@
 
             vm.hostelId = sessionService.getCurrentUser().hostel.id;
             calculateCurrentDate();
+            getBookingSources();
             
 
             if (vm.hostelId)
@@ -84,6 +95,31 @@
             }
         }
 
+        function addBooking(day, booking, room)
+        {
+            modalService.show({
+                controller: 'EditBookingController',
+                controllerAs: 'editBooking',
+                template: templateService.get('bookings/edit-booking'),
+                params: {
+                    booking: booking,
+                    day: day,
+                    room: room,
+                    sources: vm.bookingSources
+                },
+                closed: bookingClosed
+            });
+        }
+
+        function bookingClosed(response)
+        {
+            if (response.reload)
+            {
+                vm.isShowing = false;
+                getBookings();
+            }
+        }
+
         function calculateCalendar()
         {
             var calendar = {};
@@ -94,7 +130,8 @@
                 var room = vm.rooms[iRoom];
 
                 var calendarRoom = {
-                    rows: []
+                    rows: [],
+                    room: room
                 };
 
                 calendar.rooms.push(calendarRoom);
@@ -110,7 +147,7 @@
                         var day = vm.days[iDay];
                         var dayNumber = parseFloat(day.format('X'));
 
-                        var calendarDay = { day: dayNumber, booking: undefined };
+                        var calendarDay = { day: day, booking: undefined };
 
                         roomRow.days.push(calendarDay);
 
@@ -124,6 +161,11 @@
                                 if (iDay == 0 && booking.fromNumber < dayNumber)
                                 {
                                     booking.nigths = booking.nigths - day.diff(moment(booking.fromDate), 'days');
+                                }
+
+                                if (booking.toNumber > vm.lastDateNumber)
+                                {
+                                    booking.nigths = booking.nigths - moment(booking.toDate).diff(vm.lastDate, 'days');
                                 }
 
                                 break;
@@ -143,8 +185,21 @@
             }
 
             vm.calendar = calendar;
+            vm.isShowing = true;
 
             console.log('calendar', calendar);
+        }
+
+        function getBookingSources()
+        {
+            hostelService.getSourcesByHostel(vm.hostelId)
+                .then(getCompleted)
+                .catch(exceptionService.handle);
+
+            function getCompleted(response)
+            {
+                vm.bookingSources = response;
+            }
         }
         
 
@@ -153,7 +208,8 @@
             var daysToShow = 10;
 
             vm.firstDate = moment().startOf('day');
-            vm.lastDate = moment().startOf('day').add(daysToShow, 'days');
+            vm.lastDate = moment().startOf('day').add(daysToShow - 1, 'days');
+            vm.lastDateNumber = parseFloat(vm.lastDate.format('X'));
             vm.days = [];
 
             for (var i = 0; i < daysToShow; i++) {
