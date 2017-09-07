@@ -146,12 +146,20 @@ namespace Hostaliando.Business.Services
                     query = query.OrderByDescending(c => c.CreationDateUtc);
                     break;
 
+                case SortBookingBy.Oldest:
+                    query = query.OrderBy(c => c.CreationDateUtc);
+                    break;
+
                 case SortBookingBy.TotalPrice:
                     query = query.OrderByDescending(c => c.TotalPrice);
                     break;
 
                 case SortBookingBy.Room:
                     query = query.OrderBy(c => c.RoomId);
+                    break;
+
+                case SortBookingBy.FromDate:
+                    query = query.OrderBy(c => c.FromDate);
                     break;
             }
 

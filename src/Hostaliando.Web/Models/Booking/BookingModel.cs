@@ -102,7 +102,7 @@ namespace Hostaliando.Web.Models
         /// <value>
         /// The nigths.
         /// </value>
-        public double Nigths => (this.ToDate.Value - this.FromDate.Value).TotalDays;
+        public double Nigths => (this.ToDate.Value - this.FromDate.Value).TotalDays + 1;
 
         /// <summary>
         /// Gets or sets the status.

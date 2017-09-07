@@ -16,6 +16,11 @@ namespace Hostaliando.Data
         Recent,
 
         /// <summary>
+        /// The oldest
+        /// </summary>
+        Oldest,
+
+        /// <summary>
         /// by total price
         /// </summary>
         TotalPrice,
@@ -23,6 +28,11 @@ namespace Hostaliando.Data
         /// <summary>
         /// by room
         /// </summary>
-        Room
+        Room,
+
+        /// <summary>
+        /// From date
+        /// </summary>
+        FromDate
     }
 }

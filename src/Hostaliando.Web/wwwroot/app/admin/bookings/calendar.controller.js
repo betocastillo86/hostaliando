@@ -61,7 +61,8 @@
                 pageSize: 200,
                 hostelId: vm.hostelId,
                 fromDate: vm.firstDate.format("YYYY-MM-DD"),
-                toDate: vm.lastDate.format("YYYY-MM-DD")
+                toDate: vm.lastDate.format("YYYY-MM-DD"),
+                sortBy: 'FromDate'
             };
 
             bookingService.getAll(filter)
@@ -79,7 +80,6 @@
                     booking.toNumber = parseFloat(moment(booking.toDate).format('X'));
                 }
 
-                
                 calculateCalendar();
             }
         }
@@ -92,72 +92,61 @@
 
             for (var iRoom = 0; iRoom < vm.rooms.length; iRoom++) {
                 var room = vm.rooms[iRoom];
-                room.bookingRows = [];
 
                 var calendarRoom = {
-                    room: room,
-                    days: []
+                    rows: []
                 };
 
                 calendar.rooms.push(calendarRoom);
+
+                var nextRoom = false;
                 
-                for (var iDay = 0; iDay < vm.days.length; iDay++) {
+                do {
 
-                    var day = vm.days[iDay];
-                    var dayNumber = parseFloat(day.format('X'));
+                    var roomRow = { days: [] };
 
-                    var calendarDay = { day: dayNumber, bookings: [] };
-                    calendarDay.bookings = _.filter(vm.bookings, function(booking) {
-                        return booking.room.id == room.id && booking.fromNumber == dayNumber;
-                    });
+                    for (var iDay = 0; iDay < vm.days.length; iDay++) {
 
-                    calendarRoom.days.push(calendarDay);
+                        var day = vm.days[iDay];
+                        var dayNumber = parseFloat(day.format('X'));
 
+                        var calendarDay = { day: dayNumber, booking: undefined };
 
-                    //var bookingFound = _.findWhere(vm.bookings, function(booking) {
-                    //    return booking.room.id == room.id && booking.fromNumber == dayNumber;
-                    //});
+                        roomRow.days.push(calendarDay);
 
-                    //if (bookingFound)
-                    //{
-                    //    room.bookingRows.push(bookingFound);
-                    //    iDay = iDay + bookingFound.nigths;
-                    //}
+                        for (var iBookingDay = 0; iBookingDay < vm.bookings.length; iBookingDay++) {
+                            var booking = vm.bookings[iBookingDay];
 
-                }
+                            if (!booking.alreadySelected && booking.room.id == room.id && (booking.fromNumber == dayNumber || (iDay == 0 && booking.fromNumber < dayNumber /**Condicion para las reservas que empiecen antes de lo que se muestra en el calendario**/))) {
+                                calendarDay.booking = booking;
+                                booking.alreadySelected = true;
 
-                
-                
-                //for (var iDay = 0; iDay < vm.days.length; iDay++) {
-                //    var day = vm.days[iDay];
-                //    var dayNumber = parseFloat(day.format('X'));
+                                if (iDay == 0 && booking.fromNumber < dayNumber)
+                                {
+                                    booking.nigths = booking.nigths - day.diff(moment(booking.fromDate), 'days');
+                                }
 
-                //    var bookingDay = { day:day.format('YYYYMMDD'), bookings: [] };
-                //    //console.log(dayNumber, 'dayNumber');
-                //    bookingDay.bookings = _.filter(vm.bookings, function(booking) {
-                //        return booking.fromNumber == dayNumber && booking.room.id == room.id;
-                //    });
+                                break;
+                            }
+                        }
 
-                //    room.days.push(bookingDay);
-                //}
+                        if (calendarDay.booking) {
+                            iDay = iDay + calendarDay.booking.nigths - 1;
+                        }
+
+                    }
+                    
+                    calendarRoom.rows.push(roomRow);
+                    nextRoom = _.find(vm.bookings, function (booking) { return !booking.alreadySelected && booking.room.id == room.id }) != undefined;
+
+                } while (nextRoom);
             }
 
+            vm.calendar = calendar;
+
             console.log('calendar', calendar);
-
-
-            ////for (var iDay = 0; iDay < vm.days.length; iDay++) {
-
-            ////    var day = vm.days[iDay];
-
-
-
-            ////    for (var iRoom = 0; iRoom < vm.rooms.length; iRoom++) {
-            ////        var room = vm.rooms[iRoom];
-
-                    
-            ////    }
-            ////}
         }
+        
 
         function calculateCurrentDate()
         {
