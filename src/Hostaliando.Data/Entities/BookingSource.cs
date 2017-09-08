@@ -42,5 +42,21 @@ namespace Hostaliando.Data
         /// The description.
         /// </value>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the color.
+        /// </summary>
+        /// <value>
+        /// The color.
+        /// </value>
+        public string Color { get; set; }
+
+        /// <summary>
+        /// Gets or sets the icon.
+        /// </summary>
+        /// <value>
+        /// The icon.
+        /// </value>
+        public string Icon { get; set; }
     }
 }

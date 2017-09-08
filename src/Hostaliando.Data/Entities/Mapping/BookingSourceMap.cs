@@ -23,6 +23,10 @@ namespace Hostaliando.Data.Entities.Mapping
 
             entity.Property(e => e.Description).HasMaxLength(500);
 
+            entity.Property(c => c.Color).HasMaxLength(7);
+
+            entity.Property(c => c.Icon).HasMaxLength(30);
+
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasColumnType("varchar(150)");

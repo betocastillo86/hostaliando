@@ -67,7 +67,7 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td class="fc-day fc-widget-content fc-other-month fc-past">{{::room.room.name}}</td>
-                                                                <td class="fc-day fc-widget-content fc-other-month fc-past" ng-repeat="day in ::main.days track by $index"></td>
+                                                                <td class="fc-day fc-widget-content fc-other-month fc-past" ng-class="::{'fc-today': day.numberDate == main.todayNumber}" ng-repeat="day in ::main.days track by $index"></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -83,10 +83,17 @@
                                                         <tbody>
                                                             <tr ng-repeat="bookingRow in ::room.rows track by $index">
                                                                 <td></td>
-                                                                <td class="eldia" ng-repeat="day in ::bookingRow.days track by $index" colspan="{{::day.booking.nigths || ''}}" ng-class="::{'fc-event-container': day.booking.nigths > 0}" ng-click="main.addBooking(day.day, day.booking, room.room)">
-                                                                    <a ng-if="::day.booking.nigths" class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable">
+                                                                <td ng-repeat="day in ::bookingRow.days track by $index" colspan="{{::day.booking.nigths || ''}}">
+                                                                    <a ng-if="::day.booking.nigths" class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable" context-menu-on="click" context-menu="main.contextMenuOptions" model="{ day: day.day, booking:day.booking, room: room.room }" style="background-color:{{::day.booking.source.color}}" >
                                                                         <div class="fc-content"><span class="fc-time">{{::day.booking.id}}</span> <span class="fc-title">{{::day.booking.guestName}}</span></div>
                                                                     </a>
+                                                                    <div ng-if="::!day.booking.nigths" class="fc-tocreate" style="width:100%;height:30px;" ng-click="main.addBooking(day.day, day.booking, room.room)"></div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr ng-if="::room.emptyRow">
+                                                                <td></td>
+                                                                <td ng-repeat="day in ::main.days track by $index" class="fc-tocreate" ng-click="main.addBooking(day, undefined, room.room)"  >
+                                                                    + {{::room.emptyRow.availableRows}}
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -106,7 +113,7 @@
 </div>
 
 <style>
-     .fc-content-skeleton td {
+    /* .fc-content-skeleton td {
         border: solid 1px red !important;
-    }
+    }*/
 </style>

@@ -19,12 +19,14 @@ namespace Hostaliando.Web.Models
         /// </summary>
         /// <param name="source">The source.</param>
         /// <returns>the model</returns>
-        public static BaseNamedModel ToModel(this BookingSource source)
+        public static BookingSourceModel ToModel(this BookingSource source)
         {
-            return new BaseNamedModel
+            return new BookingSourceModel
             {
                 Id = source.Id,
-                Name = source.Name
+                Name = source.Name,
+                Color = source.Color,
+                Icon = source.Icon
             };
         }
 
@@ -33,7 +35,7 @@ namespace Hostaliando.Web.Models
         /// </summary>
         /// <param name="sources">The sources.</param>
         /// <returns>the list</returns>
-        public static IList<BaseNamedModel> ToModels(this ICollection<BookingSource> sources)
+        public static IList<BookingSourceModel> ToModels(this ICollection<BookingSource> sources)
         {
             return sources.Select(ToModel).ToList();
         }

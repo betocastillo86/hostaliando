@@ -24,7 +24,7 @@ namespace Hostaliando.Data
         public HostaliandoContext Create(DbContextFactoryOptions options)
         {
             var builder = new DbContextOptionsBuilder<HostaliandoContext>();
-            builder.UseSqlServer("Server=localhost;Database=Hostaliando;User Id=sa;Password=Temporal1;MultipleActiveResultSets=false");
+            builder.UseSqlServer("Server=ASUS_CASA\\SQL_ASUS;Database=Hostaliando;User Id=sa;Password=Temporal1;MultipleActiveResultSets=false");
             return new HostaliandoContext(builder.Options);
         }
     }

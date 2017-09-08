@@ -8,9 +8,10 @@ using Hostaliando.Data;
 namespace Hostaliando.Data.Migrations
 {
     [DbContext(typeof(HostaliandoContext))]
-    partial class HostaliandoContextModelSnapshot : ModelSnapshot
+    [Migration("20170907234957_AddColumn_Color_Icon_Table_BookingSources")]
+    partial class AddColumn_Color_Icon_Table_BookingSources
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

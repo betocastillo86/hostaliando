@@ -31,10 +31,19 @@
         vm.firstDate = undefined;
         vm.lastDate = undefined;
         vm.lastDateNumber = undefined;
-        vm.addBooking = addBooking;
         vm.bookingSources = [];
         vm.days = [];
         vm.isShowing = true;
+        vm.todayNumber = undefined;
+
+        vm.getSourceColor = getSourceColor;
+        vm.addBooking = addBooking;
+
+        vm.contextMenuOptions = [
+            { text: 'Editar reserva', click: callbackViewBooking/*, enabled: function (s, e, m) { return m.booking !== undefined; }*/ },
+            { text: 'Eliminar reserva', click: callbackDeleteBooking/*, enabled: function (s, e, m) { return m.booking !== undefined; }*/ },
+            //{ text: 'Crear reserva', click: callbackViewBooking, enabled: function (s, e, m) { return m.booking == undefined; } }
+        ];
 
 
         activate();
@@ -95,6 +104,19 @@
             }
         }
 
+        function callbackViewBooking($itemScope, $event, model)
+        {
+            addBooking(model.day, model.booking, model.room);
+        }
+
+        function callbackDeleteBooking($itemScope, $event, model)
+        {
+            if (confirm('¿Estás seguro de eliminar esta reserva?'))
+            {
+                deleteBooking(model.booking.id);
+            }
+        }
+
         function addBooking(day, booking, room)
         {
             modalService.show({
@@ -109,6 +131,19 @@
                 },
                 closed: bookingClosed
             });
+        }
+
+        function deleteBooking(id)
+        {
+            bookingService.delete(id)
+                .then(deleteCompleted)
+                .catch(exceptionService.handle);
+
+            function deleteCompleted(response)
+            {
+                bookingClosed({reload:true});
+                modalService.show({ message: 'Reserva cancelada' });
+            }
         }
 
         function bookingClosed(response)
@@ -131,7 +166,8 @@
 
                 var calendarRoom = {
                     rows: [],
-                    room: room
+                    room: room,
+                    emptyRow: undefined
                 };
 
                 calendar.rooms.push(calendarRoom);
@@ -168,6 +204,8 @@
                                     booking.nigths = booking.nigths - moment(booking.toDate).diff(vm.lastDate, 'days');
                                 }
 
+                                booking.source.color = getSourceColor(booking.source.id);
+
                                 break;
                             }
                         }
@@ -182,6 +220,15 @@
                     nextRoom = _.find(vm.bookings, function (booking) { return !booking.alreadySelected && booking.room.id == room.id }) != undefined;
 
                 } while (nextRoom);
+
+                //// Si la habitación es privada y no tiene filas agrega la fila de reserva
+                if (room.isPrivated && !calendarRoom.rows.length) {
+                    calendarRoom.emptyRow = { availableRows: 1 };
+                }
+                else if (!room.isPrivated && calendarRoom.rows.length < room.beds)
+                {
+                    calendarRoom.emptyRow = { availableRows: room.beds - calendarRoom.rows.length };
+                }
             }
 
             vm.calendar = calendar;
@@ -207,6 +254,7 @@
         {
             var daysToShow = 10;
 
+            vm.todayNumber = parseFloat(moment().startOf('day').format('X'));
             vm.firstDate = moment().startOf('day');
             vm.lastDate = moment().startOf('day').add(daysToShow - 1, 'days');
             vm.lastDateNumber = parseFloat(vm.lastDate.format('X'));
@@ -217,6 +265,11 @@
                 newday.numberDate = parseFloat(newday.format('X')); 
                 vm.days.push(newday);
             }
+        }
+
+        function getSourceColor(sourceId)
+        {
+            return _.findWhere(vm.bookingSources, { id: sourceId }).color;
         }
     }
 })();

@@ -13,6 +13,7 @@
         // 3rd Party Modules
         'angucomplete-alt',
         'underscore',
-        'textAngular'
+        'textAngular',
+        'ui.bootstrap.contextMenu'
     ]);
 })();

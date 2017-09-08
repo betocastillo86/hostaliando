@@ -47,7 +47,7 @@ namespace Hostaliando.Web.Controllers.Bookings
         {
             var sources = await this.bookingSourceService.GetAll(filter.Keyword);
 
-            var models = sources.Select(c => new BaseNamedModel() { Id = c.Id, Name = c.Name });
+            var models = sources.ToModels();
 
             return this.Ok(models);
         }

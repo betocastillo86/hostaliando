@@ -15,7 +15,8 @@
             getAll: getAll,
             get: get,
             post: post,
-            put: put
+            put: put,
+            delete: remove
         };
 
         return service;
@@ -34,6 +35,11 @@
 
         function put(id, model) {
             return http.put(baseUrl + id, model);
+        }
+
+        function remove(id)
+        {
+            return http.delete(baseUrl + id);
         }
     }
 })();
