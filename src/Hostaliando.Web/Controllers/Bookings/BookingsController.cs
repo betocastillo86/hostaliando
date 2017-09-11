@@ -360,7 +360,46 @@ namespace Hostaliando.Web.Controllers.Hostels
                 status: BookingStatus.Booked,
                 excludeBookings: currentBooking?.Id > 0 ? new int[] { currentBooking.Id } : null);
 
-            return bookingsOnDate.TotalCount == /*currentBooking.Room < - revisar esto*/room.Beds || (bookingsOnDate.Count > 0 && room.IsPrivated);
+            if (bookingsOnDate.Count > 0)
+            {
+                if (room.IsPrivated)
+                {
+                    return true;
+                }
+                else
+                {
+                    if (bookingsOnDate.Count >= room.Beds)
+                    {
+                        //// when the room is not private, has to validate if the bed would be empty in
+                        //// the days of the reservation
+                        var nights = (to - from).TotalDays + 1;
+
+                        var countBeds = 0;
+
+                        for (int iNigth = 0; iNigth < nights; iNigth++)
+                        {
+                            var day = from.AddDays(iNigth);
+
+                            countBeds = bookingsOnDate.Count(c => c.FromDate <= day && c.ToDate >= day);
+
+                            if (countBeds == room.Beds)
+                            {
+                                break;
+                            }
+                        }
+
+                        return countBeds == room.Beds;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>

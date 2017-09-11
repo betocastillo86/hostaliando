@@ -97,12 +97,12 @@ namespace Hostaliando.Web.Models
         public DateTime CreationDateUtc { get; set; }
 
         /// <summary>
-        /// Gets or sets the nigths.
+        /// Gets or sets the nights.
         /// </summary>
         /// <value>
-        /// The nigths.
+        /// The nights.
         /// </value>
-        public double Nigths => (this.ToDate.Value - this.FromDate.Value).TotalDays + 1;
+        public double Nights => (this.ToDate.Value - this.FromDate.Value).TotalDays + 1;
 
         /// <summary>
         /// Gets or sets the status.

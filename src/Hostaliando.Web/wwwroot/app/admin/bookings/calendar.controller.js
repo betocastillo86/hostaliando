@@ -38,6 +38,7 @@
 
         vm.getSourceColor = getSourceColor;
         vm.addBooking = addBooking;
+        vm.moveBooking = moveBooking;
 
         vm.contextMenuOptions = [
             { text: 'Editar reserva', click: callbackViewBooking/*, enabled: function (s, e, m) { return m.booking !== undefined; }*/ },
@@ -192,16 +193,18 @@
 
                             if (!booking.alreadySelected && booking.room.id == room.id && (booking.fromNumber == dayNumber || (iDay == 0 && booking.fromNumber < dayNumber /**Condicion para las reservas que empiecen antes de lo que se muestra en el calendario**/))) {
                                 calendarDay.booking = booking;
+                                calendarDay.room = room;
+
                                 booking.alreadySelected = true;
 
                                 if (iDay == 0 && booking.fromNumber < dayNumber)
                                 {
-                                    booking.nigths = booking.nigths - day.diff(moment(booking.fromDate), 'days');
+                                    booking.nights = booking.nights - day.diff(moment(booking.fromDate), 'days');
                                 }
 
                                 if (booking.toNumber > vm.lastDateNumber)
                                 {
-                                    booking.nigths = booking.nigths - moment(booking.toDate).diff(vm.lastDate, 'days');
+                                    booking.nights = booking.nights - moment(booking.toDate).diff(vm.lastDate, 'days');
                                 }
 
                                 booking.source.color = getSourceColor(booking.source.id);
@@ -211,7 +214,7 @@
                         }
 
                         if (calendarDay.booking) {
-                            iDay = iDay + calendarDay.booking.nigths - 1;
+                            iDay = iDay + calendarDay.booking.nights - 1;
                         }
 
                     }
@@ -270,6 +273,16 @@
         function getSourceColor(sourceId)
         {
             return _.findWhere(vm.bookingSources, { id: sourceId }).color;
+        }
+
+        function moveBooking(from, to)
+        {
+            console.log('from, to', { from: from, to: to });
+            console.log('booking', from.booking.id);
+            console.log('room', to.room.id);
+            console.log('date', to.day.format('YYYYMMDD'));
+
+            
         }
     }
 })();

@@ -1,4 +1,9 @@
-﻿namespace Hostaliando.Web.Models
+﻿//-----------------------------------------------------------------------
+// <copyright file="BookingSourceModel.cs" company="Gabriel Castillo">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Hostaliando.Web.Models
 {
     /// <summary>
     /// Booking Source Model

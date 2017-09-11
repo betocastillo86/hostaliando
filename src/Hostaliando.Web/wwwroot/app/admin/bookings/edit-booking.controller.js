@@ -43,7 +43,7 @@
         {
             if (!vm.isSending && vm.form.$valid)
             {
-                var toDate = moment(vm.model.fromDate, 'YYYY/MM/DD').add(vm.model.nigths - 1, 'days'); 
+                var toDate = moment(vm.model.fromDate, 'YYYY/MM/DD').add(vm.model.nights - 1, 'days'); 
                 vm.model.toDate = toDate.format('YYYY/MM/DD');
 
                 if (vm.model.id) {
