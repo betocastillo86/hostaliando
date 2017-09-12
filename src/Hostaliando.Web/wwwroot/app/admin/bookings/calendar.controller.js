@@ -83,7 +83,8 @@
                 hostelId: vm.hostelId,
                 fromDate: vm.firstDate.format("YYYY-MM-DD"),
                 toDate: vm.lastDate.format("YYYY-MM-DD"),
-                sortBy: 'FromDate'
+                sortBy: 'FromDate',
+                status: 'Booked'
             };
 
             bookingService.getAll(filter)
@@ -184,8 +185,8 @@
                         var day = vm.days[iDay];
                         var dayNumber = parseFloat(day.format('X'));
 
-                        var calendarDay = { day: day, booking: undefined };
-
+                        var calendarDay = { day: day, booking: undefined, room: room };
+                        
                         roomRow.days.push(calendarDay);
 
                         for (var iBookingDay = 0; iBookingDay < vm.bookings.length; iBookingDay++) {
@@ -193,7 +194,7 @@
 
                             if (!booking.alreadySelected && booking.room.id == room.id && (booking.fromNumber == dayNumber || (iDay == 0 && booking.fromNumber < dayNumber /**Condicion para las reservas que empiecen antes de lo que se muestra en el calendario**/))) {
                                 calendarDay.booking = booking;
-                                calendarDay.room = room;
+                                //calendarDay.room = room;
 
                                 booking.alreadySelected = true;
 
@@ -277,12 +278,32 @@
 
         function moveBooking(from, to)
         {
-            console.log('from, to', { from: from, to: to });
-            console.log('booking', from.booking.id);
-            console.log('room', to.room.id);
-            console.log('date', to.day.format('YYYYMMDD'));
+            if (!to.booking && from.booking)
+            {
+                var fromDate = moment(to.day);
+                var untilDate = moment(to.day).add(from.booking.nights - 1, 'days');
 
-            
+                var jsonPatch = [
+                    { op: 'replace', path: '/room/id', value: to.room.id },
+                    { op: 'replace', path: '/fromDate', value: fromDate.format('YYYY/MM/DD') },
+                    { op: 'replace', path: '/toDate', value: untilDate.format('YYYY/MM/DD') },
+                ];
+
+                bookingService.patch(from.booking.id, jsonPatch)
+                    .then(patchCompleted)
+                    .catch(exceptionService.handle);
+
+                function patchCompleted() {
+
+                    modalService.show({
+                        message: 'Reserva reasignada correctamente'
+                    });
+
+                    bookingClosed({reload:true});
+                }
+                
+                
+            }
         }
     }
 })();

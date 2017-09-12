@@ -83,8 +83,7 @@
                                                         <tbody>
                                                             <tr ng-repeat="bookingRow in ::room.rows track by $index">
                                                                 <td></td>
-                                                                <td ng-repeat="day in ::bookingRow.days track by $index" colspan="{{::day.booking.nights || ''}}" host-draggable drag-element="{{day}}" drag-callback="main.moveBooking(from, to)" draggable="{{::day.booking != undefined}}" >
-                                                                    <div style="display:none">{{day}}</div>
+                                                                <td ng-repeat="day in ::bookingRow.days track by $index" colspan="{{::day.booking.nights || ''}}" host-draggable drag-element="{{::day}}" drag-callback="main.moveBooking(from, to)" drag-forbidden="{{::day.booking != undefined}}" draggable="{{::day.booking != undefined}}" >
                                                                     <a ng-if="::day.booking.nights" class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable" context-menu-on="click" context-menu="main.contextMenuOptions" model="{ day: day.day, booking:day.booking, room: room.room }" style="background-color:{{::day.booking.source.color}}" >
                                                                         <div class="fc-content"><span class="fc-time">{{::day.booking.id}}</span> <span class="fc-title">{{::day.booking.guestName}}</span></div>
                                                                     </a>

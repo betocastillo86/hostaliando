@@ -16,7 +16,8 @@
             get: get,
             post: post,
             put: put,
-            delete: remove
+            delete: remove,
+            patch: patch
         };
 
         return service;
@@ -35,6 +36,10 @@
 
         function put(id, model) {
             return http.put(baseUrl + id, model);
+        }
+
+        function patch(id, model) {
+            return http.patch(baseUrl + id, model);
         }
 
         function remove(id)

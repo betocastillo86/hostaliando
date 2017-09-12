@@ -13,3 +13,7 @@
 .fc-tocreate {
     cursor:cell;
 }
+
+.drag-over {
+    background-color: #808080 !important;
+}

@@ -13,7 +13,8 @@
             restrict: 'A',
             scope: {
                 dragElement: '@',
-                dragCallback: '&'
+                dragCallback: '&',
+                dragForbidden: '@'
             }
         };
 
@@ -34,22 +35,29 @@
             element.on('dragover', function (ev) {
                 ev.preventDefault();
 
-                if (element[0].className.indexOf('over') === -1 &&
+                if (element[0].className.indexOf('drag-over') === -1 &&
                     $window.selectedObject &&
                     $window.selectedObject !== scope.$eval(scope.dragElement)) {
 
-                    element.addClass('over');
+                    if (!scope.$eval(scope.dragForbidden)) {
+                        element.addClass('drag-over');
+                    }
+                    //else {
+                    //    console.log("Es prohibido");
+                    //    element.addClass('drag-forbidden');
+                    //}
                 }
             });
 
             element.on('dragleave', function (ev) {
                 ev.preventDefault();
-                angular.element(document.getElementsByClassName('over')).removeClass('over');
+                angular.element(document.getElementsByClassName('drag-over')).removeClass('drag-over');
+                //angular.element(document.getElementsByClassName('drag-forbidden')).removeClass('drag-forbidden');
             });
 
             element.on('drop', function (ev) {
                 ev.preventDefault();
-                angular.element(document.getElementsByClassName('over')).removeClass('over');
+                angular.element(document.getElementsByClassName('drag-over')).removeClass('drag-over');
 
                 var toElement = scope.$eval(scope.dragElement);
 
