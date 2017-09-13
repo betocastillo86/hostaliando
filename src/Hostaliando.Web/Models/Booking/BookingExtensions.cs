@@ -33,7 +33,8 @@ namespace Hostaliando.Web.Models
                 Comments = booking.Comments,
                 CreationDateUtc = booking.CreationDateUtc,
                 Room = booking.Room?.ToModel(),
-                Source = new BaseNamedModel { Id = booking.SourceId, Name = booking.Source?.Name }
+                Source = new BaseNamedModel { Id = booking.SourceId, Name = booking.Source?.Name },
+                Status = booking.Status
             };
         }
 

@@ -11,9 +11,9 @@
     {
         $routeProvider
             .when('/', {
-                templateUrl: templateService.get('home/dashboard')/*,
+                templateUrl: templateService.get('home/dashboard'),
                 controller: 'DashboardController',
-                controllerAs: 'main'*/
+                controllerAs: 'main'
             })
             .when('/calendar', {
                 templateUrl: templateService.get('bookings/calendar'),

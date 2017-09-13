@@ -137,7 +137,8 @@ namespace Hostaliando.Web.Infraestructure.Common
             {
                 general = new
                 {
-                    siteUrl = this.generalSettings.SiteUrl
+                    siteUrl = this.generalSettings.SiteUrl,
+                    dateFormat = this.generalSettings.DateFormat
                 },
                 resources = this.GetFrontResources(),
                 isDebug = isDebug,

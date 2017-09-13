@@ -17,7 +17,10 @@
             post: post,
             put: put,
             delete: remove,
-            patch: patch
+            patch: patch,
+            getStatusName: getStatusName,
+            cancel: cancel,
+            checkin: checkin
         };
 
         return service;
@@ -42,9 +45,34 @@
             return http.patch(baseUrl + id, model);
         }
 
+        function cancel(id)
+        {
+            var json = [{ op: 'replace', path: '/status', value: 'Canceled' }];
+            return patch(id, json);
+        }
+
+        function checkin(id) {
+            var json = [{ op: 'replace', path: '/status', value: 'CheckedIn' }];
+            return patch(id, json);
+        }
+
         function remove(id)
         {
             return http.delete(baseUrl + id);
+        }
+
+        function getStatusName(status)
+        {
+            switch (status) {
+
+                default:
+                case 'Booked':
+                    return 'Reservado';
+                case 'Canceled':
+                    return 'Cancelado'
+                case 'CheckedIn':
+                    return 'Chequeado'
+            }
         }
     }
 })();

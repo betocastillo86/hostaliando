@@ -30,6 +30,7 @@ namespace Hostaliando.Business.Services
         /// <param name="fromDate">The date from.</param>
         /// <param name="toDate">The date to.</param>
         /// <param name="status">the booking status</param>
+        /// <param name="notStatus">different to this status</param>
         /// <param name="keyword">The keyword.</param>
         /// <param name="excludeBookings">excludes these bookings identifiers in the search</param>
         /// <param name="sortBy">sort the bookings by</param>
@@ -42,6 +43,7 @@ namespace Hostaliando.Business.Services
             DateTime? fromDate = null,
             DateTime? toDate = null,
             BookingStatus? status = null,
+            BookingStatus? notStatus = null,
             string keyword = null,
             int[] excludeBookings = null,
             SortBookingBy sortBy = SortBookingBy.Recent,

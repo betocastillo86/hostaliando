@@ -17,5 +17,13 @@ namespace Hostaliando.Business.Configuration
         /// The site URL.
         /// </value>
         string SiteUrl { get; }
+
+        /// <summary>
+        /// Gets the date format.
+        /// </summary>
+        /// <value>
+        /// The date format.
+        /// </value>
+        string DateFormat { get; }
     }
 }

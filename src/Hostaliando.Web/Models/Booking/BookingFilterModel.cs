@@ -76,6 +76,15 @@ namespace Hostaliando.Web.Models
         public BookingStatus? Status { get; set; }
 
         /// <summary>
+        /// Gets or sets the not status.
+        /// </summary>
+        /// <value>
+        /// The not status.
+        /// </value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public BookingStatus? NotStatus { get; set; }
+
+        /// <summary>
         /// Gets the order by enum.
         /// </summary>
         /// <value>

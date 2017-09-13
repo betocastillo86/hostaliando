@@ -20,7 +20,8 @@ namespace Hostaliando.Data.Migrations
         {
             var list = new SystemSetting[]
             {
-                new SystemSetting() { Name = "GeneralSettings.SiteUrl", Value = "http://localhost:64901/" }
+                new SystemSetting() { Name = "GeneralSettings.SiteUrl", Value = "http://localhost:64901/" },
+                new SystemSetting() { Name = "GeneralSettings.DateFormat", Value = "YYYY/MM/DD" }
             };
 
             foreach (var item in list)

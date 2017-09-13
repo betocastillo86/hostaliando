@@ -87,10 +87,10 @@
                 page: 0,
                 pageSize: 200,
                 hostelId: vm.hostelId,
-                fromDate: vm.firstDate.format("YYYY-MM-DD"),
-                toDate: vm.lastDate.format("YYYY-MM-DD"),
+                fromDate: vm.firstDate.format(app.Settings.general.dateFormat),
+                toDate: vm.lastDate.format(app.Settings.general.dateFormat),
                 sortBy: 'FromDate',
-                status: 'Booked'
+                notStatus: 'Canceled'
             };
 
             bookingService.getAll(filter)
@@ -310,8 +310,8 @@
 
                 var jsonPatch = [
                     { op: 'replace', path: '/room/id', value: to.room.id },
-                    { op: 'replace', path: '/fromDate', value: fromDate.format('YYYY/MM/DD') },
-                    { op: 'replace', path: '/toDate', value: untilDate.format('YYYY/MM/DD') },
+                    { op: 'replace', path: '/fromDate', value: fromDate.format(app.Settings.general.dateFormat) },
+                    { op: 'replace', path: '/toDate', value: untilDate.format(app.Settings.general.dateFormat) },
                 ];
 
                 bookingService.patch(from.booking.id, jsonPatch)
@@ -334,7 +334,7 @@
 
             vm.todayNumber = parseFloat(moment().startOf('day').format('X'));
 
-            vm.firstDate = startDate || moment().startOf('day') ;
+            vm.firstDate = startDate || moment().startOf('day').add(-1, 'days'); // Resta un día para poder ver quién se va hoy
             vm.lastDate = moment(vm.firstDate).startOf('day').add(daysToShow - 1, 'days');
 
             vm.lastDateNumber = parseFloat(vm.lastDate.format('X'));

@@ -1,1 +1,140 @@
-﻿Dashboard
+﻿<div class="row top_tiles" ng-if="main.model.todayNumbers">
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+            <div class="count">{{main.model.todayNumbers.departures}}</div>
+            <h3>Salidas</h3>
+            <p>Personas se van hoy.</p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-comments-o"></i></div>
+            <div class="count">{{main.model.todayNumbers.arrivals}}</div>
+            <h3>Llegadas</h3>
+            <p>Personas que llegan hoy.</p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+            <div class="count">{{main.model.todayNumbers.freeBeds}}</div>
+            <h3>Camas disponibles</h3>
+            <p>Compartidas libres hoy.</p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <div class="icon"><i class="fa fa-check-square-o"></i></div>
+            <div class="count">{{main.model.todayNumbers.freeRooms}}</div>
+            <h3>Habitaciones disponibles</h3>
+            <p>Privadas libres hoy.</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Llegadas </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings">
+                                <th class="column-title">Huesped</th>
+                                <th class="column-title hidden-xs">Hab.</th>
+                                <th class="column-title hidden-xs">Valor</th>
+                                <th class="column-title">Estado</th>
+                                <th class="column-title no-link last">
+                                    <span class="nobr">Opciones</span>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="booking in main.model.arrivals" class="pointer" ng-class-odd="odd" ng-class-even="even">
+                                <td>{{::booking.guestName}}</td>
+                                <td class="hidden-xs">{{::booking.room.name}}</td>
+                                <td class="hidden-xs">{{::booking.totalPrice}}</td>
+                                <td><span class="label label-default" ng-class="::[
+                                              {'label-info' : booking.status == 'Booked'},
+                                              {'label-success' : booking.status == 'CheckedIn'}
+                                              ]">{{::main.getStatusName(booking)}}</span></td>
+                                <td class="last">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default btn-xs">Ver</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle  btn-xs" data-toggle="dropdown" aria-expanded="false">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li ng-if="::booking.status !== 'CheckedIn'">
+                                                <a href="#" ng-click="main.checkinBooking(booking)"><i class="fa fa-check"></i> Checkin</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" ng-click="main.cancelBooking(booking)"><i class="fa fa-remove"></i> Cancelar</a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="#" ng-click="main.viewBooking(booking)">Ver</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-show="!main.model.arrivals.length">
+                                <td colspan="5" class="last">
+                                    No hay llegadas hoy
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Salidas </h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings">
+                                <th class="column-title">Huesped</th>
+                                <th class="column-title">Hab.</th>
+                                <th class="column-title">Valor</th>
+                                <th class="column-title hidden-xs">Estado</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="booking in main.model.departures" class="pointer" ng-class-odd="odd" ng-class-even="even">
+                                <td>{{::booking.guestName}}</td>
+                                <td>{{::booking.room.name}}</td>
+                                <td>{{::booking.totalPrice}}</td>
+                                <td>
+                                    <span class="label label-default" ng-class="::[
+                                              {'label-info' : booking.status == 'Booked'},
+                                              {'label-success' : booking.status == 'CheckedIn'}
+                                              ]">{{::main.getStatusName(booking)}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="!main.model.arrivals.length">
+                                <td colspan="5" class="last">
+                                    No hay llegadas hoy
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

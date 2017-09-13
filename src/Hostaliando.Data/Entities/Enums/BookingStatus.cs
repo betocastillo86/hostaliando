@@ -18,6 +18,11 @@ namespace Hostaliando.Data
         /// <summary>
         /// When the booking is canceled
         /// </summary>
-        Canceled = 2
+        Canceled = 2,
+
+        /// <summary>
+        /// The checked in status
+        /// </summary>
+        CheckedIn = 3
     }
 }

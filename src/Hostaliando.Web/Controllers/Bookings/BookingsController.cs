@@ -125,6 +125,7 @@ namespace Hostaliando.Web.Controllers.Hostels
                 filter.FromDate,
                 filter.ToDate,
                 filter.Status,
+                filter.NotStatus,
                 filter.Keyword,
                 sortBy: filter.OrderByEnum,
                 page: filter.Page,
@@ -376,9 +377,9 @@ namespace Hostaliando.Web.Controllers.Hostels
 
                         var countBeds = 0;
 
-                        for (int iNigth = 0; iNigth < nights; iNigth++)
+                        for (int i = 0; i < nights; i++)
                         {
-                            var day = from.AddDays(iNigth);
+                            var day = from.AddDays(i);
 
                             countBeds = bookingsOnDate.Count(c => c.FromDate <= day && c.ToDate >= day);
 
