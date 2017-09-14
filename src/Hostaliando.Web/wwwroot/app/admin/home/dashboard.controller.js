@@ -9,13 +9,15 @@
         'bookingService',
         'sessionService',
         'exceptionService',
-        'roomService'];
+        'roomService',
+        'hostelService'];
 
     function DashboardController(
         bookingService,
         sessionService,
         exceptionService,
-        roomService) {
+        roomService,
+        hostelService) {
 
         var vm = this;
         vm.hostelId = undefined;
@@ -39,6 +41,7 @@
             if (vm.hostelId)
             {
                 getBookings();
+                getEarnings();
             }
         }
 
@@ -93,7 +96,21 @@
             }
         }
 
+        function getEarnings()
+        {
+            hostelService.getEarnings(vm.hostelId)
+                .then(getCompleted)
+                .catch(exceptionService.handle);
 
+            function getCompleted(response)
+            {
+                vm.model.earnings = response;
+                vm.model.earnings.percentageToday = parseInt(((vm.model.earnings.today / (vm.model.earnings.twoDays - vm.model.earnings.today)) * 100) - 100) ;
+                vm.model.earnings.percentageWeek = parseInt(((vm.model.earnings.week / (vm.model.earnings.twoWeeks - vm.model.earnings.week)) * 100) - 100);
+                vm.model.earnings.percentageMonth = parseInt(((vm.model.earnings.month / (vm.model.earnings.twoMonths - vm.model.earnings.month)) * 100) - 100);
+            }
+
+        }
 
         function getRooms()
         {

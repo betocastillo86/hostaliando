@@ -81,7 +81,7 @@
                                                             <tr ng-if="::room.emptyRow">
                                                                 <td></td>
                                                                 <td ng-repeat="day in ::room.emptyRow.days track by $index" class="fc-tocreate" host-draggable drag-element="{{::day}}" drag-callback="main.moveBooking(from, to)" draggable="false"  >
-                                                                    <a ng-click="main.addBooking(day, undefined, room.room)" class="btn btn-default btn-xs" style="margin-bottom:2px;margin-top:2px;margin-left:33%">+ {{::room.emptyRow.availableRows}}</a>
+                                                                    <a ng-click="main.addBooking(day.day, undefined, room.room)" class="btn btn-default btn-xs" style="margin-bottom:2px;margin-top:2px;margin-left:33%">+ {{::room.emptyRow.availableRows}}</a>
                                                                 </td>
                                                             </tr>
                                                         </tbody>

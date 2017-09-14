@@ -32,6 +32,29 @@
         </div>
     </div>
 </div>
+<div class="row top_tiles" ng-if="main.model.earnings">
+    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="tile-stats">
+            <div class="count">{{main.model.earnings.today | currency}}</div>
+            <h3>Hoy</h3>           
+            <p><span class="count_bottom"><i ng-class="{'red': main.model.earnings.percentageToday < 0, 'green': main.model.earnings.percentageToday > 0 }"><i class="fa" ng-class="{'fa-sort-desc': main.model.earnings.percentageToday < 0, 'fa-sort-asc': main.model.earnings.percentageToday > 0 }"></i>{{main.model.earnings.percentageToday}}% </i> que ayer</span></p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="tile-stats">
+            <div class="count">{{main.model.earnings.week | currency}}</div>
+            <h3>Ultimos 7 días</h3>
+            <p><span class="count_bottom"><i ng-class="{'red': main.model.earnings.percentageWeek < 0, 'green': main.model.earnings.percentageWeek > 0 }"><i class="fa" ng-class="{'fa-sort-desc': main.model.earnings.percentageWeek < 0, 'fa-sort-asc': main.model.earnings.percentageWeek > 0 }"></i>{{main.model.earnings.percentageWeek}}% </i> que semana pasada</span></p>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="tile-stats">
+            <div class="count">{{main.model.earnings.month | currency}}</div>
+            <h3>Ultimos 30 días</h3>
+            <p><span class="count_bottom"><i ng-class="{'red': main.model.earnings.percentageMonth < 0, 'green': main.model.earnings.percentageMonth > 0 }"><i class="fa" ng-class="{'fa-sort-desc': main.model.earnings.percentageMonth < 0, 'fa-sort-asc': main.model.earnings.percentageMonth > 0 }"></i>{{main.model.earnings.percentageMonth}}% </i> que mes pasado</span></p>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-8">
         <div class="x_panel">

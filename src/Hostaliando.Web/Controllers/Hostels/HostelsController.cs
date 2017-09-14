@@ -127,6 +127,7 @@ namespace Hostaliando.Web.Controllers.Hostels
         /// <returns>the action</returns>
         [HttpPatch]
         [Route("{id:int}")]
+        [ServiceFilter(typeof(AuthorizeAdminAttribute))]
         public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<HostelModel> jsonDocument)
         {
             var hostel = await this.hostelService.GetById(id);
