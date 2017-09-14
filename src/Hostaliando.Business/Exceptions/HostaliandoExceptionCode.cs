@@ -33,6 +33,11 @@ namespace Hostaliando.Business.Exceptions
         /// <summary>
         /// The room is of another hostel
         /// </summary>
-        RoomIsOfAnotherHostel = 201
+        RoomIsOfAnotherHostel = 201,
+
+        /// <summary>
+        /// Cant update email notification
+        /// </summary>
+        CantUpdateEmailNotification = 300
     }
 }

@@ -19,6 +19,11 @@ namespace Hostaliando.Business.Services
     public class NotificationService : INotificationService
     {
         /// <summary>
+        /// The email notification repository
+        /// </summary>
+        private readonly IRepository<EmailNotification> emailNotificationRepository;
+
+        /// <summary>
         /// The notification repository
         /// </summary>
         private readonly IRepository<Notification> notificationRepository;
@@ -27,9 +32,13 @@ namespace Hostaliando.Business.Services
         /// Initializes a new instance of the <see cref="NotificationService"/> class.
         /// </summary>
         /// <param name="notificationRepository">The notification repository.</param>
-        public NotificationService(IRepository<Notification> notificationRepository)
+        /// <param name="emailNotificationRepository">the email notification repository</param>
+        public NotificationService(
+            IRepository<Notification> notificationRepository,
+            IRepository<EmailNotification> emailNotificationRepository)
         {
             this.notificationRepository = notificationRepository;
+            this.emailNotificationRepository = emailNotificationRepository;
         }
 
         /// <summary>
@@ -67,6 +76,72 @@ namespace Hostaliando.Business.Services
         }
 
         /// <summary>
+        /// Gets the email notification by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        /// the notification
+        /// </returns>
+        public async Task<EmailNotification> GetEmailNotificationById(int id)
+        {
+            return await this.emailNotificationRepository.TableNoTracking.FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        /// <summary>
+        /// Gets the email notifications.
+        /// </summary>
+        /// <param name="sent">The sent.</param>
+        /// <param name="to">the To.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns>
+        /// the notifications
+        /// </returns>
+        public async Task<IPagedList<EmailNotification>> GetEmailNotifications(bool? sent = null, string to = null, string subject = null, string body = null, int page = 0, int pageSize = int.MaxValue)
+        {
+            var query = this.emailNotificationRepository.Table;
+
+            if (sent.HasValue)
+            {
+                query = sent.Value ? query.Where(c => c.SentDate != null) : query.Where(c => c.SentDate == null);
+            }
+
+            if (!string.IsNullOrEmpty(to))
+            {
+                query = query.Where(c => c.To.Contains(to));
+            }
+
+            if (!string.IsNullOrEmpty(subject))
+            {
+                query = query.Where(c => c.Subject.Contains(subject));
+            }
+
+            if (!string.IsNullOrEmpty(body))
+            {
+                query = query.Where(c => c.Body.Contains(body));
+            }
+
+            query = query.OrderByDescending(c => c.CreatedDate);
+
+            return await new PagedList<EmailNotification>().Async(query, page, pageSize);
+        }
+
+        /// <summary>
+        /// Inserts the email notification.
+        /// </summary>
+        /// <param name="notification">The notification.</param>
+        /// <returns>
+        /// the task
+        /// </returns>
+        public async Task InsertEmailNotification(EmailNotification notification)
+        {
+            notification.CreatedDate = DateTime.Now;
+            await this.emailNotificationRepository.InsertAsync(notification);
+        }
+
+        /// <summary>
         /// Updates the specified notification.
         /// </summary>
         /// <param name="notification">The notification.</param>
@@ -78,6 +153,18 @@ namespace Hostaliando.Business.Services
             notification.UpdateDate = DateTime.UtcNow;
 
             await this.notificationRepository.UpdateAsync(notification);
+        }
+
+        /// <summary>
+        /// Updates the email notification.
+        /// </summary>
+        /// <param name="notification">The notification.</param>
+        /// <returns>
+        /// the task
+        /// </returns>
+        public async Task UpdateEmailNotification(EmailNotification notification)
+        {
+            await this.emailNotificationRepository.UpdateAsync(notification);
         }
     }
 }

@@ -65,6 +65,8 @@ namespace Hostaliando.Web.Infraestructure.Start
 
             services.AddScoped<ILocationService, LocationService>();
 
+            services.AddScoped<ILogService, LogService>();
+
             services.AddScoped<ICurrencyService, CurrencyService>();
 
             services.AddScoped<INotificationService, NotificationService>();

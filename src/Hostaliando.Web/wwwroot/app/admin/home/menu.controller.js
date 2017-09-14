@@ -5,9 +5,13 @@
         .module('hostaliando')
         .controller('MenuController', MenuController);
 
-    MenuController.$inject = ['$location', 'menuService', 'exceptionService'];
+    MenuController.$inject = [
+        '$rootScope',
+        '$location',
+        'menuService',
+        'exceptionService'];
 
-    function MenuController($location, menuService, exceptionService) {
+    function MenuController($rootScope, $location, menuService, exceptionService) {
         var vm = this;
         vm.options = [];
         vm.currentOption = undefined;
@@ -17,6 +21,8 @@
 
         function activate() {
             getOptions();
+
+            $rootScope.$on('closeSubmenu', closeSubmenu);
         }
 
         function getOptions() {
@@ -48,6 +54,11 @@
                     }
                 }
             }
+        }
+
+        function closeSubmenu()
+        {
+            vm.currentOption = undefined;
         }
     }
 })();
