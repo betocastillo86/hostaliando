@@ -33,6 +33,7 @@ namespace Hostaliando.Business.Services
         /// Gets all.
         /// </summary>
         /// <param name="keyword">The keyword.</param>
+        /// <param name="email">the email</param>
         /// <param name="role">The role.</param>
         /// <param name="hostelId">The hostel identifier.</param>
         /// <param name="sortBy">The sort by.</param>
@@ -41,6 +42,7 @@ namespace Hostaliando.Business.Services
         /// <returns>the list of users</returns>
         Task<IPagedList<User>> GetAll(
             string keyword = null, 
+            string email = null,
             Role? role = null, 
             int? hostelId = null,
             SortUserBy sortBy = SortUserBy.Recent,
@@ -68,5 +70,12 @@ namespace Hostaliando.Business.Services
         /// <param name="user">The user.</param>
         /// <returns>the task</returns>
         Task Update(User user);
+
+        /// <summary>
+        /// Gets the user by password token.
+        /// </summary>
+        /// <param name="passwordToken">The password token.</param>
+        /// <returns>the user</returns>
+        Task<User> GetByPasswordToken(string passwordToken);
     }
 }

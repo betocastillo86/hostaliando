@@ -65,6 +65,7 @@ namespace Hostaliando.Business.Services
         /// Gets all.
         /// </summary>
         /// <param name="keyword">The keyword.</param>
+        /// <param name="email">the email</param>
         /// <param name="role">The role.</param>
         /// <param name="hostelId">The hostel identifier.</param>
         /// <param name="sortBy">The sort by.</param>
@@ -75,19 +76,25 @@ namespace Hostaliando.Business.Services
         /// </returns>
         public async Task<IPagedList<User>> GetAll(
             string keyword = null,
+            string email = null,
             Role? role = null,
             int? hostelId = null,
             SortUserBy sortBy = SortUserBy.Recent,
             int page = 0,
             int pageSize = int.MaxValue)
         {
-            var query = this.userRepository.Table
+            var query = this.userRepository.TableNoTracking
                 .Include(c => c.Hostel)
                 .Where(c => !c.Deleted);
 
             if (!string.IsNullOrEmpty(keyword))
             {
                 query = query.Where(c => c.Name.Contains(keyword) || c.Email.Contains(keyword));
+            }
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                query = query.Where(c => c.Email.Equals(email));
             }
 
             if (role.HasValue)
@@ -133,6 +140,18 @@ namespace Hostaliando.Business.Services
             }
 
             return query.FirstOrDefault(c => c.Id == id && !c.Deleted);
+        }
+
+        /// <summary>
+        /// Gets the user by password token.
+        /// </summary>
+        /// <param name="passwordToken">The password token.</param>
+        /// <returns>
+        /// the user
+        /// </returns>
+        public async Task<User> GetByPasswordToken(string passwordToken)
+        {
+            return await this.userRepository.TableNoTracking.FirstOrDefaultAsync(c => c.PasswordRecoveryToken == passwordToken);
         }
 
         /// <summary>

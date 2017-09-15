@@ -17,5 +17,13 @@ namespace Hostaliando.Business.Configuration
         /// The site URL.
         /// </value>
         string SiteUrl { get; }
+
+        /// <summary>
+        /// Gets the body base HTML.
+        /// </summary>
+        /// <value>
+        /// The body base HTML.
+        /// </value>
+        string BodyBaseHtml { get; }
     }
 }

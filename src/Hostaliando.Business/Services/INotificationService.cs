@@ -5,8 +5,10 @@
 //-----------------------------------------------------------------------
 namespace Hostaliando.Business.Services
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Beto.Core.Data;
+    using Beto.Core.Data.Notifications;
     using Hostaliando.Data;
 
     /// <summary>
@@ -29,6 +31,82 @@ namespace Hostaliando.Business.Services
         /// <param name="id">The identifier.</param>
         /// <returns>the notification</returns>
         Task<Notification> GetById(int id);
+
+        /// <summary>
+        /// Creates a notification.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userTriggerEvent">The user trigger event.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="targetUrl">The target URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>the task</returns>
+        Task NewNotification(
+            User user,
+            User userTriggerEvent,
+            NotificationType type,
+            string targetUrl,
+            IList<NotificationParameter> parameters);
+
+        /// <summary>
+        /// Creates a notification.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userTriggerEvent">The user trigger event.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="targetUrl">The target URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="defaultFromName">The default from name.</param>
+        /// <param name="defaultSubject">The default subject.</param>
+        /// <param name="defaultMessage">The default message.</param>
+        /// <returns>the task</returns>
+        Task NewNotification(
+            User user,
+            User userTriggerEvent,
+            NotificationType type,
+            string targetUrl,
+            IList<NotificationParameter> parameters,
+            string defaultFromName,
+            string defaultSubject,
+            string defaultMessage);
+
+        /// <summary>
+        /// Creates a notification.
+        /// </summary>
+        /// <param name="users">The users.</param>
+        /// <param name="userTriggerEvent">The user trigger event.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="targetUrl">The target URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>the task</returns>
+        Task NewNotification(
+            IList<User> users,
+            User userTriggerEvent,
+            NotificationType type,
+            string targetUrl,
+            IList<NotificationParameter> parameters);
+
+        /// <summary>
+        /// Creates a notification.
+        /// </summary>
+        /// <param name="users">The users.</param>
+        /// <param name="userTriggerEvent">The user trigger event.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="targetUrl">The target URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="defaultFromName">The default from name.</param>
+        /// <param name="defaultSubject">The default subject.</param>
+        /// <param name="defaultMessage">The default message.</param>
+        /// <returns>the task</returns>
+        Task NewNotification(
+            IList<User> users,
+            User userTriggerEvent,
+            NotificationType type,
+            string targetUrl,
+            IList<NotificationParameter> parameters,
+            string defaultFromName,
+            string defaultSubject, 
+            string defaultMessage);
 
         /// <summary>
         /// Updates the specified notification.

@@ -35,5 +35,13 @@ namespace Hostaliando.Business.Configuration
         /// The site URL.
         /// </value>
         public string SiteUrl => this.coreSettingService.Get<string>("GeneralSettings.SiteUrl");
+
+        /// <summary>
+        /// Gets the body base HTML.
+        /// </summary>
+        /// <value>
+        /// The body base HTML.
+        /// </value>
+        public string BodyBaseHtml => this.coreSettingService.Get<string>("GeneralSettings.BodyBaseHtml");
     }
 }

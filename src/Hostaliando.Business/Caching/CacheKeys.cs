@@ -17,5 +17,10 @@ namespace Hostaliando.Business.Caching
         /// The all locations
         /// </summary>
         public const string LOCATIONS_ALL = "cache.locations.all";
+
+        /// <summary>
+        /// All notifications key
+        /// </summary>
+        public const string NOTIFICATIONS_ALL = "cache.notifications.all";
     }
 }

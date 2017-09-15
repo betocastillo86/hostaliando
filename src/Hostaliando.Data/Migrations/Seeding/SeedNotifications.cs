@@ -26,12 +26,24 @@ namespace Hostaliando.Data.Migrations
                     Id = Convert.ToInt32(NotificationType.Welcome),
                     Name = "Registro de usuarios",
                     Active = true,
-                    EmailHtml = "Bienvenido a Hostaliando %%User.Name%%",
+                    EmailHtml = "Bienvenido a Hostaliando %%NotifiedUser.Name%%",
                     EmailSubject = "Bienvenido a Hostaliando",
                     SystemText = null,
                     IsEmail = true,
                     IsSystem = false,
-                    Tags = "%%User.Name%%"
+                    Tags = "%%NotifiedUser.Name%%,%%User.PasswordRecoveryToken%%"
+                },
+                new Notification
+                {
+                    Id = Convert.ToInt32(NotificationType.PasswordRecovery),
+                    Name = "Recuperación de clave",
+                    Active = true,
+                    EmailHtml = "Recuper la clave %%NotifiedUser.Name%%, %%Url%%",
+                    EmailSubject = "Recuperar clave de Hostaliando",
+                    SystemText = null,
+                    IsEmail = true,
+                    IsSystem = false,
+                    Tags = "%%NotifiedUser.Name%%"
                 }
             };
 
