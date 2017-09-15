@@ -71,6 +71,8 @@ namespace Hostaliando.Web.Infraestructure.Start
 
             services.AddScoped<INotificationService, NotificationService>();
 
+            services.AddScoped<ISeoService, SeoService>();
+            
             services.AddScoped<IJavascriptConfigurationGenerator, JavascriptConfigurationGenerator>();
 
             services.AddScoped<AuthorizeAdminAttribute>();

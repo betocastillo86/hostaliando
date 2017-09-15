@@ -13,6 +13,11 @@ namespace Hostaliando.Data
         /// <summary>
         /// The welcome
         /// </summary>
-        Welcome = 1
+        Welcome = 1,
+
+        /// <summary>
+        /// The password recovery
+        /// </summary>
+        PasswordRecovery = 2
     }
 }

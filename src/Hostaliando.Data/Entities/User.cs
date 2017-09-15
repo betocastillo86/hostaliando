@@ -8,11 +8,12 @@ namespace Hostaliando.Data
     using System;
     using System.ComponentModel.DataAnnotations.Schema;
     using Beto.Core.Data;
+    using Beto.Core.Data.Users;
 
     /// <summary>
     /// User entity
     /// </summary>
-    public partial class User : IEntity
+    public partial class User : IEntity, IUserEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
@@ -94,13 +95,21 @@ namespace Hostaliando.Data
         public short TimeZone { get; set; }
 
         /// <summary>
+        /// Gets or sets the password recovery token.
+        /// </summary>
+        /// <value>
+        /// The password recovery token.
+        /// </value>
+        public string PasswordRecoveryToken { get; set; }
+
+        /// <summary>
         /// Gets or sets the hostel.
         /// </summary>
         /// <value>
         /// The hostel.
         /// </value>
         public virtual Hostel Hostel { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the role.
         /// </summary>

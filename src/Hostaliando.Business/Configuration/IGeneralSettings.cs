@@ -19,6 +19,14 @@ namespace Hostaliando.Business.Configuration
         string SiteUrl { get; }
 
         /// <summary>
+        /// Gets the body base HTML.
+        /// </summary>
+        /// <value>
+        /// The body base HTML.
+        /// </value>
+        string BodyBaseHtml { get; }
+
+        /// <summary>
         /// Gets the date format.
         /// </summary>
         /// <value>

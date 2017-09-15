@@ -107,6 +107,7 @@ namespace Hostaliando.Web.Controllers.Users
 
             var users = await this.userService.GetAll(
                 filter.Keyword,
+                null,
                 filter.Role,
                 filter.HostelId,
                 filter.OrderByEnum,

@@ -37,6 +37,9 @@ namespace Hostaliando.Data.Entities.Mapping
                 .IsRequired()
                 .HasColumnType("varchar(6)");
 
+            entity.Property(e => e.PasswordRecoveryToken)
+                .HasColumnType("varchar(40)");
+
             entity.HasOne(d => d.Hostel)
                 .WithMany()
                 .HasForeignKey(d => d.HostelId)

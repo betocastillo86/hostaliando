@@ -7,11 +7,12 @@ namespace Hostaliando.Data
 {
     using System;
     using Beto.Core.Data;
+    using Beto.Core.Data.Notifications;
 
     /// <summary>
     /// System notification entity
     /// </summary>
-    public partial class SystemNotification : IEntity
+    public partial class SystemNotification : IEntity, ISystemNotificationEntity
     {
         /// <summary>
         /// Gets or sets the identifier.
