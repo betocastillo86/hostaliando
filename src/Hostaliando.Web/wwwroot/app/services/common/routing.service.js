@@ -50,6 +50,10 @@
                     return '/notifications';
                 case 'editnotification':
                     return '/notifications/' + params.id + '/edit';
+                case 'emailnotifications':
+                    return '/emailnotifications';
+                case 'editemailnotification':
+                    return '/emailnotifications/' + params.id + '/edit';
                 case 'home':
                     return '/rooms';
                 case 'login':

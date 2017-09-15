@@ -43,5 +43,13 @@ namespace Hostaliando.Business.Configuration
         /// The body base HTML.
         /// </value>
         public string BodyBaseHtml => this.coreSettingService.Get<string>("GeneralSettings.BodyBaseHtml");
+
+        /// <summary>
+        /// Gets the date format.
+        /// </summary>
+        /// <value>
+        /// The date format.
+        /// </value>
+        public string DateFormat => this.coreSettingService.Get<string>("GeneralSettings.DateFormat");
     }
 }

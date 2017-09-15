@@ -16,7 +16,8 @@
             post: post,
             put: put,
             getSourcesByHostel: getSourcesByHostel,
-            patch: patch
+            patch: patch,
+            getEarnings: getEarnings
         };
 
         return service;
@@ -39,6 +40,11 @@
 
         function patch(id, model) {
             return http.patch(baseUrl + id, model);
+        }
+
+        function getEarnings(id)
+        {
+            return http.get(baseUrl + id + '/earnings');
         }
 
         function getSourcesByHostel(id)

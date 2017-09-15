@@ -125,6 +125,7 @@ namespace Hostaliando.Web.Controllers.Hostels
                 filter.FromDate,
                 filter.ToDate,
                 filter.Status,
+                filter.NotStatus,
                 filter.Keyword,
                 sortBy: filter.OrderByEnum,
                 page: filter.Page,

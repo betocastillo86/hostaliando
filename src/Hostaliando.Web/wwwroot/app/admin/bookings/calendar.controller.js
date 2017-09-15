@@ -34,11 +34,18 @@
         vm.bookingSources = [];
         vm.days = [];
         vm.isShowing = true;
+        vm.isShowingHeader = true;
         vm.todayNumber = undefined;
+        vm.calendarRange = 'Week';
+        vm.title = '';
 
         vm.getSourceColor = getSourceColor;
         vm.addBooking = addBooking;
         vm.moveBooking = moveBooking;
+        vm.changeRange = changeRange;
+        vm.showPrevious = showPrevious;
+        vm.showNext = showNext;
+        vm.setToday = setToday;
 
         vm.contextMenuOptions = [
             { text: 'Editar reserva', click: callbackViewBooking/*, enabled: function (s, e, m) { return m.booking !== undefined; }*/ },
@@ -55,7 +62,6 @@
             calculateCurrentDate();
             getBookingSources();
             
-
             if (vm.hostelId)
             {
                 getRooms();
@@ -81,10 +87,10 @@
                 page: 0,
                 pageSize: 200,
                 hostelId: vm.hostelId,
-                fromDate: vm.firstDate.format("YYYY-MM-DD"),
-                toDate: vm.lastDate.format("YYYY-MM-DD"),
+                fromDate: vm.firstDate.format(app.Settings.general.dateFormat),
+                toDate: vm.lastDate.format(app.Settings.general.dateFormat),
                 sortBy: 'FromDate',
-                status: 'Booked'
+                notStatus: 'Canceled'
             };
 
             bookingService.getAll(filter)
@@ -117,6 +123,15 @@
             {
                 deleteBooking(model.booking.id);
             }
+        }
+
+        function changeRange(range)
+        {
+            vm.calendarRange = range;
+            vm.isShowing = false;
+
+            calculateCurrentDate(vm.firstDate);
+            getBookings();
         }
 
         function addBooking(day, booking, room)
@@ -223,7 +238,9 @@
                     calendarRoom.rows.push(roomRow);
                     nextRoom = _.find(vm.bookings, function (booking) { return !booking.alreadySelected && booking.room.id == room.id }) != undefined;
 
+
                 } while (nextRoom);
+
 
                 //// Si la habitación es privada y no tiene filas agrega la fila de reserva
                 if (room.isPrivated && !calendarRoom.rows.length) {
@@ -231,14 +248,40 @@
                 }
                 else if (!room.isPrivated && calendarRoom.rows.length < room.beds)
                 {
-                    calendarRoom.emptyRow = { availableRows: room.beds - calendarRoom.rows.length };
+                    calendarRoom.emptyRow =
+                        {
+                            days: getEmptyDays(room),
+                            availableRows: room.beds - calendarRoom.rows.length
+                        };
                 }
             }
 
             vm.calendar = calendar;
             vm.isShowing = true;
+            vm.isShowingHeader = true;
 
             console.log('calendar', calendar);
+        }
+
+        function getEmptyDays(room)
+        {
+            var emptyDays = [];
+
+            for (var i = 0; i < vm.days.length; i++) {
+                emptyDays.push({
+                    day: vm.days[i],
+                    room: room,
+                    booking: undefined
+                });
+            }
+
+            return emptyDays;
+        }
+
+        function setToday()
+        {
+            vm.firstDate = moment().startOf('day');
+            rewriteCalendar();
         }
 
         function getBookingSources()
@@ -253,24 +296,6 @@
             }
         }
         
-
-        function calculateCurrentDate()
-        {
-            var daysToShow = 10;
-
-            vm.todayNumber = parseFloat(moment().startOf('day').format('X'));
-            vm.firstDate = moment().startOf('day');
-            vm.lastDate = moment().startOf('day').add(daysToShow - 1, 'days');
-            vm.lastDateNumber = parseFloat(vm.lastDate.format('X'));
-            vm.days = [];
-
-            for (var i = 0; i < daysToShow; i++) {
-                var newday = moment().startOf('day').add(i, 'days');
-                newday.numberDate = parseFloat(newday.format('X')); 
-                vm.days.push(newday);
-            }
-        }
-
         function getSourceColor(sourceId)
         {
             return _.findWhere(vm.bookingSources, { id: sourceId }).color;
@@ -285,8 +310,8 @@
 
                 var jsonPatch = [
                     { op: 'replace', path: '/room/id', value: to.room.id },
-                    { op: 'replace', path: '/fromDate', value: fromDate.format('YYYY/MM/DD') },
-                    { op: 'replace', path: '/toDate', value: untilDate.format('YYYY/MM/DD') },
+                    { op: 'replace', path: '/fromDate', value: fromDate.format(app.Settings.general.dateFormat) },
+                    { op: 'replace', path: '/toDate', value: untilDate.format(app.Settings.general.dateFormat) },
                 ];
 
                 bookingService.patch(from.booking.id, jsonPatch)
@@ -300,10 +325,63 @@
                     });
 
                     bookingClosed({reload:true});
-                }
-                
-                
+                }        
             }
         }
+
+        function calculateCurrentDate(startDate) {
+            var daysToShow = getDaysToAddByRange();
+
+            vm.todayNumber = parseFloat(moment().startOf('day').format('X'));
+
+            vm.firstDate = startDate || moment().startOf('day').add(-1, 'days'); // Resta un día para poder ver quién se va hoy
+            vm.lastDate = moment(vm.firstDate).startOf('day').add(daysToShow - 1, 'days');
+
+            vm.lastDateNumber = parseFloat(vm.lastDate.format('X'));
+            vm.days = [];
+
+            for (var i = 0; i < daysToShow; i++) {
+                var newday = moment(vm.firstDate).startOf('day').add(i, 'days');
+                newday.numberDate = parseFloat(newday.format('X'));
+                vm.days.push(newday);
+            }
+
+            vm.title = vm.firstDate.format('MMMM') + ' ' + vm.firstDate.format('YYYY');
+        }
+
+        function showPrevious()
+        {
+            vm.firstDate = moment(vm.firstDate).add(getDaysToAddByRange() * -1, 'days');
+            rewriteCalendar();
+        }
+
+        function showNext()
+        {
+            vm.firstDate = moment(vm.firstDate).add(getDaysToAddByRange(), 'days');
+            rewriteCalendar();
+        }
+
+        function rewriteCalendar()
+        {
+            vm.isShowing = false;
+            vm.isShowingHeader = false;
+
+            calculateCurrentDate(vm.firstDate);
+            getBookings();
+        }
+
+        function getDaysToAddByRange()
+        {
+            switch (vm.calendarRange) {
+                default:
+                case 'Week':
+                    return 7;
+                case 'Month':
+                    return 30;
+                case 'Day':
+                    return 1;
+            }
+        }
+        
     }
 })();

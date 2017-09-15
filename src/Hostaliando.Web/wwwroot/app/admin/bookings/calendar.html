@@ -1,39 +1,27 @@
 ﻿<div class="x_panel">
     <div class="x_title">
-        <h2>Calendar Events <small>Sessions</small></h2>
-        <ul class="nav navbar-right panel_toolbox">
-            <li>
-                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li>
-                        <a href="#">Settings 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Settings 2</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a class="close-link"><i class="fa fa-close"></i></a>
-            </li>
-        </ul>
+        <h2>Calendario de reservas</h2>
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
         <div id="calendar" class="fc fc-unthemed fc-ltr">
             <div class="fc-toolbar fc-header-toolbar">
                 <div class="fc-left">
-                    <div class="fc-button-group"><button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left"><span class="fc-icon fc-icon-left-single-arrow"></span></button><button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right"><span class="fc-icon fc-icon-right-single-arrow"></span></button></div>
-                    <button type="button" class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled" disabled="">today</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" ng-click="main.showPrevious()" ><span class="fc-icon fc-icon-left-single-arrow"></span></button>
+                        <button type="button" class="btn btn-default" ng-click="main.showNext()"><span class="fc-icon fc-icon-right-single-arrow"></span></button>
+                    </div>
+                    <button type="button" class="btn btn-default" ng-click="main.setToday()">Hoy</button>
                 </div>
                 <div class="fc-right">
-                    <div class="fc-button-group"><button type="button" class="fc-month-button fc-button fc-state-default fc-corner-left fc-state-active">month</button><button type="button" class="fc-agendaWeek-button fc-button fc-state-default">week</button><button type="button" class="fc-agendaDay-button fc-button fc-state-default">day</button><button type="button" class="fc-listMonth-button fc-button fc-state-default fc-corner-right">list</button></div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" ng-click="main.changeRange('Month')" ng-class="{'btn-primary': main.calendarRange == 'Month' }">Mes</button>
+                        <button type="button" class="btn btn-default" ng-click="main.changeRange('Week')" ng-class="{'btn-primary': main.calendarRange == 'Week'}">Semana</button>
+                        <button type="button" class="btn btn-default" ng-click="main.changeRange('Day')" ng-class="{'btn-primary': main.calendarRange == 'Day' }">Día</button>
+                    </div>
                 </div>
                 <div class="fc-center">
-                    <h2>September 2017</h2>
+                    <h2>{{main.title}}</h2>
                 </div>
                 <div class="fc-clear"></div>
             </div>
@@ -47,8 +35,8 @@
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th class="fc-day-header"><span>Habitación</span></th>
-                                                    <th class="fc-day-header" ng-repeat="day in ::main.days track by $index"><span>{{::day.format('dddd')}} {{::day.format('DD')}}</span></th>
+                                                    <th class="fc-day-header" style="min"><span>Habitación</span></th>
+                                                    <th class="fc-day-header" ng-if="main.isShowingHeader" ng-repeat="day in main.days track by $index"><span>{{main.calendarRange != 'Month' ? day.format('dddd') : day.format('dd')}}<br /> {{::day.format('DD')}}</span></th>
                                                 </tr>
                                             </thead>
                                         </table>
@@ -66,7 +54,7 @@
                                                     <table>
                                                         <tbody>
                                                             <tr>
-                                                                <td class="fc-day fc-widget-content fc-other-month fc-past">{{::room.room.name}}</td>
+                                                                <td class="fc-day fc-widget-content fc-other-month fc-past" style="text-align:center;vertical-align:middle">{{::room.room.name}}</td>
                                                                 <td class="fc-day fc-widget-content fc-other-month fc-past" ng-class="::{'fc-today': day.numberDate == main.todayNumber}" ng-repeat="day in ::main.days track by $index"></td>
                                                             </tr>
                                                         </tbody>
@@ -92,8 +80,8 @@
                                                             </tr>
                                                             <tr ng-if="::room.emptyRow">
                                                                 <td></td>
-                                                                <td ng-repeat="day in ::main.days track by $index" class="fc-tocreate" >
-                                                                    <a ng-click="main.addBooking(day, undefined, room.room)" class="btn btn-default btn-xs" style="margin-bottom:2px;margin-top:2px;margin-left:33%">+ {{::room.emptyRow.availableRows}}</a>
+                                                                <td ng-repeat="day in ::room.emptyRow.days track by $index" class="fc-tocreate" host-draggable drag-element="{{::day}}" drag-callback="main.moveBooking(from, to)" draggable="false"  >
+                                                                    <a ng-click="main.addBooking(day.day, undefined, room.room)" class="btn btn-default btn-xs" style="margin-bottom:2px;margin-top:2px;margin-left:33%">+ {{::room.emptyRow.availableRows}}</a>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -111,9 +99,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    /* .fc-content-skeleton td {
-        border: solid 1px red !important;
-    }*/
-</style>

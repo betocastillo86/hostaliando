@@ -11,9 +11,9 @@
     {
         $routeProvider
             .when('/', {
-                templateUrl: templateService.get('home/dashboard')/*,
+                templateUrl: templateService.get('home/dashboard'),
                 controller: 'DashboardController',
-                controllerAs: 'main'*/
+                controllerAs: 'main'
             })
             .when('/calendar', {
                 templateUrl: templateService.get('bookings/calendar'),
@@ -78,6 +78,21 @@
             .when('/notifications', {
                 templateUrl: templateService.get('notifications/list-notifications'),
                 controller: 'ListNotificationsController',
+                controllerAs: 'main'
+            })
+            .when('/logs', {
+                templateUrl: templateService.get('logs/list-logs'),
+                controller: 'ListLogsController',
+                controllerAs: 'main'
+            })
+            .when('/emailnotifications/:id/edit', {
+                templateUrl: templateService.get('emailnotifications/edit-emailnotification'),
+                controller: 'EditEmailNotificationController',
+                controllerAs: 'main'
+            })
+            .when('/emailnotifications', {
+                templateUrl: templateService.get('emailnotifications/list-emailnotifications'),
+                controller: 'ListEmailNotficationsController',
                 controllerAs: 'main'
             });
     }
