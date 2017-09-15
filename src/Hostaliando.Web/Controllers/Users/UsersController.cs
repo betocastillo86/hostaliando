@@ -78,7 +78,7 @@ namespace Hostaliando.Web.Controllers.Users
         /// <param name="id">The identifier.</param>
         /// <returns>the user</returns>
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("{id:int}", Name = "ApiGetUser")]
         [ServiceFilter(typeof(AuthorizeAdminAttribute))]
         public async Task<IActionResult> Get(int id)
         {
@@ -150,7 +150,7 @@ namespace Hostaliando.Web.Controllers.Users
             {
                 await this.userService.Insert(user);
 
-                return this.Ok(new BaseModel { Id = user.Id });
+                return this.Created("ApiGetUser", user.Id);
             }
             catch (HostaliandoException e)
             {

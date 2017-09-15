@@ -54,7 +54,7 @@ namespace Hostaliando.Web.Controllers.Hostels
         /// <param name="id">The identifier.</param>
         /// <returns>the action</returns>
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("{id:int}", Name = "ApiGetRoom")]
         public async Task<IActionResult> Get(int id)
         {
             var room = await this.roomService.GetById(id);
@@ -128,8 +128,7 @@ namespace Hostaliando.Web.Controllers.Hostels
             try
             {
                 await this.roomService.Insert(room);
-
-                return this.Ok(new BaseModel() { Id = room.Id });
+                return this.Created("ApiGetRoom", room.Id);
             }
             catch (HostaliandoException e)
             {

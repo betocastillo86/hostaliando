@@ -21,10 +21,10 @@ namespace Hostaliando.Data.Migrations
         {
             var list = new List<BookingSource>();
 
-            list.Add(new BookingSource { Name = "Fisico", Description = "Cuando la persona llega al hostal", Color = "#3361FF" });
-            list.Add(new BookingSource { Name = "TripAdvisor", Description = "Por trip advisor", Color = "#05771F" });
-            list.Add(new BookingSource { Name = "Despegar", Description = "Por Despegar", Color = "#180577" });
-            list.Add(new BookingSource { Name = "Airbnb", Description = "Por Airbnb", Color = "#F178BC" });
+            list.Add(new BookingSource { Name = "Fisico", Description = "Cuando la persona llega al hostal", Color = "#3361FF", Icon = "onsite.png" });
+            list.Add(new BookingSource { Name = "TripAdvisor", Description = "Por trip advisor", Color = "#05771F", Icon = "tripadvisor.png" });
+            list.Add(new BookingSource { Name = "Despegar", Description = "Por Despegar", Color = "#180577", Icon = "despegar.png" });
+            list.Add(new BookingSource { Name = "Airbnb", Description = "Por Airbnb", Color = "#F178BC", Icon = "aribnb.png" });
 
             foreach (var item in list)
             {

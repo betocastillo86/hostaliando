@@ -19,6 +19,14 @@
                             <label>{{::editBooking.room.name}}</label>
                         </div>
                     </div>
+                    <div class="form-group" ng-if="::editBooking.model.id">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            Fecha de creación
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <label>{{::editBooking.model.creationDateUtc | dateZone}}</label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">
                             Fecha Entrada <span class="required">*</span>

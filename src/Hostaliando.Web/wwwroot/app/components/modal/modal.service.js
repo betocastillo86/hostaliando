@@ -112,6 +112,7 @@
 
                 modal.element.on('hidden.bs.modal', function () {
                     close({ previousClosed: true });
+                    $(this).data('bs.modal', null).remove();
                 })
                 //calls the modal before resolving promise
                 if (!modal.element.modal) {

@@ -10,14 +10,18 @@
         'sessionService',
         'exceptionService',
         'roomService',
-        'hostelService'];
+        'hostelService',
+        'modalService',
+        'templateService'];
 
     function DashboardController(
         bookingService,
         sessionService,
         exceptionService,
         roomService,
-        hostelService) {
+        hostelService,
+        modalService,
+        templateService) {
 
         var vm = this;
         vm.hostelId = undefined;
@@ -171,7 +175,23 @@
 
         function viewBooking(booking)
         {
+            modalService.show({
+                controller: 'EditBookingController',
+                controllerAs: 'editBooking',
+                template: templateService.get('bookings/edit-booking'),
+                params: {
+                    booking: booking
+                },
+                closed: bookingClosed
+            });
 
+            function bookingClosed(closed)
+            {
+                if (closed.reload)
+                {
+                    getBookings();
+                }
+            }
         }
     }
 })();

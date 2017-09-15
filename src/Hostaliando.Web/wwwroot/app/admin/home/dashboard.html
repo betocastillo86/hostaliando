@@ -1,7 +1,7 @@
 ﻿<div class="row top_tiles" ng-if="main.model.todayNumbers">
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats">
-            <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+            <div class="icon"><i class="fa fa-bell-o"></i></div>
             <div class="count">{{main.model.todayNumbers.departures}}</div>
             <h3>Salidas</h3>
             <p>Personas se van hoy.</p>
@@ -9,7 +9,7 @@
     </div>
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats">
-            <div class="icon"><i class="fa fa-comments-o"></i></div>
+            <div class="icon"><i class="fa fa-globe"></i></div>
             <div class="count">{{main.model.todayNumbers.arrivals}}</div>
             <h3>Llegadas</h3>
             <p>Personas que llegan hoy.</p>
@@ -17,7 +17,7 @@
     </div>
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats">
-            <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+            <div class="icon"><i class="fa fa-hotel"></i></div>
             <div class="count">{{main.model.todayNumbers.freeBeds}}</div>
             <h3>Camas disponibles</h3>
             <p>Compartidas libres hoy.</p>
@@ -25,7 +25,7 @@
     </div>
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats">
-            <div class="icon"><i class="fa fa-check-square-o"></i></div>
+            <div class="icon"><i class="fa fa-cube"></i></div>
             <div class="count">{{main.model.todayNumbers.freeRooms}}</div>
             <h3>Habitaciones disponibles</h3>
             <p>Privadas libres hoy.</p>
@@ -88,7 +88,7 @@
                                               ]">{{::main.getStatusName(booking)}}</span></td>
                                 <td class="last">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-xs">Ver</button>
+                                        <button type="button" class="btn btn-default btn-xs">Opción</button>
                                         <button type="button" class="btn btn-default dropdown-toggle  btn-xs" data-toggle="dropdown" aria-expanded="false">
                                             <span class="caret"></span>
                                             <span class="sr-only">Toggle Dropdown</span>
@@ -149,9 +149,9 @@
                                               ]">{{::main.getStatusName(booking)}}</span>
                                 </td>
                             </tr>
-                            <tr ng-show="!main.model.arrivals.length">
+                            <tr ng-show="!main.model.departures.length">
                                 <td colspan="5" class="last">
-                                    No hay llegadas hoy
+                                    No hay salidas hoy
                                 </td>
                             </tr>
                         </tbody>

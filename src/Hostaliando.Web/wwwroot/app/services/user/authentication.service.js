@@ -78,7 +78,8 @@
                     name: userResponse.name,
                     token: responseToken.access_token,
                     hostel: userResponse.hostel,
-                    role: userResponse.role
+                    role: userResponse.role,
+                    timeZone: userResponse.timeZone
                 };
 
                 sessionService.setCurrentUser(user);
