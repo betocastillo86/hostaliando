@@ -32,6 +32,8 @@ namespace Hostaliando.Web.Controllers
         /// <returns>the view</returns>
         [HttpGet]
         [Route("login")]
+        [Route("passwordrecovery")]
+        [Route("passwordrecovery/{token}")]
         [AllowAnonymous]
         public IActionResult Login()
         {

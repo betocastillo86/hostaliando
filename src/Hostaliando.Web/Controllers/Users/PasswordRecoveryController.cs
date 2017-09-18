@@ -36,7 +36,7 @@ namespace Hostaliando.Web.Controllers
         private readonly INotificationService notificationService;
 
         /// <summary>
-        /// The seo service
+        /// The SEO service
         /// </summary>
         private readonly ISeoService seoService;
 
@@ -46,7 +46,7 @@ namespace Hostaliando.Web.Controllers
         /// <param name="messageExceptionFinder">The message exception finder.</param>
         /// <param name="userService">The user service.</param>
         /// <param name="notificationService">The notification service.</param>
-        /// <param name="seoService">The seo service.</param>
+        /// <param name="seoService">The SEO service.</param>
         public PasswordRecoveryController(
             IMessageExceptionFinder messageExceptionFinder,
             IUserService userService,

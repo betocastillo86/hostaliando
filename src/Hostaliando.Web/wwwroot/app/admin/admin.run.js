@@ -22,8 +22,8 @@
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            var publicPages = ['/login', '/Login'];
-            var restrictedPage = publicPages.indexOf($location.path()) === -1;
+            var publicPages = ['/login', '/Login', '/passwordrecovery'];
+            var restrictedPage = publicPages.indexOf($location.path()) === -1 && $location.path().indexOf('/passwordrecovery') === -1;
             if (restrictedPage && !sessionService.isAuthenticated()) {
                 document.location = '/login';
             }

@@ -15,6 +15,7 @@
                 controller: 'DashboardController',
                 controllerAs: 'main'
             })
+           
             .when('/calendar', {
                 templateUrl: templateService.get('bookings/calendar'),
                 controller: 'CalendarController',
@@ -93,6 +94,21 @@
             .when('/emailnotifications', {
                 templateUrl: templateService.get('emailnotifications/list-emailnotifications'),
                 controller: 'ListEmailNotficationsController',
+                controllerAs: 'main'
+            })
+            .when('/login', {
+                templateUrl: templateService.get('home/login'),
+                controller: 'LoginController',
+                controllerAs: 'main'
+            })
+            .when('/passwordrecovery', {
+                templateUrl: templateService.get('passwordrecovery/get-passwordrecovery'),
+                controller: 'GetPasswordRecoveryController',
+                controllerAs: 'main'
+            })
+            .when('/passwordrecovery/:token', {
+                templateUrl: templateService.get('passwordrecovery/update-passwordrecovery'),
+                controller: 'UpdatePasswordRecoveryController',
                 controllerAs: 'main'
             });
     }
