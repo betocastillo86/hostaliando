@@ -35,6 +35,11 @@
         function activate()
         {
             getRoom();
+
+            if (!vm.canSelectHostel)
+            {
+                vm.model.hostel = sessionService.getCurrentUser().hostel; 
+            }
         }
 
         function getRoom()

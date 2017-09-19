@@ -14,7 +14,7 @@
             getCurrentUser: getCurrentUser,
             getToken: getToken,
             isAuthenticated: isAuthenticated,
-            isAdmin
+            isAdmin: isAdmin
         };
 
         return service;

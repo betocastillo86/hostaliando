@@ -112,6 +112,10 @@
                 vm.model.earnings.percentageToday = parseInt(((vm.model.earnings.today / (vm.model.earnings.twoDays - vm.model.earnings.today)) * 100) - 100) ;
                 vm.model.earnings.percentageWeek = parseInt(((vm.model.earnings.week / (vm.model.earnings.twoWeeks - vm.model.earnings.week)) * 100) - 100);
                 vm.model.earnings.percentageMonth = parseInt(((vm.model.earnings.month / (vm.model.earnings.twoMonths - vm.model.earnings.month)) * 100) - 100);
+
+                vm.model.earnings.percentageToday = isNaN(vm.model.earnings.percentageToday) ? 0 : vm.model.earnings.percentageToday;
+                vm.model.earnings.percentageWeek = isNaN(vm.model.earnings.percentageWeek) ? 0 : vm.model.earnings.percentageWeek;
+                vm.model.earnings.percentageMonth = isNaN(vm.model.earnings.percentageMonth) ? 0 : vm.model.earnings.percentageMonth;
             }
 
         }

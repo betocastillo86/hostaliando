@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="1.18.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\ext\src\Beto.Core.Data\Beto.Core.Data.csproj" />
     <ProjectReference Include="..\..\ext\src\Beto.Core\Beto.Core.csproj" />
     <ProjectReference Include="..\Hostaliando.Data\Hostaliando.Data.csproj" />

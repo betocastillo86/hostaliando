@@ -12,7 +12,8 @@
         'bookingService',
         'modalService',
         'templateService',
-        'hostelService'];
+        'hostelService',
+        'routingService'];
 
     function CalendarController(
         roomService,
@@ -21,7 +22,8 @@
         bookingService,
         modalService,
         templateService,
-        hostelService) {
+        hostelService,
+        routingService) {
 
         var vm = this;
         vm.hostelId = undefined;
@@ -109,6 +111,15 @@
                 }
 
                 calculateCalendar();
+
+                if (!vm.calendar.rooms.length)
+                {
+                    modalService.showError({
+                        message: 'No puedes revisar el calendario si no tienes habitaciones creadas. Dale Aceptar y te enviaremos a crear una.',
+                        redirectAfterClose: routingService.getRoute('newroom')
+                    });
+                }
+
             }
         }
 

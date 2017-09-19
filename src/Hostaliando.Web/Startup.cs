@@ -74,6 +74,10 @@ namespace Hostaliando.Web
 
             app.UseMvc();
 
+            app.AddHangFire(this.Configuration);
+
+            app.StartRecurringJobs();
+
             this.CreateJavascriptFile(app);
         }
 
@@ -98,6 +102,8 @@ namespace Hostaliando.Web
             .AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.RegisterServices(this.Configuration);
+
+            services.RegisterHangFireServices(this.Configuration);
         }
 
         /// <summary>

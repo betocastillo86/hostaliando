@@ -5,6 +5,7 @@ var cssmin = require('gulp-cssmin'),
     cssConcat = require('gulp-concat-css'),
     concat = require('gulp-concat')
     uglify = require('gulp-uglify')
+    gutil = require('gulp-util')
     flatten = require('gulp-flatten');
 
 
@@ -60,12 +61,20 @@ var cssmin = require('gulp-cssmin'),
     
         return gulp.src(files, { base: '.' })
             .pipe(concat("./wwwroot/js/resources.min.js"))
-            //.pipe(uglify())
+            .pipe(uglify())
             .pipe(gulp.dest('.'));
     });
 
     gulp.task('app', ['resources'], function () {
         return gulp.src([''], { base: '.' })
             .pipe(concat('./wwwroot/js/app.min.js'))
+            .pipe(gulp.dest('.'));
+    });
+
+    gulp.task('release', ['resources', 'css'], function () {
+        return gulp.src(['./wwwroot/app/**/*.js'], { base: '.' })
+            .pipe(concat('./wwwroot/js/app.min.js'))
+            .pipe(uglify())
+            .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
             .pipe(gulp.dest('.'));
     });

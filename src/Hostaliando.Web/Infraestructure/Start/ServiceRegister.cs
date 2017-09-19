@@ -19,6 +19,7 @@ namespace Hostaliando.Web.Infraestructure.Start
     using Hostaliando.Business.Exceptions;
     using Hostaliando.Business.Security;
     using Hostaliando.Business.Services;
+    using Hostaliando.Business.Tasks;
     using Hostaliando.Data;
     using Hostaliando.Web.Common;
     using Hostaliando.Web.Infraestructure.Common;
@@ -44,6 +45,8 @@ namespace Hostaliando.Web.Infraestructure.Start
             //// Settings
 
             services.AddScoped<IGeneralSettings, GeneralSettings>();
+            services.AddScoped<INotificationSettings, Hostaliando.Business.Configuration.NotificationSettings>();
+            services.AddScoped<ITaskSettings, TaskSettings>();
 
             //// Others
 
@@ -108,6 +111,21 @@ namespace Hostaliando.Web.Infraestructure.Start
                 foreach (var serviceFoundType in servicesTypeFound)
                 {
                     services.AddScoped(serviceFoundType, implementationType);
+                }
+            }
+
+            foreach (var implementationType in ReflectionHelper.GetTypesOnProject(typeof(ITask), "Hostaliando"))
+            {
+                var servicesTypeFound = implementationType.GetTypeInfo().FindInterfaces(
+                    (type, criteria) =>
+                    {
+                        return true;
+                    },
+                    typeof(ITask));
+
+                foreach (var serviceFoundType in servicesTypeFound)
+                {
+                    services.AddScoped(implementationType, implementationType);
                 }
             }
         }

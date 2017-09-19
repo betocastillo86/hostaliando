@@ -269,7 +269,7 @@ namespace Hostaliando.Business.Services
             var notification = this.GetCachedNotifications()
                 .FirstOrDefault(n => n.Id == notificationId);
 
-            var settings = new NotificationSettings()
+            var settings = new Beto.Core.Data.Notifications.NotificationSettings()
             {
                 BaseHtml = this.generalSettings.BodyBaseHtml,
                 DefaultFromName = defaultFromName,

@@ -10,9 +10,7 @@
     function LoginController(authenticationService) {
         var vm = this;
         vm.model = {};
-        vm.model.email = 'admin@admin.com';
-        vm.model.password = '123456';
-
+        
         vm.validateAuthentication = validateAuthentication;
         vm.isSending = false;
 

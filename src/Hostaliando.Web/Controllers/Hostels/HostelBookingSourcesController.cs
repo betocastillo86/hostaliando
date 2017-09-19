@@ -67,7 +67,7 @@ namespace Hostaliando.Web.Controllers.Hostels
             {
                 return this.NotFound();
             }
-            else if (!this.workContext.CurrentUser.IsAdmin() && this.workContext.CurrentUserId != id)
+            else if (!this.workContext.CurrentUser.IsAdmin() && this.workContext.CurrentUser.HostelId != id)
             {
                 return this.Forbid();
             }
