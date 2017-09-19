@@ -99,7 +99,7 @@ namespace Hostaliando.Web.Infraestructure.Start
 
             services.AddScoped<ICoreSettingService, CoreSettingService>();
 
-            foreach (var implementationType in ReflectionHelper.GetTypesOnProject(typeof(ISubscriber<>), "Hostaliando"))
+            foreach (var implementationType in ReflectionHelper.GetTypesOnProject(typeof(ISubscriber<>), "hostaliando"))
             {
                 var servicesTypeFound = implementationType.GetTypeInfo().FindInterfaces(
                     (type, criteria) =>
@@ -114,7 +114,7 @@ namespace Hostaliando.Web.Infraestructure.Start
                 }
             }
 
-            foreach (var implementationType in ReflectionHelper.GetTypesOnProject(typeof(ITask), "Hostaliando"))
+            foreach (var implementationType in ReflectionHelper.GetTypesOnProject(typeof(ITask), "hostaliando"))
             {
                 var servicesTypeFound = implementationType.GetTypeInfo().FindInterfaces(
                     (type, criteria) =>

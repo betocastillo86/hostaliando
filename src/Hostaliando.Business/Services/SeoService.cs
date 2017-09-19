@@ -50,6 +50,8 @@ namespace Hostaliando.Business.Services
             {
                 case "passwordrecovery":
                     return string.Format("/passwordrecovery/{0}", parameters);
+                case "login":
+                    return "login";
                 default:
                     return string.Empty;
             }

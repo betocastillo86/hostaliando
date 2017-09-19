@@ -135,6 +135,7 @@ namespace Hostaliando.Web.Controllers.Users
             }
 
             var salt = StringHelpers.GetRandomString();
+            var passwordToken = StringHelpers.ToSha1(StringHelpers.GetRandomString(10));
 
             var user = new User()
             {
@@ -144,7 +145,8 @@ namespace Hostaliando.Web.Controllers.Users
                 Password = StringHelpers.ToSha1(model.Password, salt),
                 Role = model.Role.Value,
                 Salt = salt,
-                TimeZone = model.TimeZone
+                TimeZone = model.TimeZone,
+                PasswordRecoveryToken = passwordToken
             };
 
             try

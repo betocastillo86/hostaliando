@@ -55,7 +55,8 @@ var cssmin = require('gulp-cssmin'),
             './bower_components/textAngular/dist/textAngular.min.js',
             './bower_components/moment/moment.js',
             './bower_components/pikaday/pikaday.js',
-            './bower_components/textAngular/dist/textAngular-sanitize.min.js',
+            //'./bower_components/textAngular/dist/textAngular-sanitize.min.js',
+            './wwwroot/js/textAngular-sanitize.js',
             './bower_components/angular-bootstrap-contextmenu/contextMenu.js'
         ];
     
