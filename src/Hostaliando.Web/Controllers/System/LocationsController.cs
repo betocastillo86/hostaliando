@@ -47,6 +47,7 @@ namespace Hostaliando.Web.Controllers
             var locations = await this.locationService.GetAll(
                    filter.Name,
                    filter.ParentId,
+                   filter.OnlyParents,
                    filter.Page,
                    filter.PageSize);
 

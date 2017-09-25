@@ -36,5 +36,13 @@ namespace Hostaliando.Web.Models
         /// The parent identifier.
         /// </value>
         public int? ParentId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the only parents.
+        /// </summary>
+        /// <value>
+        /// The only parents.
+        /// </value>
+        public bool? OnlyParents { get; set; }
     }
 }

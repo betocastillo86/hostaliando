@@ -20,12 +20,14 @@ namespace Hostaliando.Business.Services
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="parentId">The parent identifier.</param>
+        /// <param name="onlyParents">only get parent locations</param>
         /// <param name="page">The page.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <returns>the list of locations</returns>
         Task<IPagedList<Location>> GetAll(
             string name = null,
             int? parentId = null,
+            bool? onlyParents = null,
             int page = 0,
             int pageSize = int.MaxValue);
 

@@ -47,12 +47,18 @@ namespace Hostaliando.Business.Services
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="parentId">The parent identifier.</param>
+        /// <param name="onlyParents">only parents</param>
         /// <param name="page">The page.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <returns>
         /// the list of locations
         /// </returns>
-        public async Task<IPagedList<Location>> GetAll(string name = null, int? parentId = default(int?), int page = 0, int pageSize = int.MaxValue)
+        public async Task<IPagedList<Location>> GetAll(
+            string name = null, 
+            int? parentId = default(int?),
+            bool? onlyParents = null,
+            int page = 0, 
+            int pageSize = int.MaxValue)
         {
             var query = this.locationRepository.Table;
 
@@ -64,6 +70,11 @@ namespace Hostaliando.Business.Services
             if (parentId.HasValue)
             {
                 query = query.Where(c => c.ParentLocationId == parentId.Value);
+            }
+
+            if (onlyParents.HasValue && onlyParents.Value)
+            {
+                query = query.Where(c => c.ParentLocationId == null);
             }
 
             return await new PagedList<Location>().Async(query, page, pageSize);
