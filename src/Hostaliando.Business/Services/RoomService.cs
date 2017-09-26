@@ -66,6 +66,7 @@ namespace Hostaliando.Business.Services
         /// <param name="onlyPrivated">only private rooms</param>
         /// <param name="roomType">the room type</param>
         /// <param name="sortRoomBy">sort rooms by</param>
+        /// <param name="minimumBeds">the minimum beds needed</param>
         /// <param name="page">The page.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <returns>
@@ -77,6 +78,7 @@ namespace Hostaliando.Business.Services
             bool? onlyPrivated = null,
             RoomType? roomType = null,
             SortRoomBy sortRoomBy = SortRoomBy.Name,
+            int? minimumBeds = null,
             int page = 0,
             int pageSize = int.MaxValue)
         {
@@ -103,6 +105,11 @@ namespace Hostaliando.Business.Services
             {
                 var roomTypeId = Convert.ToInt16(roomType);
                 query = query.Where(c => c.RoomTypeId == roomTypeId);
+            }
+
+            if (minimumBeds.HasValue)
+            {
+                query = query.Where(c => c.Beds >= minimumBeds.Value);
             }
 
             switch (sortRoomBy)

@@ -10,7 +10,6 @@
             </div>
             <form name="editBooking.form" novalidate ng-submit="editBooking.save()" class="form-horizontal form-label-left">
                 <div class="modal-body">
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">
                             Habitación
@@ -25,6 +24,10 @@
                         </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <label>{{::editBooking.model.creationDateUtc | dateZone}}</label>
+                            <span class="label label-default" ng-class="::[
+                                              {'label-info' : editBooking.model.status == 'Booked'},
+                                              {'label-success' : editBooking.model.status == 'CheckedIn'}
+                                              ]">{{::editBooking.getStatusName(editBooking.model)}}</span>
                         </div>
                     </div>
                     <div class="form-group">

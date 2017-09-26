@@ -1,4 +1,9 @@
-﻿namespace Hostaliando.Business.Subscribers.Notifications
+﻿//-----------------------------------------------------------------------
+// <copyright file="UserNotificationsSubscriber.cs" company="Gabriel Castillo">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace Hostaliando.Business.Subscribers.Notifications
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -27,7 +32,7 @@
         /// Initializes a new instance of the <see cref="UserNotificationsSubscriber"/> class.
         /// </summary>
         /// <param name="notificationService">The notification service.</param>
-        /// <param name="seoService">The seo service.</param>
+        /// <param name="seoService">The SEO service.</param>
         public UserNotificationsSubscriber(
             INotificationService notificationService,
             ISeoService seoService)

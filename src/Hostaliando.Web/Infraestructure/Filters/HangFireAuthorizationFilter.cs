@@ -9,7 +9,7 @@ namespace Hostaliando.Web.Infraestructure.Filters
     using Hangfire.Dashboard;
 
     /// <summary>
-    /// Hangfire authorization filter
+    /// <c>Hangfire</c> authorization filter
     /// </summary>
     /// <seealso cref="Hangfire.Dashboard.IDashboardAuthorizationFilter" />
     public class HangFireAuthorizationFilter : IDashboardAuthorizationFilter

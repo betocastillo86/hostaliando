@@ -26,13 +26,8 @@ namespace Hostaliando.Web.Controllers.Hostels
     /// </summary>
     /// <seealso cref="Beto.Core.Web.Api.Controllers.BaseApiController" />
     [Route("api/v1/bookings")]
-    public class BookingsController : BaseApiController
+    public class BookingsController : BaseBookingsController
     {
-        /// <summary>
-        /// The booking service
-        /// </summary>
-        private readonly IBookingService bookingService;
-
         /// <summary>
         /// The logger service
         /// </summary>
@@ -52,20 +47,19 @@ namespace Hostaliando.Web.Controllers.Hostels
         /// Initializes a new instance of the <see cref="BookingsController"/> class.
         /// </summary>
         /// <param name="messageExceptionFinder">The message exception finder.</param>
+        /// <param name="bookingService">The booking service.</param>
         /// <param name="workContext">The work context.</param>
         /// <param name="roomService">The room service.</param>
-        /// <param name="bookingService">The booking service.</param>
         /// <param name="loggerService">The logger service.</param>
         public BookingsController(
             IMessageExceptionFinder messageExceptionFinder,
+            IBookingService bookingService,
             IWorkContext workContext,
             IRoomService roomService,
-            IBookingService bookingService,
-            ILoggerService loggerService) : base(messageExceptionFinder)
+            ILoggerService loggerService) : base(messageExceptionFinder, bookingService)
         {
             this.workContext = workContext;
             this.roomService = roomService;
-            this.bookingService = bookingService;
             this.loggerService = loggerService;
         }
 
@@ -78,7 +72,7 @@ namespace Hostaliando.Web.Controllers.Hostels
         [Route("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var booking = await this.bookingService.GetByIdAsync(id);
+            var booking = await this.BookingService.GetByIdAsync(id);
 
             if (booking == null)
             {
@@ -89,7 +83,7 @@ namespace Hostaliando.Web.Controllers.Hostels
                 return this.Forbid();
             }
 
-            await this.bookingService.Delete(booking);
+            await this.BookingService.Delete(booking);
 
             return this.Ok();
         }
@@ -119,9 +113,9 @@ namespace Hostaliando.Web.Controllers.Hostels
                 }
             }
 
-            var bookings = await this.bookingService.GetAll(
+            var bookings = await this.BookingService.GetAll(
                 filter.HostelId,
-                filter.RoomId,
+                filter.RoomId.HasValue ? new int[] { filter.RoomId.Value } : null,
                 filter.FromDate,
                 filter.ToDate,
                 filter.Status,
@@ -145,7 +139,7 @@ namespace Hostaliando.Web.Controllers.Hostels
         [Route("{id:int}", Name = "ApiGetBooking")]
         public async Task<IActionResult> Get(int id)
         {
-            var booking = await this.bookingService.GetByIdAsync(id, false);
+            var booking = await this.BookingService.GetByIdAsync(id, false);
 
             if (booking == null)
             {
@@ -170,7 +164,7 @@ namespace Hostaliando.Web.Controllers.Hostels
         [Route("{id:int}")]
         public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<BookingModel> patchDocument)
         {
-            var booking = await this.bookingService.GetByIdAsync(id);
+            var booking = await this.BookingService.GetByIdAsync(id);
 
             if (booking == null)
             {
@@ -220,7 +214,7 @@ namespace Hostaliando.Web.Controllers.Hostels
 
             try
             {
-                await this.bookingService.Update(booking);
+                await this.BookingService.Update(booking);
 
                 return this.Ok();
             }
@@ -273,7 +267,7 @@ namespace Hostaliando.Web.Controllers.Hostels
 
             try
             {
-                await this.bookingService.Insert(booking);
+                await this.BookingService.Insert(booking);
 
                 return this.Created("ApiGetBooking", booking.Id);
             }
@@ -294,7 +288,7 @@ namespace Hostaliando.Web.Controllers.Hostels
         [Route("{id:int}")]
         public async Task<IActionResult> Put(int id, [FromBody] BookingModel model)
         {
-            var booking = await this.bookingService.GetByIdAsync(id);
+            var booking = await this.BookingService.GetByIdAsync(id);
 
             if (booking == null)
             {
@@ -334,72 +328,13 @@ namespace Hostaliando.Web.Controllers.Hostels
 
             try
             {
-                await this.bookingService.Update(booking);
+                await this.BookingService.Update(booking);
 
                 return this.Ok();
             }
             catch (HostaliandoException e)
             {
                 return this.BadRequest(e);
-            }
-        }
-
-        /// <summary>
-        /// Determines whether the specified room is busy.
-        /// </summary>
-        /// <param name="room">The room.</param>
-        /// <param name="from">From date.</param>
-        /// <param name="to">To date.</param>
-        /// <param name="currentBooking">The current booking.</param>
-        /// <returns>if the room is busy</returns>
-        private async Task<bool> IsBusy(Room room, DateTime from, DateTime to, Booking currentBooking = null)
-        {
-            var bookingsOnDate = await this.bookingService.GetAll(
-                roomId: room.Id,
-                fromDate: from,
-                toDate: to,
-                status: BookingStatus.Booked,
-                excludeBookings: currentBooking?.Id > 0 ? new int[] { currentBooking.Id } : null);
-
-            if (bookingsOnDate.Count > 0)
-            {
-                if (room.IsPrivated)
-                {
-                    return true;
-                }
-                else
-                {
-                    if (bookingsOnDate.Count >= room.Beds)
-                    {
-                        //// when the room is not private, has to validate if the bed would be empty in
-                        //// the days of the reservation
-                        var nights = (to - from).TotalDays + 1;
-
-                        var countBeds = 0;
-
-                        for (int i = 0; i < nights; i++)
-                        {
-                            var day = from.AddDays(i);
-
-                            countBeds = bookingsOnDate.Count(c => c.FromDate <= day && c.ToDate >= day);
-
-                            if (countBeds == room.Beds)
-                            {
-                                break;
-                            }
-                        }
-
-                        return countBeds == room.Beds;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
             }
         }
 

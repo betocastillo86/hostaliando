@@ -29,6 +29,7 @@ namespace Hostaliando.Business.Services
         /// <param name="onlyPrivated">only private rooms</param>
         /// <param name="roomType">the room type</param>
         /// <param name="sortRoomBy">sort rooms by</param>
+        /// <param name="minimumBeds">the minimum beds filter</param>
         /// <param name="page">The page.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <returns>the list of rooms</returns>
@@ -37,7 +38,8 @@ namespace Hostaliando.Business.Services
             int? hostelId = null, 
             bool? onlyPrivated = null,
             RoomType? roomType = null,
-            SortRoomBy sortRoomBy = SortRoomBy.Name, 
+            SortRoomBy sortRoomBy = SortRoomBy.Name,
+            int? minimumBeds = null,
             int page = 0, 
             int pageSize = int.MaxValue);
 

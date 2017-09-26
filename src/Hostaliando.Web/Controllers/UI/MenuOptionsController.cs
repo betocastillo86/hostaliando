@@ -63,7 +63,8 @@ namespace Hostaliando.Web.Controllers.UI
 
             options.Add(new MenuOptionModel() { Id = 3, Name = "Inicio", Key = "Dashboard", Url = "/", Icon = "fa-home", DisplayOrder = 0 });
             options.Add(new MenuOptionModel() { Id = 2, Name = "Habitaciones", Key = "Rooms", Url = "/rooms", Icon = "fa-hotel", DisplayOrder = 3 });
-            options.Add(new MenuOptionModel() { Id = 11, Name = "Disponiblidad", Key = "Booking", Url = "/calendar", Icon = "fa-calendar", DisplayOrder = 1 });
+            options.Add(new MenuOptionModel() { Id = 11, Name = "Calendario", Key = "Calendar", Url = "/calendar", Icon = "fa-calendar", DisplayOrder = 1 });
+            options.Add(new MenuOptionModel() { Id = 11, Name = "Disponibilidad", Key = "Booking", Url = "/bookings", Icon = "fa-check", DisplayOrder = 2 });
 
             await Task.FromResult(0);
 

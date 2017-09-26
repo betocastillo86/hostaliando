@@ -1,0 +1,97 @@
+﻿<div class="modal fade bs-example-modal-sm in" tabindex="-1" role="dialog" aria-hidden="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Validar disponibilidad</h4>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="x_content">
+                <br>
+                <form name="availability.form" class="form-horizontal form-label-left" novalidate="" ng-submit="availability.search()">
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Desde
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12" ng-model="availability.filter.fromDate" name="fromDate" host-datepicker required />
+                            <host-validation-message form="availability.form" field="availability.form.fromDate" name="desde"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Hasta
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control col-md-7 col-xs-12" ng-model="availability.filter.toDate" name="toDate" host-datepicker required />
+                            <host-validation-message form="availability.form" field="availability.form.toDate" name="hasta"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Personas
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" class="form-control col-md-7 col-xs-12" ng-model="availability.filter.people" name="people" ng-min="1" ng-max="15" required />
+                            <host-validation-message form="availability.form" field="availability.form.people" name="personas"></host-validation-message>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <button class="btn btn-primary">Buscar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="x_content">
+                <div>
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings">
+                                <th class="column-title">Habitación</th>
+                                <th class="column-title">Camas</th>
+                                <th class="column-title">Privada</th>
+                                <th class="column-title no-link last">
+                                    <span class="nobr">Opciones</span>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="booking in availability.bookings" class="pointer" ng-class-odd="odd" ng-class-even="even">
+                                <td>{{::booking.room.name}}</td>
+                                <td>{{::booking.room.beds}}</td>
+                                <td>{{::booking.room.isPrivated ? 'Si' : 'No'}}</td>
+                                <td class="last">
+                                    <a ng-click="availability.newBooking(booking.room)" class="btn btn-primary btn-xs">Crear reserva</a>
+                                </td>
+                            </tr>
+                            <tr ng-show="!availability.bookings.length">
+                                <td colspan="4" class="last">
+                                    Dale clic en buscar. Si ya lo hiciste, no hay disponibilidad en esas fechas.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

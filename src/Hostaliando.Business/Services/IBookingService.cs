@@ -26,7 +26,7 @@ namespace Hostaliando.Business.Services
         /// Gets all the reservations
         /// </summary>
         /// <param name="hostelId">The hostel identifier.</param>
-        /// <param name="roomId">The room identifier.</param>
+        /// <param name="rooms">The rooms identifiers.</param>
         /// <param name="fromDate">The date from.</param>
         /// <param name="toDate">The date to.</param>
         /// <param name="status">the booking status</param>
@@ -39,7 +39,7 @@ namespace Hostaliando.Business.Services
         /// <returns>the list of bookings</returns>
         Task<IPagedList<Booking>> GetAll(
             int? hostelId = null,
-            int? roomId = null,
+            int[] rooms = null,
             DateTime? fromDate = null,
             DateTime? toDate = null,
             BookingStatus? status = null,

@@ -15,10 +15,14 @@
                 controller: 'DashboardController',
                 controllerAs: 'main'
             })
-           
             .when('/calendar', {
                 templateUrl: templateService.get('bookings/calendar'),
                 controller: 'CalendarController',
+                controllerAs: 'main'
+            })
+            .when('/bookings', {
+                templateUrl: templateService.get('bookings/list-bookings'),
+                controller: 'ListBookingsController',
                 controllerAs: 'main'
             })
             .when('/rooms/:id/edit', {
