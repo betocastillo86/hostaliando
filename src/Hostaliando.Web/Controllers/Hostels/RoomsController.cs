@@ -92,6 +92,7 @@ namespace Hostaliando.Web.Controllers.Hostels
                 filter.OnlyPrivated,
                 filter.RoomType,
                 filter.OrderByEnum,
+                null,
                 filter.Page,
                 filter.PageSize);
 

@@ -20,7 +20,8 @@
             patch: patch,
             getStatusName: getStatusName,
             cancel: cancel,
-            checkin: checkin
+            checkin: checkin,
+            getAvailability: getAvailability
         };
 
         return service;
@@ -59,6 +60,10 @@
         function remove(id)
         {
             return http.delete(baseUrl + id);
+        }
+
+        function getAvailability(filter) {
+            return http.get('/api/v1/availability', {params: filter});
         }
 
         function getStatusName(status)

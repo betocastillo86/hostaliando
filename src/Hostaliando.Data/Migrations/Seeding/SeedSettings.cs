@@ -25,7 +25,7 @@ namespace Hostaliando.Data.Migrations
                 new SystemSetting() { Name = "GeneralSettings.DateFormat", Value = "YYYY/MM/DD" },
                 new SystemSetting() { Name = "TaskSettings.SendEmailsInterval", Value = "60" },
                 new SystemSetting() { Name = "NotificationSettings.TakeEmailsToSend", Value = "30" },
-                new SystemSetting() { Name = "NotificationSettings.MaxAttemtpsToSendEmail", Value = "5" },
+                new SystemSetting() { Name = "NotificationSettings.MaxAttemptsToSendEmail", Value = "5" },
                 new SystemSetting() { Name = "NotificationSettings.SendEmailEnabled", Value = "False" },
                 new SystemSetting() { Name = "NotificationSettings.EmailSenderEmail", Value = "hostaliando@gmail.com" },
                 new SystemSetting() { Name = "NotificationSettings.EmailSenderName", Value = "Hostaliando" },

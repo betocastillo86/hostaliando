@@ -68,7 +68,7 @@ namespace Hostaliando.Business.Tasks
         public async Task SendPendingMails()
         {
             var mails = this.notificationRepository.Table
-                .Where(c => c.SentDate == null && c.SentTries < this.notificationSettings.MaxAttemtpsToSendEmail)
+                .Where(c => c.SentDate == null && c.SentTries < this.notificationSettings.MaxAttemptsToSendEmail)
                 .Take(this.notificationSettings.TakeEmailsToSend)
                 .ToList();
 

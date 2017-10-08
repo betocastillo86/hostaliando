@@ -27,12 +27,12 @@ namespace Hostaliando.Business.Configuration
         string EmailSenderName { get; }
 
         /// <summary>
-        /// Gets the maximum attemtps to send email.
+        /// Gets the maximum attempts to send email.
         /// </summary>
         /// <value>
-        /// The maximum attemtps to send email.
+        /// The maximum attempts to send email.
         /// </value>
-        int MaxAttemtpsToSendEmail { get; }
+        int MaxAttemptsToSendEmail { get; }
 
         /// <summary>
         /// Gets a value indicating whether [send email enabled].

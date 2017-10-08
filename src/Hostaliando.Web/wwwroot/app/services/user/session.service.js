@@ -14,7 +14,8 @@
             getCurrentUser: getCurrentUser,
             getToken: getToken,
             isAuthenticated: isAuthenticated,
-            isAdmin: isAdmin
+            isAdmin: isAdmin,
+            getHostel: getHostel
         };
 
         return service;
@@ -47,6 +48,12 @@
         function canAccessHostel(hostelId)
         {
             return isAdmin() || getCurrentUser().hostel.id == hostelId;
+        }
+
+        function getHostel()
+        {
+            var user = getCurrentUser();
+            return user ? user.hostel : undefined;
         }
     }
 })();

@@ -45,12 +45,12 @@ namespace Hostaliando.Business.Configuration
         public string EmailSenderName => this.coreSettingService.Get<string>("NotificationSettings.EmailSenderName");
 
         /// <summary>
-        /// Gets the maximum attemtps to send email.
+        /// Gets the maximum attempts to send email.
         /// </summary>
         /// <value>
-        /// The maximum attemtps to send email.
+        /// The maximum attempts to send email.
         /// </value>
-        public int MaxAttemtpsToSendEmail => this.coreSettingService.Get<int>("NotificationSettings.MaxAttemtpsToSendEmail");
+        public int MaxAttemptsToSendEmail => this.coreSettingService.Get<int>("NotificationSettings.MaxAttemptsToSendEmail");
 
         /// <summary>
         /// Gets a value indicating whether [send email enabled].

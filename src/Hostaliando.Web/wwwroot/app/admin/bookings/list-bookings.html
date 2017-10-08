@@ -1,0 +1,103 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Buscador de reservas <a class="btn btn-success" ng-href="{{::root.getRoute('calendar')}}"><i class="fa fa-plus"></i> Crear Reserva</a></h2>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    <br>
+                    <form class="form-horizontal form-label-left" novalidate="">
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Huesped
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" ng-model="main.filter.keyword" />
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Habitación
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control" ng-model="main.filter.roomId" ng-options="room.id as room.name for room in main.rooms"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Desde
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" ng-model="main.filter.fromDate" host-datepicker />
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Hasta
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" class="form-control col-md-7 col-xs-12" ng-model="main.filter.toDate" host-datepicker />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <button class="btn btn-primary right" ng-click="main.changePage(0)">Buscar reservas</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="x_content">
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">Nombre</th>
+                                    <th class="column-title">Fecha de llegada</th>
+                                    <th class="column-title">Noches</th>
+                                    <th class="column-title">Habitación</th>
+                                    <th class="column-title">Fecha de creación</th>
+                                    <th class="column-title">Estado</th>
+                                    <th class="column-title no-link last">
+                                        <span class="nobr">Opciones</span>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="booking in main.bookings" class="pointer" ng-class-odd="odd" ng-class-even="even">
+                                    <td>{{::booking.guestName}}</td>
+                                    <td>{{::booking.fromDate | date: 'yyyy/MM/dd'}}</td>
+                                    <td>{{::booking.nights}}</td>
+                                    <td>{{::booking.room.name}}</td>
+                                    <td>{{::booking.creationDateUtc | dateZone}}</td>
+                                    <td>
+                                        <span class="label label-default" ng-class="::[
+                                              {'label-info' : booking.status == 'Booked'},
+                                              {'label-success' : booking.status == 'CheckedIn'}
+                                              ]">{{::main.getStatusName(booking)}}</span>
+                                    </td>
+                                    <td class="last">
+                                        <a ng-click="main.showBooking(booking)" class="btn btn-primary btn-xs">Ver</a>
+                                    </td>
+                                </tr>
+                                <tr ng-show="!main.bookings.length">
+                                    <td colspan="7" class="last">
+                                        No se encontraron reservas de acuerdo al filtro ingresado
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <host-pager model="main.filter" page-changed="main.changePage(page)"></host-pager>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

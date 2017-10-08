@@ -31,12 +31,18 @@
 
         vm.save = save;
         vm.close = close;
+        vm.getStatusName = getStatusName;
 
         activate();
 
         function activate() {
 
+            if ($scope.params.nigths) {
+                vm.model.nights = $scope.params.nigths;
+            }
+
             vm.model.fromDate = vm.model.fromDate ? moment(vm.model.fromDate, 'YYYY/MM/DD').format('YYYY/MM/DD') : vm.day.format('YYYY/MM/DD');
+            
 
             if (!vm.sources.length)
             {
@@ -83,6 +89,10 @@
 
         function close(options) {
             $scope.close(options || { accept: true });
+        }
+
+        function getStatusName(booking) {
+            return bookingService.getStatusName(booking.status);
         }
 
         function getSources()

@@ -48,6 +48,7 @@
         vm.showPrevious = showPrevious;
         vm.showNext = showNext;
         vm.setToday = setToday;
+        vm.showAvailability = showAvailability;
 
         vm.contextMenuOptions = [
             { text: 'Editar reserva', click: callbackViewBooking/*, enabled: function (s, e, m) { return m.booking !== undefined; }*/ },
@@ -63,11 +64,6 @@
             vm.hostelId = sessionService.getCurrentUser().hostel.id;
             calculateCurrentDate();
             getBookingSources();
-            
-            if (vm.hostelId)
-            {
-                getRooms();
-            }
         }
 
         function getRooms()
@@ -145,7 +141,7 @@
             getBookings();
         }
 
-        function addBooking(day, booking, room)
+        function addBooking(day, booking, room, nigths)
         {
             modalService.show({
                 controller: 'EditBookingController',
@@ -155,10 +151,33 @@
                     booking: booking,
                     day: day,
                     room: room,
-                    sources: vm.bookingSources
+                    sources: vm.bookingSources,
+                    nigths: nigths
                 },
                 closed: bookingClosed
             });
+        }
+
+        function showAvailability()
+        {
+            modalService.show({
+                controller: 'AvailabilityController',
+                controllerAs: 'availability',
+                template: templateService.get('bookings/availability'),
+                closed: avaliabilityClosed
+            });
+
+            function avaliabilityClosed(params)
+            {
+                if (params.newBooking)
+                {
+                    var from = moment(params.newBooking.fromDate, app.Settings.general.dateFormat);
+                    var to = moment(params.newBooking.toDate, app.Settings.general.dateFormat);
+                    var nights = to.diff(from, 'days');
+
+                    addBooking(from, undefined, params.newBooking.room, nights);
+                }
+            }
         }
 
         function deleteBooking(id)
@@ -304,6 +323,7 @@
             function getCompleted(response)
             {
                 vm.bookingSources = response;
+                getRooms();
             }
         }
         
